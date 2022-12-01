@@ -31,7 +31,7 @@ export default function HomeScreen({navigation}: any) {
   // }, [authenticated]);
   return (
     <HomeContainer>
-      {/* <HomeLogoContainer>
+      <HomeLogoContainer>
         <HomeAppImage source={require('../../assets/logo.png')} />
         <HomeAppTitle>
           Eu<HomeAppTitleBlue>Pescador</HomeAppTitleBlue>
@@ -64,7 +64,7 @@ export default function HomeScreen({navigation}: any) {
             <HomeLogLink> Entre</HomeLogLink>
           </TouchableOpacity>
         </HomePhraseContainer>
-      </HomeLinksContainer> */}
+      </HomeLinksContainer>
     </HomeContainer>
   );
 }
