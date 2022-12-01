@@ -20,7 +20,7 @@ import {
 // import {storage} from '../../../App';
 
 export default function HomeScreen({navigation}: any) {
-  // const {authenticated} = useAuth();
+  // const auth = useAuth();
 
   // useEffect(() => {
   //   if (authenticated) {
