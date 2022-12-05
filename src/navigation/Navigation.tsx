@@ -1,5 +1,5 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../screens/HomeScreen';
 // import { EditUserPage } from "../screens/EditUserPage";
 import Login from '../screens/Login';
