@@ -1,11 +1,11 @@
-import { RFValue } from 'react-native-responsive-fontsize';
+import {RFValue} from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({theme}) => theme.colors.background};
 `;
 
 export const HomeLogoContainer = styled.View`
@@ -19,14 +19,14 @@ export const HomeAppImage = styled.Image`
   margin-bottom: ${RFValue(16, 640)}px;
 `;
 export const HomeAppTitle = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(15, 640)}px;
   line-height: ${RFValue(22, 640)}px;
-  color: ${({ theme }) => theme.colors.on_background};
+  color: ${({theme}) => theme.colors.on_background};
 `;
 export const HomeAppTitleBlue = styled(HomeAppTitle)`
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({theme}) => theme.colors.primary};
 `;
 
 export const InputContainer = styled.View`
@@ -53,22 +53,22 @@ export const Input = styled.TextInput`
   width: ${RFValue(258, 640)}px;
   flex-direction: row;
   justify-content: flex-start;
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(12, 640)}px;
   margin: 0 ${RFValue(11, 640)}px;
+  color: black;
 `;
 
 export const ErrorMessage = styled.Text`
-  color: ${({ theme }) => theme.colors.on_error};
+  color: ${({theme}) => theme.colors.on_error};
   font-size: ${RFValue(12, 640)}px;
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({theme}) => theme.fonts.regular};
   margin: ${RFValue(2, 640)}px 0 ${RFValue(8, 640)}px ${RFValue(7, 640)}px;
 `;
 
 export const LoginButtonView = styled.View`
   align-items: center;
   margin: ${RFValue(32, 640)}px 0px 5px 0px;
-  
 `;
 
 export const ForgotPasswordContainer = styled.View`
@@ -77,10 +77,10 @@ export const ForgotPasswordContainer = styled.View`
 `;
 
 export const ForgotPasswordLogLink = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.bold};
+  font-family: ${({theme}) => theme.fonts.bold};
   font-size: ${RFValue(10.5, 640)}px;
   line-height: ${RFValue(18, 640)}px;
-  color: #3CB371;
+  color: #3cb371;
   text-decoration: underline;
 `;
 
@@ -89,14 +89,14 @@ export const HomePhraseContainer = styled.View`
   margin: ${RFValue(4, 640)}px 0px;
 `;
 export const HomeRegularText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(10.5, 640)}px;
   line-height: ${RFValue(18, 640)}px;
-  color: ${({ theme }) => theme.colors.on_background};
+  color: ${({theme}) => theme.colors.on_background};
 `;
 export const HomeLogLink = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.bold};
+  font-family: ${({theme}) => theme.fonts.bold};
   font-size: ${RFValue(10.5, 640)}px;
   line-height: ${RFValue(18, 640)}px;
-  color: ${({ theme }) => theme.colors.on_background};
+  color: ${({theme}) => theme.colors.on_background};
 `;

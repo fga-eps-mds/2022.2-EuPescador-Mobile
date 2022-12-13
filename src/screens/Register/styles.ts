@@ -72,6 +72,7 @@ export const InputMask = styled(TextInputMask)`
   justify-content: flex-start;
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(12, 640)}px;
+  color: black;
 `;
 
 export const CityStateView = styled.View`

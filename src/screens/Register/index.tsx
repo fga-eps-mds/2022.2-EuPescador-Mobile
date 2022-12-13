@@ -132,6 +132,7 @@ export default function Register({navigation}: any) {
       },
     ]);
     setIsLoading(false);
+    console.log(alertMessage);
   };
 
   const handleEmailInput = (email: string) => {

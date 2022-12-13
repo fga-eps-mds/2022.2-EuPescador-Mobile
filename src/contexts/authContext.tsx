@@ -5,7 +5,7 @@ import {UserLogin} from '../services/userServices/login';
 import {UserEmail} from '../services/userServices/userEmail';
 import {createFishLog} from '../services/fishLogService/createFishLog';
 // import NetInfo from '@react-native-community/netinfo';
-// import { storage } from '../../App';
+
 
 interface IAuthProvider {
   children: React.ReactNode;

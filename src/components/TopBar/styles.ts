@@ -1,11 +1,11 @@
-import { RFValue } from 'react-native-responsive-fontsize';
+import {RFValue} from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
-import { MaterialIcons } from '@expo/vector-icons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const Box = styled.View`
   height: ${RFValue(82)}px;
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.primary_light};
+  background-color: ${({theme}) => theme.colors.primary_light};
   flex-direction: row;
   align-items: center;
   padding: 0px ${RFValue(16, 640)}px;
@@ -27,11 +27,11 @@ export const HeaderIcon = styled(MaterialIcons)`
 `;
 export const IconText = styled.Text`
   font-size: ${RFValue(12)}px;
-  font-family: ${({ theme }) => theme.fonts.bold};
+  font-family: ${({theme}) => theme.fonts.bold};
 `;
 
 export const HeaderText = styled.Text`
   text-align: center;
   font-size: ${RFValue(18)}px;
-  font-family: ${({ theme }) => theme.fonts.medium};
+  font-family: ${({theme}) => theme.fonts.medium};
 `;
