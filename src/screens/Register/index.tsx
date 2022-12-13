@@ -193,6 +193,7 @@ export default function Register({navigation}: any) {
             <InputView>
               {/* <MaterialInputIcon name="person-outline" /> */}
               <Input
+                placeholderTextColor={'black'}
                 placeholder="Nome"
                 value={userName}
                 onChangeText={setUserName}
@@ -202,6 +203,7 @@ export default function Register({navigation}: any) {
             <InputView>
               {/* <MaterialInputIcon name="mail-outline" /> */}
               <Input
+                placeholderTextColor={'black'}
                 placeholder="Email"
                 value={userEmail}
                 onChangeText={handleEmailInput}
@@ -223,6 +225,7 @@ export default function Register({navigation}: any) {
                 }}
                 value={userPhone}
                 onChangeText={handlePhone}
+                placeholderTextColor={'black'}
                 placeholder="Telefone"
               />
             </InputView>
@@ -237,6 +240,7 @@ export default function Register({navigation}: any) {
                 <Input
                   placeholder="Estado"
                   value={userState}
+                  placeholderTextColor={'black'}
                   onChangeText={setUserState}
                 />
               </HalfInputView>
@@ -244,6 +248,7 @@ export default function Register({navigation}: any) {
                 {/* <ComunityInputIcon name="city" /> */}
                 <Input
                   placeholder="Cidade"
+                  placeholderTextColor={'black'}
                   value={userCity}
                   onChangeText={setUserCity}
                 />
@@ -256,6 +261,7 @@ export default function Register({navigation}: any) {
               <Input
                 placeholder="Senha"
                 secureTextEntry
+                placeholderTextColor={'black'}
                 value={userPassword}
                 onChangeText={setUserPassword}
               />
@@ -267,6 +273,7 @@ export default function Register({navigation}: any) {
                 placeholder="Confirmar Senha"
                 secureTextEntry
                 value={userConfirmPassword}
+                placeholderTextColor={'black'}
                 onChangeText={handlePassword}
               />
             </InputView>
