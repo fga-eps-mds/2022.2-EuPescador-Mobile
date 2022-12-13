@@ -75,6 +75,7 @@ export default function Login({navigation}: any) {
           <InputView>
             <Input
               placeholder="E-mail / Telefone"
+              placeholderTextColor={'black'}
               value={userEmailPhone}
               onChangeText={setUserEmailPhone}
             />
@@ -88,6 +89,7 @@ export default function Login({navigation}: any) {
           <InputView>
             <Input
               placeholder="Senha"
+              placeholderTextColor={'black'}
               secureTextEntry
               value={userPassword}
               onChangeText={setUserPassword}

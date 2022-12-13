@@ -7,6 +7,7 @@ import Register from '../screens/Register';
 // import { WikiFishlogs } from "../screens/WikiFishlogs";
 // import { FishLog } from "../screens/ViewFishLog";
 import {theme} from '../global/styles/theme';
+import {WikiFishlogs} from '../screens/WikiFishlogs';
 // import { NewFishLog } from "../screens/NewFishLog";
 // import { NewNoNameFishLog } from "../screens/NewNoNameFishLog";
 // import { useAuth } from "../contexts/authContext";
@@ -102,9 +103,9 @@ const AppRoutes = () => {
         options={{title: 'Cadastro', headerShown: true}}
       />
 
+      <Stack.Screen name="WikiFishlogs" component={WikiFishlogs} />
       {/*
       <Stack.Screen name="RecoverPassword" component={RecoverPassword} />
-      <Stack.Screen name="WikiFishlogs" component={WikiFishlogs} />
       <Stack.Screen
         name="WikiFish"
         component={WikiFish}

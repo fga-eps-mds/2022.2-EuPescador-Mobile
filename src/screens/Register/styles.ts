@@ -1,6 +1,7 @@
 import {RFValue} from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
-// import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TextInputMask} from 'react-native-masked-text';
 
 export const Container = styled.View`
@@ -28,6 +29,7 @@ export const TitleText = styled.Text<{admin: boolean; superAdmin: boolean}>`
       p.admin && p.superAdmin ? theme.fonts.bold : theme.fonts.regular};
   font-size: ${RFValue(12, 640)}px;
   margin-right: ${RFValue(16, 640)}px;
+  color: black;
 `;
 
 export const InputScroll = styled.ScrollView`
@@ -60,6 +62,7 @@ export const Input = styled.TextInput`
   justify-content: flex-start;
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(12, 640)}px;
+  color: black;
 `;
 
 export const InputMask = styled(TextInputMask)`
@@ -69,6 +72,7 @@ export const InputMask = styled(TextInputMask)`
   justify-content: flex-start;
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(12, 640)}px;
+  color: black;
 `;
 
 export const CityStateView = styled.View`
@@ -98,11 +102,13 @@ export const ErrorMessage = styled.Text`
 //   color: #c4c4c4;
 //   margin: 0 ${RFValue(11, 640)}px;
 // `;
+
 // export const ComunityInputIcon = styled(MaterialCommunityIcons)`
 //   font-size: ${RFValue(20, 640)}px;
 //   color: #c4c4c4;
 //   margin: 0 ${RFValue(11, 640)}px;
 // `;
+
 export const RegisterButtonView = styled.View`
   align-items: center;
 `;
