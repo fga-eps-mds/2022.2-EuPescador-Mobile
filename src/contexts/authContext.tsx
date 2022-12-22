@@ -1,11 +1,11 @@
 import React, {createContext, useState, useEffect, useContext} from 'react';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {userService} from '../services/userServices/userService';
 import {UserLogin} from '../services/userServices/login';
 import {UserEmail} from '../services/userServices/userEmail';
 import {createFishLog} from '../services/fishLogService/createFishLog';
+import {storage} from '../global/config/storage';
 // import NetInfo from '@react-native-community/netinfo';
-
 
 interface IAuthProvider {
   children: React.ReactNode;
@@ -24,7 +24,7 @@ export const AuthProvider: React.FC<IAuthProvider> = ({children}) => {
   const [authenticated, setAuthenticated] = useState<boolean | undefined>();
   const [userId, setUserId] = useState('');
 
-  const con = NetInfo.useNetInfo();
+  // const con = NetInfo.useNetInfo();
 
   async function getValues() {
     const token = await storage.getString('@eupescador/token');
@@ -46,7 +46,6 @@ export const AuthProvider: React.FC<IAuthProvider> = ({children}) => {
       setAuthenticated(false);
     }
   };
-
   useEffect(() => {
     handleAutenticate();
   }, []);
@@ -67,7 +66,7 @@ export const AuthProvider: React.FC<IAuthProvider> = ({children}) => {
       const hasAcessTheApp = await storage.getString('hasAcessTheApp');
       if (!!hasAcessTheApp == false) {
         await storage.set('hasAcessTheApp', 'false');
-      // }
+      }
       userService.defaults.headers.Authorization = `Bearer ${result.data.token}`;
       setAuthenticated(true);
       setUserId(result.data.id);
@@ -86,38 +85,39 @@ export const AuthProvider: React.FC<IAuthProvider> = ({children}) => {
     await storage.delete('@eupescador/userAdmin');
     await storage.delete('@eupescador/userSuperAdmin');
     await storage.delete('drafts');
-    userService.defaults.headers.Authorization = undefined;
+    // userService.defaults.headers.Authorization = undefined;
   }
 
   useEffect(() => {
     async function getFishCache() {
-      let conection = await NetInfo.fetch();
+      // let conection = await NetInfo.fetch();
       const response = await storage.getString('@eupescador/newfish');
       if (response) {
         let fish = [];
         fish = JSON.parse(response);
-        if (conection.isConnected) {
-          for (let i = 0; i < fish.length; i++) {
-            await createFishLog(
-              fish[i].fishPhoto,
-              fish[i].name,
-              fish[i].largeGroup,
-              fish[i].group,
-              fish[i].species,
-              fish[i].weight,
-              fish[i].length,
-              fish[i].coordenates.latitude,
-              fish[i].coordenates.longitude,
-              fish[i].visible,
-            );
-          }
-          await storage.delete('@eupescador/newfish');
+        // if (conection.isConnected) {
+        for (let i = 0; i < fish.length; i++) {
+          await createFishLog(
+            fish[i].fishPhoto,
+            fish[i].name,
+            fish[i].largeGroup,
+            fish[i].group,
+            fish[i].species,
+            fish[i].weight,
+            fish[i].length,
+            fish[i].coordenates.latitude,
+            fish[i].coordenates.longitude,
+            fish[i].visible,
+          );
         }
+        await storage.delete('@eupescador/newfish');
+        // }
       }
     }
 
     getFishCache();
-  }, [con.isConnected]);
+  }, []);
+  // }, [con.isConnected]);
 
   return (
     <AuthContext.Provider

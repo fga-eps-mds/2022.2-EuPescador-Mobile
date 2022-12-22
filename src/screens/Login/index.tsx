@@ -19,7 +19,7 @@ import {
   ForgotPasswordLogLink,
   ForgotPasswordContainer,
 } from './styles';
-// import {useAuth} from '../../contexts/authContext';
+import {useAuth} from '../../contexts/authContext';
 import {DefaultButton} from '../../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -30,7 +30,7 @@ export default function Login({navigation}: any) {
     'Usuário não encontrado',
   );
   const [userPassword, setUserPassword] = useState<string | undefined>();
-  // const {signIn, authenticated} = useAuth();
+  const {signIn, authenticated} = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -42,11 +42,11 @@ export default function Login({navigation}: any) {
     let alertMessage = '';
     if (userEmailPhone && userPassword) {
       setIsEmailPhoneValid(true);
-      // const res = await signIn(userEmailPhone, userPassword);
-      // if (res.status === 200) {
-      // } else if (res.response.status === 404) setIsEmailPhoneValid(false);
-      // else alertMessage = res.response.data.message;
-      const res = 0;
+      const res = await signIn(userEmailPhone, userPassword);
+      if (res.status === 200) {
+        console.log('penis');
+      } else if (res.response.status === 404) setIsEmailPhoneValid(false);
+      else alertMessage = res.response.data.message;
     } else {
       alertMessage = 'Preencha todos os campos de dados para realizar o login!';
     }
