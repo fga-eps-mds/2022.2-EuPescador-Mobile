@@ -34,19 +34,24 @@ export default function Login({navigation}: any) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
   }, []);
 
   const handleLogin = async () => {
     setIsLoading(true);
+
     let alertMessage = '';
+
     if (userEmailPhone && userPassword) {
       setIsEmailPhoneValid(true);
+      
       const res = await signIn(userEmailPhone, userPassword);
+
       if (res.status === 200) {
-        console.log('penis');
-      } else if (res.response.status === 404) setIsEmailPhoneValid(false);
-      else alertMessage = res.response.data.message;
+        console.log(res.status);
+      } else if (res.response.status === 404){ 
+        setIsEmailPhoneValid(false);
+      }else alertMessage = res.response.data.message;
     } else {
       alertMessage = 'Preencha todos os campos de dados para realizar o login!';
     }

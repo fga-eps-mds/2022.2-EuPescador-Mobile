@@ -23,6 +23,7 @@ const AuthenticateStack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
 
 const AuthRoutes = () => {
+
   return (
     <AuthenticateStack.Navigator
       initialRouteName="WikiFishlogs"
