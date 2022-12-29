@@ -21,7 +21,6 @@ import {
 } from './styles';
 import {useAuth} from '../../contexts/authContext';
 import {DefaultButton} from '../../components/Button';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({navigation}: any) {
   const [userEmailPhone, setUserEmailPhone] = useState<string | undefined>();
