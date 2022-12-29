@@ -44,11 +44,11 @@ export default function Login({navigation}: any) {
 
     if (userEmailPhone && userPassword) {
       setIsEmailPhoneValid(true);
-      
+
       const res = await signIn(userEmailPhone, userPassword);
 
-      if (res.status === 200) {
-        console.log(res.status);
+      if (res.status === 200) { 
+        navigation.navigate("WikiFishlogs")
       } else if (res.response.status === 404){ 
         setIsEmailPhoneValid(false);
       }else alertMessage = res.response.data.message;

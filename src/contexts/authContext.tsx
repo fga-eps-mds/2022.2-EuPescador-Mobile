@@ -52,22 +52,10 @@ export const AuthProvider: React.FC<IAuthProvider> = ({children}) => {
 
   async function signIn(email: string, password: string) {
     try {
-      console.log("penis");
       const result = await UserLogin(email, password);
 
       storage.set("@eupescador/user", JSON.stringify(result.data))      
 
-      storage.set('@eupescador/token', result.data.token);
-      storage.set('@eupescador/userId', JSON.stringify(result.data.id));
-      storage.set(
-      '@eupescador/userAdmin',
-      JSON.stringify(result.data.admin),
-      );
-      storage.set(
-      '@eupescador/userSuperAdmin',
-      JSON.stringify(result.data.superAdmin),
-      );
-    
       const hasAcessTheApp =  storage.getString('hasAcessTheApp');
       if (!!hasAcessTheApp == false) {
           storage.set('hasAcessTheApp', 'false');
