@@ -30,16 +30,13 @@ export default function HomeScreen({navigation}: any) {
   //   }
   // }, [authenticated]);
   return (
-    <HomeContainer>
+    <HomeContainer source={require('../../assets/background_1-eupescador.png')}>
       <HomeLogoContainer>
-        <HomeAppImage source={require('../../assets/logo.png')} />
-        <HomeAppTitle>
-          Eu<HomeAppTitleBlue>Pescador</HomeAppTitleBlue>
-        </HomeAppTitle>
+        <HomeAppImage source={require('../../assets/logo_2-eupescador.png')} />
       </HomeLogoContainer>
 
       <HomeWelcomeText>
-        Descubra os peixes da sua região e colabore com seus registros.
+        Colabore registrando os peixes da sua região!
       </HomeWelcomeText>
 
       <HomeWikiButton
@@ -48,9 +45,26 @@ export default function HomeScreen({navigation}: any) {
             wikiFilterQuery: null,
           })
         }>
-        <HomeWikiText>Visualizar Biblioteca de Peixes</HomeWikiText>
+        <HomeWikiText>Biblioteca de Peixes</HomeWikiText>
       </HomeWikiButton>
-      <HomeLinksContainer>
+      <HomeWikiButton
+        onPress={() =>
+          navigation.navigate('Login', {
+            wikiFilterQuery: null,
+          })
+        }>
+        <HomeWikiText>Entrar</HomeWikiText>
+      </HomeWikiButton>
+      <HomeWikiButton
+        style={{marginTop:16}}
+        onPress={() =>
+          navigation.navigate('Register', {
+            wikiFilterQuery: null,
+          })
+        }>
+        <HomeWikiText>Cadastrar</HomeWikiText>
+      </HomeWikiButton>
+      {/* <HomeLinksContainer>
         <HomePhraseContainer>
           <HomeRegularText>Não possui uma conta ainda?</HomeRegularText>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
@@ -64,7 +78,7 @@ export default function HomeScreen({navigation}: any) {
             <HomeLogLink> Entre</HomeLogLink>
           </TouchableOpacity>
         </HomePhraseContainer>
-      </HomeLinksContainer>
+      </HomeLinksContainer> */}
     </HomeContainer>
   );
 }

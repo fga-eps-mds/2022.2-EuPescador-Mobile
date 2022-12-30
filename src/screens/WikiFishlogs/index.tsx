@@ -186,10 +186,10 @@ export const WikiFishlogs = ({navigation, route}: any) => {
         ) : null}
 
 
-          <Wiki
-            navigation={navigation}
-            filterQuery={(route.params && route.params.wikiFilterQuery) ? route.params.wikiFilterQuery : null}
-          />
+        <Wiki
+          navigation={navigation}
+          filterQuery={(route.params && route.params.wikiFilterQuery) ? route.params.wikiFilterQuery : null}
+        />
 
         {/* {wiki ?
           (<Wiki
