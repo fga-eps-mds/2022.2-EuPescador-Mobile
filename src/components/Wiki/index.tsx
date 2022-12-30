@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { FishWiki } from '../../interfaces/FishWiki';
-import { GetWikiFishes } from '../../services/wikiServices/getWikiFishes';
+// import { GetWikiFishes } from '../../services/wikiServices/getWikiFishes';
 import { FilterButton } from '../FilterButton';
 import {
   SearchBarContainer,
@@ -12,7 +12,7 @@ import {
   SearchImage,
   FishBodyContainer,
 } from './styles';
-import { WikiFishList } from '../WikiFishList';
+// import { WikiFishList } from '../WikiFishList';
 
 
 export const Wiki = (
@@ -26,8 +26,8 @@ export const Wiki = (
 
   const updateFishes = async () => {
     try {
-      const data = await GetWikiFishes(filterQuery);
-      setFishes(data);
+      // const data = await GetWikiFishes(filterQuery);
+      // setFishes(data);
     } catch (error: any) {
       console.log(error);
     }
@@ -81,24 +81,7 @@ export const Wiki = (
               return fish;
             }
           }).length ? (
-            <WikiFishList
-              fishData={
-                fishes.filter(item => {
-                if (
-                  !searchQuery ||
-                  item.commonName!
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase().trim()) ||
-                  item.scientificName!
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase().trim())
-                ) {
-                  return item;
-                }
-              })}
-              type="fishWiki"
-              handleNavigation={handleNavigation}
-            />
+            <></>
           ) : (
             <NoResultContainer>
               <SearchImage source={require('../../assets/search.png')} />
