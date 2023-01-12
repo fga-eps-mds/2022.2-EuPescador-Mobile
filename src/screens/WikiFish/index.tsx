@@ -8,6 +8,7 @@ import {
   PropertyColumn,
   ColumnContainer,
   DescriptionContainer,
+  ScrollContainer,
 } from './styles';
 import { GetOneWikiFish } from '../../services/wikiServices/getOneWikiFish';
 import { ProfileImage } from '../../components/ProfileImage';
@@ -74,11 +75,12 @@ export const WikiFish: FC<IFish> = ({ navigation, route }: any) => {
   }, [screenIsFocus]);
 
   return (
-    <FishContainer>
+    <FishContainer source={require('../../assets/background_1-eupescador.png')}>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <ScrollView>
+        <ScrollContainer>
+          <ScrollView style={{ width: "100%", height: "100%"}} contentContainerStyle={{width: "100%" }}>
           {fishPhoto ? (
             <ProfileImage source={{ uri: fishPhoto }} />
           ) : (
@@ -87,7 +89,7 @@ export const WikiFish: FC<IFish> = ({ navigation, route }: any) => {
 
           <DescriptionContainer>
             <Title text={fishName} />
-            <HalfToneText text={fishSpecies} />
+            <RegularText text={fishSpecies} />
             <FishDescription>
               <RegularText text={fishFunFact ? `"${fishFunFact}"` : ''} />
             </FishDescription>
@@ -158,6 +160,7 @@ export const WikiFish: FC<IFish> = ({ navigation, route }: any) => {
             </PropertyColumn>
           </ColumnContainer>
         </ScrollView>
+        </ScrollContainer>
       )}
     </FishContainer>
   );
