@@ -8,6 +8,7 @@ export const HomeContainer = styled(ImageBackground)`
   align-items: center;
   justify-content: center;
   padding: ${RFValue(51, 640)}px;
+  z-index: -3;
 `;
 export const HomeLogoContainer = styled.View`
   align-items: center;

@@ -12,7 +12,7 @@ import {WikiFishlogs} from '../screens/WikiFishlogs';
 // import { NewNoNameFishLog } from "../screens/NewNoNameFishLog";
 // import { useAuth } from "../contexts/authContext";
 // import { MyMap } from "../screens/Maps";
-// import { WikiFish } from "../screens/WikiFish";
+import { WikiFish } from "../screens/WikiFish";
 // import { Drafts } from "../screens/Drafts";
 // import { WikiFilter } from "../screens/WikiFilter";
 // import { LogFilter } from "../screens/RegisterFilter";
@@ -65,19 +65,20 @@ const AuthRoutes = () => {
           title: route.params.name,
           headerShown: true,
         })}
-      />
-      <AuthenticateStack.Screen name="Maps" component={MyMap} />
+      /> */}
+      {/* <AuthenticateStack.Screen name="Maps" component={MyMap} /> */}
       <AuthenticateStack.Screen
         name="WikiFish"
         component={WikiFish}
         options={{title: 'Informações', headerShown: true}}
       />
-      <AuthenticateStack.Screen
-        name="Drafts"
-        component={Drafts}
-        options={{title: 'Rascunhos', headerShown: true}}
-      /> */}
+      {/* // <AuthenticateStack.Screen
+      //   name="Drafts"
+      //   component={Drafts}
+      //   options={{title: 'Rascunhos', headerShown: true}}
+      // /> */}
     </AuthenticateStack.Navigator>
+      
   );
 };
 const AppRoutes = () => {
@@ -105,15 +106,14 @@ const AppRoutes = () => {
       />
 
       <Stack.Screen name="WikiFishlogs" component={WikiFishlogs} />
-      {/*
-      <Stack.Screen name="RecoverPassword" component={RecoverPassword} />
+      {/* <Stack.Screen name="RecoverPassword" component={RecoverPassword} /> */}
       <Stack.Screen
         name="WikiFish"
         component={WikiFish}
         options={{title: 'Informações', headerShown: true}}
       />
-      <Stack.Screen name="WikiFilter" component={WikiFilter} />
-      <Stack.Screen name="LogFilter" component={LogFilter} /> */}
+      {/* <Stack.Screen name="WikiFilter" component={WikiFilter} />
+      <Stack.Screen name="LogFilter" component={LogFilter} />  */}
     </Stack.Navigator>
   );
 };
