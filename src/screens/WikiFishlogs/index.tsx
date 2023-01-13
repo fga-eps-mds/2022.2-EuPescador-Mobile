@@ -105,7 +105,7 @@ export const WikiFishlogs = ({navigation, route}: any) => {
         modalVisible={showModal}
         dismissModal={() => setShowModal(false)}
       /> */}
-      <PageContainer>
+      <PageContainer source={require('../../assets/background_1-eupescador.png')}>
         <TopBar
           //Adicionar parada do mapa
           title={
