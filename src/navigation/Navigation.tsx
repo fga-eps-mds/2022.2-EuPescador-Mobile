@@ -5,7 +5,7 @@ import Home from '../screens/HomeScreen';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 // import { WikiFishlogs } from "../screens/WikiFishlogs";
-// import { FishLog } from "../screens/ViewFishLog";
+import { FishLog } from "../screens/ViewFishLog";
 import {theme} from '../global/styles/theme';
 import {WikiFishlogs} from '../screens/WikiFishlogs';
 // import { NewFishLog } from "../screens/NewFishLog";
@@ -37,8 +37,8 @@ const AuthRoutes = () => {
           fontFamily: theme.fonts.medium,
         },
       }}>
-      {/* <AuthenticateStack.Screen name="WikiFishlogs" component={WikiFishlogs} />
-      <AuthenticateStack.Screen
+      <AuthenticateStack.Screen name="WikiFishlogs" component={WikiFishlogs} />
+      {/*<AuthenticateStack.Screen
         name="EditUserPage"
         component={EditUserPage}
         options={{title: 'Editar Usuário', headerShown: true}}

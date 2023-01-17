@@ -7,7 +7,7 @@ import {
     DraftButtonLabel,
     DraftButtonTouchable
 } from "./styles";
-import { storage } from "../../../App";
+import { storage } from "../../App";
 export const DraftButton = () => {
     const [drafts, setDrafts] = useState([]);
     const navigation = useNavigation();

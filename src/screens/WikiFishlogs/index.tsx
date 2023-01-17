@@ -185,13 +185,7 @@ export const WikiFishlogs = ({navigation, route}: any) => {
           </TitleContainer>
         ) : null}
 
-
-        <Wiki
-          navigation={navigation}
-          filterQuery={(route.params && route.params.wikiFilterQuery) ? route.params.wikiFilterQuery : null}
-        />
-
-        {/* {wiki ?
+        {wiki ?
           (<Wiki
             navigation={navigation}
             filterQuery={(route.params && route.params.wikiFilterQuery) ? route.params.wikiFilterQuery : null}
@@ -200,20 +194,24 @@ export const WikiFishlogs = ({navigation, route}: any) => {
             navigation={navigation}
             isAdmin={isAdmin ? isAdmin : false}
             filterQuery={(route.params && route.params.logFilterQuery) ? route.params.logFilterQuery : null}
-          />)  : mapTab ? (
-            <LogsMap
-              latitude = {origin.latitude}
-              longitude = {origin.longitude}
-              latitudeDelta = {origin.latitudeDelta}
-              longitudeDelta= {origin.longitudeDelta}
-              token={token} 
-              navigation={navigation}
-              isAdmin={isAdmin ? isAdmin : false}
-              filterQuery={(route.params && route.params.logFilterQuery) ? route.params.logFilterQuery : null}
-            />
-            ) : (<UsersManager />) 
-          } */}
+          />) : mapTab ? (
+            <Text>Mapa</Text>
+            
+            )
+            : null }
+
       </PageContainer>
     </>
   );
 };
+
+// <LogsMap
+            //   latitude = {origin.latitude}
+            //   longitude = {origin.longitude}
+            //   latitudeDelta = {origin.latitudeDelta}
+            //   longitudeDelta= {origin.longitudeDelta}
+            //   token={token} 
+            //   navigation={navigation}
+            //   isAdmin={isAdmin ? isAdmin : false}
+            //   filterQuery={(route.params && route.params.logFilterQuery) ? route.params.logFilterQuery : null}
+            // />

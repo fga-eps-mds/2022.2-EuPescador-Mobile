@@ -1,4 +1,4 @@
-import { MaterialIcons } from '@expo/vector-icons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { FlatList } from 'react-native';
