@@ -7,4 +7,6 @@ export const Text = styled.Text`
   line-height: ${RFValue(18, 640)}px;
   color: ${({ theme }) => theme.colors.on_primary};
   margin: ${RFValue(4, 640)}px 0;
+  font-weight: bold;
+  text-align: center;
 `;

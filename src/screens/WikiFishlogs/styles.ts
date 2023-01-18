@@ -1,12 +1,12 @@
 import styled from 'styled-components/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { ImageBackground } from 'react-native';
 
 import {RFValue} from 'react-native-responsive-fontsize';
 
-export const PageContainer = styled.View`
+export const PageContainer = styled(ImageBackground)`
   flex: 1;
   align-items: center;
-  background-color: ${({theme}) => theme.colors.background};
 `;
 
 export const TitleButtonsContainer = styled.ScrollView.attrs({

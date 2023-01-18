@@ -1,7 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Buffer } from "buffer";
-import { storage } from "../../../App";
-import { fishLogService } from "./fishService";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Buffer} from 'buffer';
+import {storage} from '../../global/config/storage';
+import {fishLogService} from './fishService';
 
 export const createFishLog = async (
   photoString: string | undefined,
@@ -13,7 +13,7 @@ export const createFishLog = async (
   length: string | undefined,
   latitude: string | undefined,
   longitude: string | undefined,
-  visible: boolean
+  visible: boolean,
 ) => {
   const userId = await storage.getString('@eupescador/userId');
   const token = await storage.getString('@eupescador/token');
@@ -21,7 +21,7 @@ export const createFishLog = async (
 
   const coordenates = {
     latitude: latitude ? parseFloat(latitude) : null,
-    longitude: longitude ? parseFloat(longitude) : null
+    longitude: longitude ? parseFloat(longitude) : null,
   };
 
   if (photoString) {
@@ -41,8 +41,8 @@ export const createFishLog = async (
       length: length ? parseFloat(length) : null,
       weight: weight ? parseFloat(weight) : null,
       createdBy: Number(userId),
-      visible
+      visible,
     },
-    { headers: { Authorization: `Bearer ${token}` } },
+    {headers: {Authorization: `Bearer ${token}`}},
   );
 };

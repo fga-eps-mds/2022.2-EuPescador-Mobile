@@ -68,7 +68,8 @@ export const Wiki = (
               screen='WikiFilter'
             />
           </RowContainer>
-          {fishes && fishes.length > 0 && fishes.filter(fish => {
+          
+          {fishes && fishes["allFishWiki"].length > 0 && fishes["allFishWiki"].filter(fish => {
             if (
               !searchQuery ||
               fish.commonName!
@@ -83,7 +84,7 @@ export const Wiki = (
           }).length ? (
             <WikiFishList
               fishData={
-                fishes.filter(item => {
+                fishes["allFishWiki"].filter(item => {
                 if (
                   !searchQuery ||
                   item.commonName!

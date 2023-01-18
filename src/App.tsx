@@ -1,19 +1,22 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
+import { AuthProvider } from './contexts/authContext';
 import {theme} from './global/styles/theme';
-import HomeScreen from './screens/HomeScreen';
-
-import {NavigationContainer} from '@react-navigation/native';
 import Navigation from './navigation/Navigation';
-
-// import { Container } from './styles';
+import HomeScreen from './screens/HomeScreen';
+import { MMKV } from 'react-native-mmkv'
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <AuthProvider>
       <NavigationContainer>
-        <Navigation />
+        <ThemeProvider theme={theme}>
+          <Navigation />
+        </ThemeProvider>
       </NavigationContainer>
-    </ThemeProvider>
+    </AuthProvider>
   );
 }
+
+export const storage = new MMKV();

@@ -6,7 +6,7 @@ export const theme: DefaultTheme = {
     primary_light: '#62EEFF',
 
     secondary: '#00D483',
-    secondary_dark: '#00A156',
+    secondary_dark: '#0095D9',
 
     background: '#FAF7F7',
 
@@ -18,8 +18,8 @@ export const theme: DefaultTheme = {
   },
 
   fonts: {
-    regular: 'Poppins_400Regular',
-    medium: 'Poppins_500Medium',
-    bold: 'Poppins_700Bold',
+    regular: 'Roboto-Regular',
+    medium: 'Roboto-Medium',
+    bold: 'Roboto-Bold',
   },
 };

@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {Alert} from 'react-native';
+import {Alert, Text, View} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 import {TopBar} from '../../components/TopBar';
-// import { Wiki } from '../../components/Wiki';
-// import { FishLogs } from '../../components/FishLogs';
-// import * as Location from 'expo-location';
+import { Wiki } from '../../components/Wiki';
+import { FishLogs } from '../../components/FishLogs';
+import {InstructionModal} from '../../components/InstructionsModal';
+import {UsersManager} from '../../components/UsersManager';
+import { useAuth } from '../../contexts/authContext';
+// import { LogsMap } from '../LogsMap';
 import {
   PageContainer,
   TitleContainer,
@@ -15,11 +18,8 @@ import {
   InstructionButtonIcon,
   TitleButtonsContainer,
 } from './styles';
-// import { useAuth } from '../../contexts/authContext';
-// import {InstructionModal} from '../../components/InstructionsModal';
-// import {UsersManager} from '../../components/UsersManager';
 
-// import { LogsMap } from '../LogsMap';
+// import * as Location from 'expo-location';
 // import { storage } from '../../../App';
 
 export const WikiFishlogs = ({navigation, route}: any) => {
@@ -105,7 +105,7 @@ export const WikiFishlogs = ({navigation, route}: any) => {
         modalVisible={showModal}
         dismissModal={() => setShowModal(false)}
       /> */}
-      <PageContainer>
+      <PageContainer source={require('../../assets/background_1-eupescador.png')}>
         <TopBar
           //Adicionar parada do mapa
           title={
@@ -127,6 +127,7 @@ export const WikiFishlogs = ({navigation, route}: any) => {
               : () => navigation.navigate('Login')
           }
         />
+
         {!isLogged ? (
           <TitleContainer>
             <TitleButtonsContainer>
@@ -183,7 +184,8 @@ export const WikiFishlogs = ({navigation, route}: any) => {
             </InstructionButton>
           </TitleContainer>
         ) : null}
-        {/* {wiki ?
+
+        {wiki ?
           (<Wiki
             navigation={navigation}
             filterQuery={(route.params && route.params.wikiFilterQuery) ? route.params.wikiFilterQuery : null}
@@ -192,20 +194,24 @@ export const WikiFishlogs = ({navigation, route}: any) => {
             navigation={navigation}
             isAdmin={isAdmin ? isAdmin : false}
             filterQuery={(route.params && route.params.logFilterQuery) ? route.params.logFilterQuery : null}
-          />)  : mapTab ? (
-              <LogsMap
-                latitude = {origin.latitude}
-                longitude = {origin.longitude}
-                latitudeDelta = {origin.latitudeDelta}
-                longitudeDelta= {origin.longitudeDelta}
-                token={token} 
-                navigation={navigation}
-                isAdmin={isAdmin ? isAdmin : false}
-                filterQuery={(route.params && route.params.logFilterQuery) ? route.params.logFilterQuery : null}
-              />
-            ) : (<UsersManager />) 
-        } */}
+          />) : mapTab ? (
+            <Text>Mapa</Text>
+            
+            )
+            : null }
+
       </PageContainer>
     </>
   );
 };
+
+// <LogsMap
+            //   latitude = {origin.latitude}
+            //   longitude = {origin.longitude}
+            //   latitudeDelta = {origin.latitudeDelta}
+            //   longitudeDelta= {origin.longitudeDelta}
+            //   token={token} 
+            //   navigation={navigation}
+            //   isAdmin={isAdmin ? isAdmin : false}
+            //   filterQuery={(route.params && route.params.logFilterQuery) ? route.params.logFilterQuery : null}
+            // />

@@ -36,7 +36,7 @@ import { DraftButton } from "../DraftButton";
 import { FilterButton } from "../FilterButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NewFishLogModal } from "../NewFishLogModal";
-import { storage } from "../../../App";
+import { storage } from "../../App";
 
 interface Props {
   token: string;
@@ -59,7 +59,7 @@ export const FishLogs = ({
   const [hasDraft, setHasDraft] = useState(false);
   const [showModalRegister, setShowModalRegister] = useState(false);
 
-  const { StorageAccessFramework } = FileSystem;
+  // const { StorageAccessFramework } = FileSystem;
 
   const loadFishesLogsOffline = async () => {
     let allFishesLogs = await storage.getString("@eupescador/allFishesLogs");
@@ -159,76 +159,76 @@ export const FishLogs = ({
     );
   };
 
-  const saveFile = async (csvFile: string) => {
-    setIsLoading(true);
-    try {
-      const res =
-        await StorageAccessFramework.requestDirectoryPermissionsAsync();
+  // const saveFile = async (csvFile: string) => {
+  //   setIsLoading(true);
+  //   try {
+  //     const res =
+  //       await StorageAccessFramework.requestDirectoryPermissionsAsync();
 
-      if (res.granted) {
-        let today = new Date();
-        let date =
-          today.getFullYear() +
-          "-" +
-          (today.getMonth() + 1) +
-          "-" +
-          today.getDate() +
-          "-" +
-          today.getHours() +
-          "-" +
-          today.getMinutes();
-        let filename = `registros-${date}.txt`;
-        let directoryUri = res.directoryUri;
-        await StorageAccessFramework.createFileAsync(
-          directoryUri,
-          filename,
-          "application/txt"
-        )
-          .then(async (fileUri) => {
-            await FileSystem.writeAsStringAsync(fileUri, csvFile, {
-              encoding: FileSystem.EncodingType.UTF8,
-            });
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+  //     if (res.granted) {
+  //       let today = new Date();
+  //       let date =
+  //         today.getFullYear() +
+  //         "-" +
+  //         (today.getMonth() + 1) +
+  //         "-" +
+  //         today.getDate() +
+  //         "-" +
+  //         today.getHours() +
+  //         "-" +
+  //         today.getMinutes();
+  //       let filename = `registros-${date}.txt`;
+  //       let directoryUri = res.directoryUri;
+  //       await StorageAccessFramework.createFileAsync(
+  //         directoryUri,
+  //         filename,
+  //         "application/txt"
+  //       )
+  //         .then(async (fileUri) => {
+  //           await FileSystem.writeAsStringAsync(fileUri, csvFile, {
+  //             encoding: FileSystem.EncodingType.UTF8,
+  //           });
+  //         })
+  //         .catch((e) => {
+  //           console.log(e);
+  //         });
 
-        handleExport();
-        Alert.alert(
-          "Exportar Registros",
-          "Registro(s) exportado(s) com sucesso!",
-          [
-            {
-              text: "Ok",
-            },
-          ]
-        );
-      }
-    } catch (error: any) {
-      console.log(error);
-      Alert.alert("Exportar Registros", "Falha ao exportar registro(s)!", [
-        {
-          text: "Ok",
-        },
-      ]);
-    }
-    setIsLoading(false);
-  };
+  //       handleExport();
+  //       Alert.alert(
+  //         "Exportar Registros",
+  //         "Registro(s) exportado(s) com sucesso!",
+  //         [
+  //           {
+  //             text: "Ok",
+  //           },
+  //         ]
+  //       );
+  //     }
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     Alert.alert("Exportar Registros", "Falha ao exportar registro(s)!", [
+  //       {
+  //         text: "Ok",
+  //       },
+  //     ]);
+  //   }
+  //   setIsLoading(false);
+  // };
 
-  const handleExportSelected = async () => {
-    try {
-      const file: any = await ExportFishLogs(token, exportList);
-      saveFile(file);
-      setExportList([]);
-    } catch (error: any) {
-      console.log(error);
-      Alert.alert("Exportar Registros", "Falha ao exportar registros", [
-        {
-          text: "Ok",
-        },
-      ]);
-    }
-  };
+  // const handleExportSelected = async () => {
+  //   try {
+  //     const file: any = await ExportFishLogs(token, exportList);
+  //     saveFile(file);
+  //     setExportList([]);
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     Alert.alert("Exportar Registros", "Falha ao exportar registros", [
+  //       {
+  //         text: "Ok",
+  //       },
+  //     ]);
+  //   }
+  // };
 
   const addExportList = (logId: string) => {
     setExportList((arr) => [...arr, logId]);

@@ -19,9 +19,8 @@ import {
   ForgotPasswordLogLink,
   ForgotPasswordContainer,
 } from './styles';
-// import {useAuth} from '../../contexts/authContext';
+import {useAuth} from '../../contexts/authContext';
 import {DefaultButton} from '../../components/Button';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({navigation}: any) {
   const [userEmailPhone, setUserEmailPhone] = useState<string | undefined>();
@@ -30,23 +29,28 @@ export default function Login({navigation}: any) {
     'Usuário não encontrado',
   );
   const [userPassword, setUserPassword] = useState<string | undefined>();
-  // const {signIn, authenticated} = useAuth();
+  const {signIn, authenticated} = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
   }, []);
 
   const handleLogin = async () => {
     setIsLoading(true);
+
     let alertMessage = '';
+
     if (userEmailPhone && userPassword) {
       setIsEmailPhoneValid(true);
-      // const res = await signIn(userEmailPhone, userPassword);
-      // if (res.status === 200) {
-      // } else if (res.response.status === 404) setIsEmailPhoneValid(false);
-      // else alertMessage = res.response.data.message;
-      const res = 0;
+
+      const res = await signIn(userEmailPhone, userPassword);
+
+      if (res.status === 200) { 
+        navigation.navigate("WikiFishlogs")
+      } else if (res.response.status === 404){ 
+        setIsEmailPhoneValid(false);
+      }else alertMessage = res.response.data.message;
     } else {
       alertMessage = 'Preencha todos os campos de dados para realizar o login!';
     }
