@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {CommonActions} from '@react-navigation/native';
 import {ActivityIndicator, Alert, TouchableOpacity} from 'react-native';
 import {
-  Container,
   ErrorMessage,
   Input,
   InputBox,
@@ -11,14 +9,13 @@ import {
   LoginButtonView,
   HomeLogoContainer,
   HomeAppImage,
-  HomeAppTitle,
-  HomeAppTitleBlue,
-  HomePhraseContainer,
-  HomeRegularText,
-  HomeLogLink,
   ForgotPasswordLogLink,
   ForgotPasswordContainer,
+  LoginContainer,
+  NotAccountText
 } from './styles';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {useAuth} from '../../contexts/authContext';
 import {DefaultButton} from '../../components/Button';
 
@@ -65,21 +62,19 @@ export default function Login({navigation}: any) {
   };
 
   return (
-    <Container>
+    <LoginContainer source={require('../../assets/background.png')}>
       <HomeLogoContainer>
         <HomeAppImage source={require('../../assets/logo.png')} />
-        <HomeAppTitle>
-          Eu<HomeAppTitleBlue>Pescador</HomeAppTitleBlue>
-        </HomeAppTitle>
       </HomeLogoContainer>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <InputContainer>
           <InputView>
+            <Icon name="user" size={15} color="#0095d9" />
             <Input
               placeholder="E-mail / Telefone"
-              placeholderTextColor={'black'}
+              placeholderTextColor={'#0095d9'}
               value={userEmailPhone}
               onChangeText={setUserEmailPhone}
             />
@@ -91,9 +86,10 @@ export default function Login({navigation}: any) {
           )}
 
           <InputView>
+            <Icon name="lock" size={15} color="#0095d9" />
             <Input
               placeholder="Senha"
-              placeholderTextColor={'black'}
+              placeholderTextColor={'#0095d9'}
               secureTextEntry
               value={userPassword}
               onChangeText={setUserPassword}
@@ -108,14 +104,15 @@ export default function Login({navigation}: any) {
               <ForgotPasswordLogLink>Esqueci minha Senha</ForgotPasswordLogLink>
             </TouchableOpacity>
           </ForgotPasswordContainer>
-          <HomePhraseContainer>
-            <HomeRegularText>Não possui uma conta ainda?</HomeRegularText>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-              <HomeLogLink> Cadastre-se</HomeLogLink>
-            </TouchableOpacity>
-          </HomePhraseContainer>
+          <LoginButtonView>
+          <NotAccountText>Não possui uma conta?</NotAccountText>
+            <DefaultButton
+              text="Cadastrar"
+              buttonFunction={() => navigation.navigate('Register')}
+            />
+          </LoginButtonView>
         </InputContainer>
       )}
-    </Container>
+    </LoginContainer>
   );
 }
