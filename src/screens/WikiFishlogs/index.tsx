@@ -13,10 +13,6 @@ import {
   TitleContainer,
   TouchableTitle,
   TitleText,
-  // TitleHighlight,
-  InstructionButton,
-  InstructionButtonIcon,
-  // TitleButtonsContainer,
   ChooseTab,
 } from './styles';
 import {storage} from '../../global/config/storage';
@@ -194,12 +190,6 @@ export const WikiFishlogs = ({navigation, route}: any) => {
               {/* {!wiki && !fishlogTab && mapTab ? <TitleHighlight /> : null} */}
             </TouchableTitle>
             {/* </TitleButtonsContainer> */}
-            <InstructionButton
-              onPress={() => {
-                setShowModal(true);
-              }}>
-              <InstructionButtonIcon name="info" />
-            </InstructionButton>
           </TitleContainer>
         ) : (
           <ChooseTab></ChooseTab>

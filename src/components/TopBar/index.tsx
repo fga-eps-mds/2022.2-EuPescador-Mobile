@@ -7,6 +7,8 @@ import {
   HeaderText,
   IconContainer,
   IconText,
+  InstructionButton,
+  InstructionButtonIcon,
   Spacer,
 } from './styles';
 
@@ -20,14 +22,27 @@ interface Props {
 export function TopBar({title, icon, iconText, buttonFunction}: Props) {
   return (
     <Box>
-      <HeaderText>{title}</HeaderText>
+      <InstructionButton
+        onPress={() => {
+          setShowModal(true);
+        }}>
+        <InstructionButtonIcon name="info" />
+      </InstructionButton>
 
       <Image
         source={require('../../assets/logo_2-eupescador.png')}
-        style={{height: 150, width: 200, resizeMode: 'contain'}}
+        style={{
+          flex: 1,
+          height: 150,
+          width: 200,
+          resizeMode: 'contain',
+          padding: '20%',
+        }}
       />
 
-      <TouchableOpacity onPress={buttonFunction}>
+      <TouchableOpacity
+        style={{width: '25%', alignItems: 'center'}}
+        onPress={buttonFunction}>
         <IconContainer>
           <HeaderIcon name={icon} />
           <IconText>{iconText}</IconText>
