@@ -30,11 +30,11 @@ export const TouchableTitle = styled.TouchableOpacity`
   padding: 8px 12px;
 `;
 
-export const TitleHighlight = styled.View`
-  height: ${RFValue(1, 640)}px;
-  width: 100%;
-  background-color: ${({theme}) => theme.colors.secondary};
-`;
+// export const TitleHighlight = styled.View`
+//   height: ${RFValue(1, 640)}px;
+//   width: 100%;
+//   background-color: ${({theme}) => theme.colors.secondary};
+// `;
 
 export const TitleText = styled.Text<{
   wiki: boolean;
