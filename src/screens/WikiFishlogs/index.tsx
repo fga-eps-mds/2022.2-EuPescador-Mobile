@@ -13,14 +13,16 @@ import {
   TitleContainer,
   TouchableTitle,
   TitleText,
-  TitleHighlight,
+  // TitleHighlight,
   InstructionButton,
   InstructionButtonIcon,
-  TitleButtonsContainer,
+  // TitleButtonsContainer,
+  ChooseTab,
 } from './styles';
 
 // import * as Location from 'expo-location';
 // import { storage } from '../../../App';
+
 
 export const WikiFishlogs = ({navigation, route}: any) => {
   const [token, setToken] = useState('');
@@ -32,6 +34,8 @@ export const WikiFishlogs = ({navigation, route}: any) => {
   const [showModal, setShowModal] = useState(false);
   const [isSuperAdmin, setIsSuperAdmin] = useState<boolean>();
   const [origin, setOrigin] = useState<any>('');
+  const [isPressed, setIsPressed] = useState<'Biblioteca'|'Registro'|'Mapa'>('Biblioteca');
+
 
   // const { signOut } = useAuth();
 
@@ -130,60 +134,81 @@ export const WikiFishlogs = ({navigation, route}: any) => {
 
         {!isLogged ? (
           <TitleContainer>
-            <TitleButtonsContainer>
+            {/* <TitleButtonsContainer> */}
               <TouchableTitle
                 onPress={() => {
                   setWiki(true);
                   setFishLogTab(false);
                   setMapTab(false);
-                }}>
+                  setIsPressed('Biblioteca')
+                }}
+                style={{
+                    backgroundColor: isPressed=='Biblioteca' ? 'white' : null,
+                    borderRadius: 15
+                }}
+                >
                 <TitleText
                   wiki={wiki}
                   fishLogTab={!fishlogTab}
                   mapTab={!mapTab}>
                   Biblioteca de Peixes
                 </TitleText>
-                {wiki && !fishlogTab && !mapTab ? <TitleHighlight /> : null}
+                
               </TouchableTitle>
 
               <TouchableTitle
                 onPress={() => {
                   setWiki(false);
                   setFishLogTab(true);
-                  setMapTab(false);
-                }}>
+                  setMapTab(false); 
+                  setIsPressed('Registro') 
+                }}
+                style={{
+                  backgroundColor: isPressed=='Registro' ? 'white' : null,
+                    borderRadius: 15
+              }}
+                >
                 <TitleText
                   wiki={!wiki}
                   fishLogTab={fishlogTab}
                   mapTab={!mapTab}>
                   Registros
                 </TitleText>
-                {!wiki && fishlogTab && !mapTab ? <TitleHighlight /> : null}
+                {/* {!wiki && fishlogTab && !mapTab ? <TitleHighlight /> : null} */}
               </TouchableTitle>
+
               <TouchableTitle
                 onPress={() => {
                   setWiki(false);
                   setFishLogTab(false);
                   setMapTab(true);
+                  setIsPressed('Mapa')
                   getPosition();
-                }}>
+                }}
+                style={{
+                  backgroundColor: isPressed=='Mapa' ? 'white' : null,
+                  borderRadius: 15
+                }}
+                >
                 <TitleText
                   wiki={!wiki}
                   fishLogTab={!fishlogTab}
                   mapTab={mapTab}>
                   Mapa
                 </TitleText>
-                {!wiki && !fishlogTab && mapTab ? <TitleHighlight /> : null}
+                {/* {!wiki && !fishlogTab && mapTab ? <TitleHighlight /> : null} */}
               </TouchableTitle>
-            </TitleButtonsContainer>
-            <InstructionButton
+            {/* </TitleButtonsContainer> */}
+            
+            {/* Passar para a header */}
+            {/* <InstructionButton
               onPress={() => {
                 setShowModal(true);
               }}>
               <InstructionButtonIcon name="info" />
-            </InstructionButton>
+            </InstructionButton> */}
           </TitleContainer>
-        ) : null}
+        ) : <ChooseTab></ChooseTab>}
 
         {wiki ?
           (<Wiki

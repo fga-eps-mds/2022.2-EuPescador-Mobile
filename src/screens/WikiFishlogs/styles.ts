@@ -9,45 +9,42 @@ export const PageContainer = styled(ImageBackground)`
   align-items: center;
 `;
 
-export const TitleButtonsContainer = styled.ScrollView.attrs({
-  horizontal: true,
-})`
-  flex-direction: row;
-`;
+// export const TitleButtonsContainer = styled.ScrollView.attrs({
+//   horizontal: true,
+// })`
+//   flex-direction: row;
+// `;
 
 export const TitleContainer = styled.View`
   width: 100%;
-  padding: 0px ${RFValue(16, 640)}px;
+  padding: 5px ${RFValue(16, 640)}px;
   margin-top: ${RFValue(32, 640)}px;
   margin-bottom: ${RFValue(11, 640)}px;
   flex-direction: row;
   justify-content: space-between;
+  background-color: #0095D9;
   /* align-items: center; */
-  /* background-color: black; */
 `;
 
 export const TouchableTitle = styled.TouchableOpacity`
   text-align: center;
+  padding: 8px 12px;
+
 `;
 
-export const TitleHighlight = styled.View`
-  height: ${RFValue(1, 640)}px;
-  width: 100%;
-  background-color: ${({theme}) => theme.colors.secondary};
-`;
+// export const TitleHighlight = styled.View`
+//   height: ${RFValue(20, 640)}px;
+//   width: 100%;
+//   background-color: white;
+// `;
 
 export const TitleText = styled.Text<{
   wiki: boolean;
   fishLogTab: boolean;
   mapTab: boolean;
 }>`
-  font-family: ${({theme}) =>
-    p =>
-      p.wiki && p.fishLogTab && p.mapTab
-        ? theme.fonts.bold
-        : theme.fonts.regular};
-  font-size: ${RFValue(12, 640)}px;
-  margin-right: ${RFValue(16, 640)}px;
+  font-size: ${RFValue(18, 640)}px;
+  font-weight: 700;
   color: black;
 `;
 
@@ -57,4 +54,8 @@ export const InstructionButtonIcon = styled(MaterialIcons)`
   font-size: ${RFValue(24, 640)}px;
   /* margin-left: auto; */
   color: ${({theme}) => theme.colors.on_background};
+`;
+
+export const ChooseTab = styled.View`
+  padding-top:20px;
 `;
