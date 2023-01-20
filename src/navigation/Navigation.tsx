@@ -8,7 +8,7 @@ import Register from '../screens/Register';
 import { FishLog } from "../screens/ViewFishLog";
 import {theme} from '../global/styles/theme';
 import {WikiFishlogs} from '../screens/WikiFishlogs';
-// import { NewFishLog } from "../screens/NewFishLog";
+import { NewFishLog } from "../screens/NewFishLog";
 // import { NewNoNameFishLog } from "../screens/NewNoNameFishLog";
 // import { useAuth } from "../contexts/authContext";
 // import { MyMap } from "../screens/Maps";
@@ -49,7 +49,7 @@ const AuthRoutes = () => {
         name="FishLog"
         component={FishLog}
         options={{title: 'Registro', headerShown: true}}
-      />
+    />*
       <AuthenticateStack.Screen
         name="NewFishLog"
         component={NewFishLog}
@@ -58,6 +58,7 @@ const AuthRoutes = () => {
           headerShown: true,
         })}
       />
+
       <AuthenticateStack.Screen
         name="NewNoNameFishLog"
         component={NewNoNameFishLog}
@@ -112,6 +113,16 @@ const AppRoutes = () => {
         component={WikiFish}
         options={{title: 'Informações', headerShown: true}}
       />
+
+      <Stack.Screen
+        name="NewFishLog"
+        component={NewFishLog}
+        options={({route}) => ({
+          title: route.params.name,
+          headerShown: true,
+        })}
+      />
+
       {/* <Stack.Screen name="WikiFilter" component={WikiFilter} />
       <Stack.Screen name="LogFilter" component={LogFilter} />  */}
     </Stack.Navigator>
