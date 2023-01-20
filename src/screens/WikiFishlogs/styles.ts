@@ -19,11 +19,10 @@ export const TitleButtonsContainer = styled.ScrollView.attrs({
 export const TitleContainer = styled.View`
   width: 100%;
   padding: 5px ${RFValue(16, 640)}px;
-  margin-top: ${RFValue(32, 640)}px;
   margin-bottom: ${RFValue(11, 640)}px;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #0095d9;
+  background-color: #0095d999;
   /* align-items: center; */
 `;
 

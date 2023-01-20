@@ -3,18 +3,13 @@ import styled from 'styled-components/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const Box = styled.View`
-  height: ${RFValue(82)}px;
+  /* height: ${RFValue(82)}px; */
   width: 100%;
-  background-color: ${({theme}) => theme.colors.primary_light};
+  background-color: transparent;
   flex-direction: row;
   align-items: center;
   padding: 0px ${RFValue(16, 640)}px;
   justify-content: flex-start;
-  padding-top: ${RFValue(30)}px;
-`;
-
-export const Spacer = styled.View`
-  flex: 1;
 `;
 
 export const IconContainer = styled.View`

@@ -194,12 +194,12 @@ export const WikiFishlogs = ({navigation, route}: any) => {
               {/* {!wiki && !fishlogTab && mapTab ? <TitleHighlight /> : null} */}
             </TouchableTitle>
             {/* </TitleButtonsContainer> */}
-            {/* <InstructionButton
+            <InstructionButton
               onPress={() => {
                 setShowModal(true);
               }}>
               <InstructionButtonIcon name="info" />
-            </InstructionButton> */}
+            </InstructionButton>
           </TitleContainer>
         ) : (
           <ChooseTab></ChooseTab>
