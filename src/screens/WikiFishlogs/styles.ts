@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { ImageBackground } from 'react-native';
+import {ImageBackground} from 'react-native';
 
 import {RFValue} from 'react-native-responsive-fontsize';
 
@@ -9,11 +9,12 @@ export const PageContainer = styled(ImageBackground)`
   align-items: center;
 `;
 
-// export const TitleButtonsContainer = styled.ScrollView.attrs({
-//   horizontal: true,
-// })`
-//   flex-direction: row;
-// `;
+export const TitleButtonsContainer = styled.ScrollView.attrs({
+  horizontal: true,
+  backgroundColor: 'red',
+})`
+  flex-direction: row;
+`;
 
 export const TitleContainer = styled.View`
   width: 100%;
@@ -22,14 +23,13 @@ export const TitleContainer = styled.View`
   margin-bottom: ${RFValue(11, 640)}px;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #0095D9;
+  background-color: #0095d9;
   /* align-items: center; */
 `;
 
 export const TouchableTitle = styled.TouchableOpacity`
   text-align: center;
   padding: 8px 12px;
-
 `;
 
 // export const TitleHighlight = styled.View`
@@ -43,7 +43,7 @@ export const TitleText = styled.Text<{
   fishLogTab: boolean;
   mapTab: boolean;
 }>`
-  font-size: ${RFValue(18, 640)}px;
+  font-size: ${RFValue(14)}px;
   font-weight: 700;
   color: black;
 `;
@@ -57,5 +57,5 @@ export const InstructionButtonIcon = styled(MaterialIcons)`
 `;
 
 export const ChooseTab = styled.View`
-  padding-top:20px;
+  padding-top: 20px;
 `;
