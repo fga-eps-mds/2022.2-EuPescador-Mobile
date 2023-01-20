@@ -1,19 +1,28 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { Box, HeaderIcon, HeaderText, IconContainer, IconText, Spacer } from './styles';
+import {TouchableOpacity} from 'react-native';
+import {
+  Box,
+  HeaderIcon,
+  HeaderText,
+  IconContainer,
+  IconText,
+  Spacer,
+} from './styles';
 
 interface Props {
   title: string;
   icon: string;
   iconText: string;
-  buttonFunction: VoidFunction;
+  buttonFunction: () => void;
 }
 
-export function TopBar({ title, icon, iconText, buttonFunction }: Props) {
+export function TopBar({title, icon, iconText, buttonFunction}: Props) {
   return (
     <Box>
       <HeaderText>{title}</HeaderText>
+
       <Spacer />
+
       <TouchableOpacity onPress={buttonFunction}>
         <IconContainer>
           <HeaderIcon name={icon} />

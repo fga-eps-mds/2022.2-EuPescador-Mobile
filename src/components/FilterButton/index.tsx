@@ -1,12 +1,11 @@
 import React from 'react';
-import { 
+import {
   TouchableFilter,
   TextFilter,
   IconFilter,
   NumberContainer,
-  NumberText
- } from './styles';
-
+  NumberText,
+} from './styles';
 
 interface Props {
   url: string;
@@ -14,24 +13,19 @@ interface Props {
   screen: string;
 }
 
-export function FilterButton({ url,navigation, screen }: Props) {
+export function FilterButton({url, navigation, screen}: Props) {
   return (
-
     <TouchableFilter
       onPress={() => navigation.navigate(screen)}
-      hasFilter={url ? true : false}
-    >
-       <TextFilter
-        hasFilter={url ? true : false}
-      >Filtros</TextFilter>
-       {url ? (
-          <NumberContainer> 
-                <NumberText>{(url.split('=').length-1)}</NumberText>
-          </NumberContainer>
-        )
-          : (<IconFilter name="filter-list" />)
-        }
-     
+      hasFilter={url ? true : false}>
+      <TextFilter hasFilter={url ? true : false}>Filtros</TextFilter>
+      {url ? (
+        <NumberContainer>
+          <NumberText>{url.split('=').length - 1}</NumberText>
+        </NumberContainer>
+      ) : (
+        <IconFilter name="filter-list" />
+      )}
     </TouchableFilter>
   );
 }
@@ -39,9 +33,9 @@ export function FilterButton({ url,navigation, screen }: Props) {
 // const wichFilter = ({ url,navigation, screen }: Props) => {
 //   if (screen == 'WikiFilter') {
 //     return (
-      
+
 //       {url ? (
-//         <NumberContainer> 
+//         <NumberContainer>
 //               <NumberText>{(url.split('=').length-1)}</NumberText>
 //         </NumberContainer>
 //       )
@@ -50,4 +44,4 @@ export function FilterButton({ url,navigation, screen }: Props) {
 
 //     );
 //   }
-// } 
+// }
