@@ -1,5 +1,5 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/HomeScreen';
 // import { EditUserPage } from "../screens/EditUserPage";
 import Login from '../screens/Login';
@@ -12,7 +12,7 @@ import { NewFishLog } from "../screens/NewFishLog";
 // import { NewNoNameFishLog } from "../screens/NewNoNameFishLog";
 // import { useAuth } from "../contexts/authContext";
 // import { MyMap } from "../screens/Maps";
-import { WikiFish } from "../screens/WikiFish";
+import {WikiFish} from '../screens/WikiFish';
 // import { Drafts } from "../screens/Drafts";
 // import { WikiFilter } from "../screens/WikiFilter";
 // import { LogFilter } from "../screens/RegisterFilter";
@@ -23,7 +23,6 @@ const AuthenticateStack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
 
 const AuthRoutes = () => {
-
   return (
     <AuthenticateStack.Navigator
       initialRouteName="WikiFishlogs"
@@ -79,7 +78,6 @@ const AuthRoutes = () => {
       //   options={{title: 'Rascunhos', headerShown: true}}
       // /> */}
     </AuthenticateStack.Navigator>
-      
   );
 };
 const AppRoutes = () => {

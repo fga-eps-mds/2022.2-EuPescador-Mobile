@@ -1,18 +1,18 @@
 import styled from 'styled-components/native';
-import { Searchbar } from 'react-native-paper';
-import { RFValue } from 'react-native-responsive-fontsize';
+import {Searchbar} from 'react-native-paper';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 export const PageContainer = styled.View`
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({theme}) => theme.colors.background};
 `;
 
 export const SearchBarContainer = styled(Searchbar)`
-  width: ${RFValue(242, 640)}px;
-  height: ${RFValue(25, 640)}px;
+  width: ${RFValue(242)}px;
+  height: ${RFValue(40)}px;
   border-radius: ${RFValue(8, 640)}px;
-  border: 1px solid ${({ theme }) => theme.colors.on_background};
-  background-color: ${({ theme }) => theme.colors.background};
+  border: 1px solid ${({theme}) => theme.colors.on_background};
+  background-color: ${({theme}) => theme.colors.background};
 `;
 
 export const FishBodyContainer = styled.View`
@@ -25,8 +25,7 @@ export const RowContainer = styled.View`
   justify-content: space-around;
   align-items: center;
   margin-bottom: ${RFValue(16, 640)}px;
-  background-color: ${({ theme }) => theme.colors.background};
-`
+`;
 export const TitleContainer = styled.View`
   width: 100%;
   padding-left: ${RFValue(16, 640)}px;
@@ -42,11 +41,11 @@ export const TouchableTitle = styled.TouchableOpacity`
 export const TitleHighlight = styled.View`
   height: ${RFValue(1, 640)}px;
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: ${({theme}) => theme.colors.secondary};
 `;
 
-export const TitleText = styled.Text<{ wiki: boolean }>`
-  font-family: ${({ theme }) =>
+export const TitleText = styled.Text<{wiki: boolean}>`
+  font-family: ${({theme}) =>
     p =>
       p.wiki ? theme.fonts.regular : theme.fonts.bold};
   font-size: ${RFValue(12, 640)}px;
@@ -54,14 +53,14 @@ export const TitleText = styled.Text<{ wiki: boolean }>`
 `;
 
 export const NoResultContainer = styled.View`
-    align-self: center;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
+  align-self: center;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
 `;
 
 export const BoldText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.bold};
+  font-family: ${({theme}) => theme.fonts.bold};
   font-size: ${RFValue(16, 640)}px;
   text-align: center;
   margin-bottom: ${RFValue(16, 640)}px;
@@ -69,7 +68,7 @@ export const BoldText = styled.Text`
 `;
 
 export const RegularText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(12, 640)}px;
   text-align: center;
   margin-bottom: ${RFValue(16, 640)}px;

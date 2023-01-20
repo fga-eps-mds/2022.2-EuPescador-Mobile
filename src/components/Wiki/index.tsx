@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
-import { FishWiki } from '../../interfaces/FishWiki';
-import { GetWikiFishes } from '../../services/wikiServices/getWikiFishes';
-import { FilterButton } from '../FilterButton';
+import React, {useState, useEffect} from 'react';
+import {ActivityIndicator} from 'react-native';
+import {FishWiki} from '../../interfaces/FishWiki';
+import {GetWikiFishes} from '../../services/wikiServices/getWikiFishes';
+import {FilterButton} from '../FilterButton';
 import {
   SearchBarContainer,
   RowContainer,
@@ -12,14 +12,9 @@ import {
   SearchImage,
   FishBodyContainer,
 } from './styles';
-import { WikiFishList } from '../WikiFishList';
+import {WikiFishList} from '../WikiFishList';
 
-
-export const Wiki = (
-  { navigation,
-    filterQuery,
-  }: any
-) => {
+export const Wiki = ({navigation, filterQuery}: any) => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [fishes, setFishes] = useState<FishWiki[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +48,6 @@ export const Wiki = (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <>
-
           <RowContainer>
             <SearchBarContainer
               placeholder="Pesquisar"
@@ -65,33 +59,34 @@ export const Wiki = (
             <FilterButton
               url={filterQuery}
               navigation={navigation}
-              screen='WikiFilter'
+              screen="WikiFilter"
             />
           </RowContainer>
-          
-          {fishes && fishes["allFishWiki"].length > 0 && fishes["allFishWiki"].filter(fish => {
+
+          {fishes &&
+          fishes['allFishWiki'].length > 0 &&
+          fishes['allFishWiki'].filter(fish => {
             if (
               !searchQuery ||
-              fish.commonName!
-                .toLowerCase()
+              fish
+                .commonName!.toLowerCase()
                 .includes(searchQuery.toLowerCase().trim()) ||
-              fish.scientificName!
-                .toLowerCase()
+              fish
+                .scientificName!.toLowerCase()
                 .includes(searchQuery.toLowerCase().trim())
             ) {
               return fish;
             }
           }).length ? (
             <WikiFishList
-              fishData={
-                fishes["allFishWiki"].filter(item => {
+              fishData={fishes['allFishWiki'].filter(item => {
                 if (
                   !searchQuery ||
-                  item.commonName!
-                    .toLowerCase()
+                  item
+                    .commonName!.toLowerCase()
                     .includes(searchQuery.toLowerCase().trim()) ||
-                  item.scientificName!
-                    .toLowerCase()
+                  item
+                    .scientificName!.toLowerCase()
                     .includes(searchQuery.toLowerCase().trim())
                 ) {
                   return item;
@@ -107,38 +102,33 @@ export const Wiki = (
                 <>
                   <BoldText>Não encontramos nada com o termo digitado</BoldText>
                   <RegularText>
-                    Por favor, verifique sua pesquisa e tente novamente para obter
-                    resultados.
+                    Por favor, verifique sua pesquisa e tente novamente para
+                    obter resultados.
+                  </RegularText>
+                </>
+              ) : filterQuery ? (
+                <>
+                  <BoldText>
+                    Não encontramos nada com os filtros utilizados
+                  </BoldText>
+                  <RegularText>
+                    Por favor, verifique sua pesquisa e tente novamente para
+                    obter resultados.
                   </RegularText>
                 </>
               ) : (
-
-                filterQuery ? (
-
-                  <>
-                    <BoldText>Não encontramos nada com os filtros utilizados</BoldText>
-                    <RegularText>
-                      Por favor, verifique sua pesquisa e tente novamente para obter
-                      resultados.
-                    </RegularText>
-                  </>
-
-                ) : (
-                  <>
-                    <BoldText>Não encontramos nada na biblioteca</BoldText>
-                    <RegularText>
-                      Por favor, verifique sua conexão e tente novamente para obter
-                      resultados.
-                    </RegularText>
-                  </>
-                )
+                <>
+                  <BoldText>Não encontramos nada na biblioteca</BoldText>
+                  <RegularText>
+                    Por favor, verifique sua conexão e tente novamente para
+                    obter resultados.
+                  </RegularText>
+                </>
               )}
             </NoResultContainer>
-
           )}
         </>
-      )
-      }
-    </FishBodyContainer >
+      )}
+    </FishBodyContainer>
   );
 };
