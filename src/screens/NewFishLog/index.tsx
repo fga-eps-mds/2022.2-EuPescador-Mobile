@@ -11,7 +11,7 @@ import {
 import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
 import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CommonActions, useRoute} from '@react-navigation/native';
+import {CommonActions, useNavigation, useRoute} from '@react-navigation/native';
 import {GetWikiFishes} from '../../services/wikiServices/getWikiFishes';
 import {RegularText} from '../../components/RegularText';
 import {HalfToneText} from '../../components/HalfToneText';
@@ -67,9 +67,7 @@ export interface IFish {
 }
 
 export function NewFishLog({navigation, route}: any) {
-  const currentRoute = useRoute()
-
-  console.log(currentRoute)
+  const currentRoute = useNavigation()
 
   const [isNew, setIsNew] = useState(false);
   const [isAdmin, setIsAdmin] = useState<Boolean>(false);
@@ -629,12 +627,16 @@ export function NewFishLog({navigation, route}: any) {
   return (
     <NewFishLogContainer source={require('../../assets/background_1-eupescador.png')}>
       <TopBar 
+          iconLeft={'arrow-undo'}
+          sizeIconLeft={20}
+          buttonFunctionLeft={()=>{
+              currentRoute.goBack()
+          }}
           title={''}
           icon={''}
           iconText={''}
-          buttonFunction={
-              () => {}
-          }
+          buttonFunction={ () => {} }
+          textBack={true}
       />
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />

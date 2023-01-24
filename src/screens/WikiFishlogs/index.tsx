@@ -122,6 +122,9 @@ export const WikiFishlogs = ({navigation, route}: any) => {
         source={require('../../assets/background_1-eupescador.png')}>
         <TopBar
           //Adicionar parada do mapa
+          iconLeft={'information-circle'}
+          sizeIconLeft={30}
+          buttonFunctionLeft={()=>{}}
           title={page}
           icon={isLogged ? 'logout' : 'login'}
           iconText={isLogged ? 'Sair' : 'Entrar'}

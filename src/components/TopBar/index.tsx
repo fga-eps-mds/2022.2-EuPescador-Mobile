@@ -1,6 +1,5 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
-import {Image} from 'react-native-elements';
 import {
   Box,
   HeaderIcon,
@@ -9,44 +8,43 @@ import {
   IconText,
   InstructionButton,
   InstructionButtonIcon,
+  ImageTopBar,
+  ImageTopBarContainer,
+  BackText
   // Spacer,
 } from './styles';
 
 interface Props {
+  iconLeft: string;
+  sizeIconLeft: number;
+  buttonFunctionLeft: ()=> void;
   title: string;
   icon: string;
   iconText: string;
+  textBack: boolean
   buttonFunction: () => void;
 }
 
-export function TopBar({title, icon, iconText, buttonFunction}: Props) {
+export function TopBar({iconLeft,sizeIconLeft, buttonFunctionLeft,title, icon, iconText, buttonFunction, textBack}: Props) {
   return (
     <Box>
       <InstructionButton
-        onPress={() => {
-          // setShowModal(true);
-        }}>
-        <InstructionButtonIcon name="info" />
+        onPress={buttonFunctionLeft}>
+        <InstructionButtonIcon name={iconLeft} size={sizeIconLeft} color="black"/>
+        {textBack?
+        <BackText>Voltar</BackText>
+        : null}
       </InstructionButton>
 
-      <Image
-        source={require('../../assets/logo_2-eupescador.png')}
-        style={{
-          flex: 1,
-          height: 150,
-          width: 200,
-          resizeMode: 'contain',
-          padding: '20%',
-        }}
-      />
+      <ImageTopBarContainer>
+        <ImageTopBar source={require('../../assets/logo_2-eupescador.png')}/>
+      </ImageTopBarContainer>
 
       <TouchableOpacity
         style={{width: '25%', alignItems: 'center'}}
         onPress={buttonFunction}>
-        <IconContainer>
           <HeaderIcon name={icon} />
           <IconText>{iconText}</IconText>
-        </IconContainer>
       </TouchableOpacity>
     </Box>
   );

@@ -15,7 +15,6 @@ export const NewFishLogContainer = styled(ImageBackground)`
   flex: 1;
   align-items: center;
    justify-content: center;
-   padding: ${RFValue(51, 640)}px;
    z-index: -3;
 `;
 export const ImageContainer = styled.TouchableOpacity`
