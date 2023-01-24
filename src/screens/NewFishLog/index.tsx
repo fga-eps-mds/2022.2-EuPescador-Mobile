@@ -1,6 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {Buffer} from 'buffer';
-import {Alert, ScrollView, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  PermissionsAndroid,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 // import * as ImagePicker from "expo-image-picker";
 import Geolocation from 'react-native-geolocation-service';
 import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
@@ -535,14 +542,6 @@ export function NewFishLog({navigation, route}: any) {
     }
   };
 
-  useEffect(() => {
-    isOn ? console.log('on') : getOfflineFishOptions();
-  }, []);
-
-  useEffect(() => {
-    loadData();
-  }, [route.params]);
-
   //Carregar Grupo (Dropdown)
   const groupList = () => {
     // const filteredGroupFishes = data.filter(item => {
@@ -573,6 +572,46 @@ export function NewFishLog({navigation, route}: any) {
     //   );
     // });
   };
+
+  const requestLocationPermission = async () => {
+    try {
+      if (Platform.OS === 'ios') {
+        Geolocation.requestAuthorization('whenInUse');
+        // IOS permission request does not offer a callback :/
+        return null;
+      } else {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Geolocation Permission',
+            message: 'Can we access your location?',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        console.log('granted', granted);
+        if (granted === 'granted') {
+          console.log('You can use Geolocation');
+          return true;
+        } else {
+          console.log('You cannot use Geolocation');
+          return false;
+        }
+      }
+    } catch (err) {
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    isOn ? console.log('on') : getOfflineFishOptions();
+  }, []);
+
+  useEffect(() => {
+    requestLocationPermission();
+    loadData();
+  }, [route.params]);
 
   return (
     <NewFishLogContainer>

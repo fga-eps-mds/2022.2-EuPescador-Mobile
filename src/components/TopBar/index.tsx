@@ -9,7 +9,7 @@ import {
   IconText,
   InstructionButton,
   InstructionButtonIcon,
-  Spacer,
+  // Spacer,
 } from './styles';
 
 interface Props {
@@ -24,7 +24,7 @@ export function TopBar({title, icon, iconText, buttonFunction}: Props) {
     <Box>
       <InstructionButton
         onPress={() => {
-          setShowModal(true);
+          // setShowModal(true);
         }}>
         <InstructionButtonIcon name="info" />
       </InstructionButton>
