@@ -41,7 +41,13 @@ export function TopBar({iconLeft,sizeIconLeft, buttonFunctionLeft,title, icon, i
       </ImageTopBarContainer>
 
       <TouchableOpacity
-        style={{width: '25%', alignItems: 'center'}}
+        style={{
+        width:'25%', 
+        alignItems: 'center',
+        justifyContent: 'center', 
+        flexDirection: 'row',
+        position: 'relative'
+      }}
         onPress={buttonFunction}>
           <HeaderIcon name={icon} />
           <IconText>{iconText}</IconText>
