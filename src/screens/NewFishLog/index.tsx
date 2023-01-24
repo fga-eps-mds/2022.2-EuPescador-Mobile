@@ -1,8 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {Buffer} from 'buffer';
-import {Alert, ScrollView, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  PermissionsAndroid,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 // import * as ImagePicker from "expo-image-picker";
-import Geolocation from 'react-native-geolocation-service';
+import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
 import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CommonActions, useRoute} from '@react-navigation/native';
@@ -87,6 +93,8 @@ export function NewFishLog({navigation, route}: any) {
   const [draftId, setDraftId] = useState<string | null>(null);
   const [fishFamily, setFishFamily] = useState<string | undefined>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [location, setLocation] = useState<GeoPosition>();
+
   const netInfo = useNetInfo();
   const isOn = useNetInfo().isConnected;
   const getFishOptions = async () => {
@@ -356,53 +364,9 @@ export function NewFishLog({navigation, route}: any) {
     }
   };
 
-  const handleOpenMap = async () => {
-    const {log_id, name} = route.params;
-    // let {status} = await Location.requestForegroundPermissionsAsync();
-    // if (status !== 'granted') {
-    //   Alert.alert(
-    //     'Sem permissão de localização',
-    //     'Para abrir o mapa é necessário que você aceite a permissão de localização.',
-    //   );
-    //   return;
-    // }
-    const connection = await NetInfo.fetch();
-    setIsConnected(!!connection.isConnected);
-    setIsLoading(true);
-    // let loc = await Location.getCurrentPositionAsync({
-    //   accuracy: Location.Accuracy.High,
-    // });
-    // setIsLoading(false);
-    // if (!fishLatitude && !fishLongitude) {
-    //   setFishLatitude(loc.coords.latitude.toString());
-    //   setFishLongitude(loc.coords.longitude.toString());
-    // }
-    // const latitude = fishLatitude
-    //   ? parseFloat(fishLatitude)
-    //   : loc.coords.latitude;
-    // const longitude = fishLongitude
-    //   ? parseFloat(fishLongitude)
-    //   : loc.coords.longitude;
-    // navigation.navigate('Maps', {
-    //   isNew,
-    //   isAdmin,
-    //   photoString: fishPhoto,
-    //   name: fishName,
-    //   largeGroup: fishLargeGroup,
-    //   group: fishGroup,
-    //   species: fishSpecies,
-    //   weight: fishWeight,
-    //   length: fishLength,
-    //   latitude,
-    //   longitude,
-    //   log_id,
-    //   screenName: name,s
-    // });
-  };
-
   const saveDraft = async () => {
     setIsLoading(true);
-    let drafts = await storage.getString('drafts');
+    let drafts = storage.getString('drafts');
     const newDraft = {
       photoString: fishPhoto,
       name: fishName,
@@ -429,7 +393,7 @@ export function NewFishLog({navigation, route}: any) {
     } else {
       newDrafts = [newDraft];
     }
-    await storage.set('drafts', JSON.stringify(newDrafts));
+    storage.set('drafts', JSON.stringify(newDrafts));
     setIsLoading(false);
     const resetAction = CommonActions.reset({
       index: 0,
@@ -540,18 +504,10 @@ export function NewFishLog({navigation, route}: any) {
     }
   };
 
-  useEffect(() => {
-    isOn ? console.log('on') : getOfflineFishOptions();
-  }, []);
-
-  useEffect(() => {
-    loadData();
-  }, [route.params]);
-
   //Carregar Grupo (Dropdown)
   const groupList = () => {
     const filteredGroupFishes = data.filter(item => {
-      if (fishLargeGroup) {s
+      if (fishLargeGroup) {
         if (
           item.groupName
             .toLowerCase()
@@ -578,6 +534,97 @@ export function NewFishLog({navigation, route}: any) {
       );
     });
   };
+
+  const handleOpenMap = async () => {
+    const {log_id, name} = route.params;
+    const result = requestLocationPermission();
+
+    result.then(res => {
+      console.log('res is:', res);
+      if (res) {
+        Geolocation.getCurrentPosition(
+          position => {
+            console.log(position);
+            setLocation(position);
+          },
+          error => {
+            // See error code charts below.
+            console.log(error.code, error.message);
+            // setLocation(false);
+          },
+          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+        );
+      }
+    });
+
+    const connection = await NetInfo.fetch();
+    setIsConnected(!!connection.isConnected);
+    setIsLoading(true);
+
+    setIsLoading(false);
+
+    if (!fishLatitude && !fishLongitude) {
+      setFishLatitude(location?.coords.latitude.toString());
+      setFishLongitude(location?.coords.latitude.toString());
+    }
+
+    const latitude = fishLatitude
+      ? parseFloat(fishLatitude)
+      : location?.coords.latitude;
+
+    const longitude = fishLongitude
+      ? parseFloat(fishLongitude)
+      : location?.coords.longitude;
+
+    navigation.navigate('Maps', {
+      isNew,
+      isAdmin,
+      photoString: fishPhoto,
+      name: fishName,
+      largeGroup: fishLargeGroup,
+      group: fishGroup,
+      species: fishSpecies,
+      weight: fishWeight,
+      length: fishLength,
+      latitude,
+      longitude,
+      log_id,
+      screenName: name,
+    });
+  };
+
+  async function requestLocationPermission() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Geolocation Permission',
+          message: 'Can we access your location?',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      console.log('granted', granted);
+      if (granted === 'granted') {
+        console.log('You can use Geolocation');
+        return true;
+      } else {
+        console.log('You cannot use Geolocation');
+        return false;
+      }
+    } catch (err) {
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    isOn ? console.log('on') : getOfflineFishOptions();
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [route.params]);
 
   return (
     <NewFishLogContainer source={require('../../assets/background_1-eupescador.png')}>
