@@ -5,7 +5,7 @@ import {Alert, ScrollView, TouchableOpacity, View} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CommonActions} from '@react-navigation/native';
+import {CommonActions, useRoute} from '@react-navigation/native';
 import {GetWikiFishes} from '../../services/wikiServices/getWikiFishes';
 import {RegularText} from '../../components/RegularText';
 import {HalfToneText} from '../../components/HalfToneText';
@@ -13,6 +13,7 @@ import {ActivityIndicator, Switch} from 'react-native-paper';
 import {createFishLog} from '../../services/fishLogService/createFishLog';
 import {GetOneFishLog} from '../../services/fishLogService/getOneFishLog';
 import {UpdateFishLog} from '../../services/fishLogService/updateFishLog';
+import {TopBar} from '../../components/TopBar';
 // import { data } from "../../utils/dataFishes";
 import {
   NewFishLogContainer,
@@ -60,6 +61,10 @@ export interface IFish {
 }
 
 export function NewFishLog({navigation, route}: any) {
+  const currentRoute = useRoute()
+
+  console.log(currentRoute)
+
   const [isNew, setIsNew] = useState(false);
   const [isAdmin, setIsAdmin] = useState<Boolean>(false);
   const [isSuperAdmin, setIsSuperAdmin] = useState<Boolean>(false);
@@ -205,14 +210,14 @@ export function NewFishLog({navigation, route}: any) {
     // if (pickerResult.cancelled === true) {
     //   return;
     // }
-    /*    if (pickerResult.height > 2200) {
-      Alert.alert("Ops!", "Imagem muito grande!", [
-        {
-          text: "Ok",
-        },
-      ]);
-      return;
-    } */
+    // /*    if (pickerResult.height > 2200) {
+    //   Alert.alert("Ops!", "Imagem muito grande!", [
+    //     {
+    //       text: "Ok",
+    //     },
+    //   ]);
+    //   return;
+    // } */
     // setFishPhoto(pickerResult.base64);
   }
 
@@ -391,7 +396,7 @@ export function NewFishLog({navigation, route}: any) {
     //   latitude,
     //   longitude,
     //   log_id,
-    //   screenName: name,
+    //   screenName: name,s
     // });
   };
 
@@ -545,37 +550,45 @@ export function NewFishLog({navigation, route}: any) {
 
   //Carregar Grupo (Dropdown)
   const groupList = () => {
-    // const filteredGroupFishes = data.filter(item => {
-    //   if (fishLargeGroup) {
-    //     if (
-    //       item.groupName
-    //         .toLowerCase()
-    //         .includes(fishLargeGroup.toLowerCase().trim())
-    //     ) {
-    //       return item;
-    //     }
-    //   } else {
-    //     return item;
-    //   }
-    // });
-    // let fishesGroup = filteredGroupFishes.map(item => item.subGroups);
-    // fishesGroup = [...new Set(fishesGroup)];
-    // return fishesGroup[0].map((item, index) => {
-    //   return (
-    //     <OptionListItem
-    //       key={index}
-    //       onPress={() => {
-    //         setFishGroup(item);
-    //         setDropGroup(false);
-    //       }}>
-    //       <RegularText text={item} />
-    //     </OptionListItem>
-    //   );
-    // });
+    const filteredGroupFishes = data.filter(item => {
+      if (fishLargeGroup) {s
+        if (
+          item.groupName
+            .toLowerCase()
+            .includes(fishLargeGroup.toLowerCase().trim())
+        ) {
+          return item;
+        }
+      } else {
+        return item;
+      }
+    });
+    let fishesGroup = filteredGroupFishes.map(item => item.subGroups);
+    fishesGroup = [...new Set(fishesGroup)];
+    return fishesGroup[0].map((item, index) => {
+      return (
+        <OptionListItem
+          key={index}
+          onPress={() => {
+            setFishGroup(item);
+            setDropGroup(false);
+          }}>
+          <RegularText text={item} />
+        </OptionListItem>
+      );
+    });
   };
 
   return (
-    <NewFishLogContainer>
+    <NewFishLogContainer source={require('../../assets/background_1-eupescador.png')}>
+      <TopBar 
+          title={''}
+          icon={''}
+          iconText={''}
+          buttonFunction={
+              () => {}
+          }
+      />
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
@@ -652,7 +665,7 @@ export function NewFishLog({navigation, route}: any) {
               </OptionsContainer>
             ) : null}
 
-            {/* <InputView>
+             <InputView>
               <Input
                 placeholder="Espécie"
                 value={fishSpecies}
@@ -728,7 +741,7 @@ export function NewFishLog({navigation, route}: any) {
                   {groupList()}
                 </OptionList>
               </OptionsContainer>
-            ) : null} */}
+            ) : null}
 
             <BoxView>
               <RowView>
