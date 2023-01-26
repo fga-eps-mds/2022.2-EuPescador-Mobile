@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { FishWiki } from '../../interfaces/FishWiki';
 import { GetWikiFishes } from '../../services/wikiServices/getWikiFishes';
@@ -11,8 +11,14 @@ import {
   RegularText,
   SearchImage,
   FishBodyContainer,
+  PesquisarButton,
+  PesquisaContainer,
+  SearchButton,
+  MyButton,
+  ButtonText,
 } from './styles';
 import { WikiFishList } from '../WikiFishList';
+import { storage } from "../../App";
 
 
 export const Wiki = (
@@ -23,16 +29,8 @@ export const Wiki = (
   const [searchQuery, setSearchQuery] = React.useState('');
   const [fishes, setFishes] = useState<FishWiki[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const updateFishes = async () => {
-    try {
-      const data = await GetWikiFishes(filterQuery);
-      setFishes(data);
-    } catch (error: any) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
+  const [ignored, setIgnored] = useState(0);
+  
 
   const handleNavigation = (id: string) => {
     navigation.navigate(
@@ -42,10 +40,32 @@ export const Wiki = (
       } as never,
     );
   };
+  
+  const updateFishes = async () => {
+    setIsLoading(true);
+    try {
+      const data = await GetWikiFishes();
+      setFishes(data);
+      storage.set('biblioteca', JSON.stringify(data));
+    } catch (error: any) {
+      const biblio = storage.getString('biblioteca');
+      if (biblio) {
+        setFishes(JSON.parse(biblio));
+      }
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    updateFishes();
+    if(searchQuery==="")
+      updateFishes()
+  }, [searchQuery]);
+
+  useEffect(() => {
+      updateFishes()
   }, []);
+
 
   return (
     <FishBodyContainer>
@@ -53,22 +73,19 @@ export const Wiki = (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <>
-
-          <RowContainer>
+        <PesquisaContainer>
             <SearchBarContainer
               placeholder="Pesquisar"
-              placeholderTextColor="rgba(32, 46, 53, 0.3)"
+              placeholderTextColor="rgba(0, 0, 0, 0.7)"
               onChangeText={setSearchQuery}
               value={searchQuery}
-              iconColor="#202E35"
-            />
-            <FilterButton
-              url={filterQuery}
-              navigation={navigation}
-              screen='WikiFilter'
-            />
-          </RowContainer>
-          
+              iconColor="#202E00"
+              />
+
+            <MyButton onPress={updateFishes} type="primary">
+              <ButtonText>Buscar</ButtonText>
+            </MyButton>
+          </PesquisaContainer>
           {fishes && fishes["allFishWiki"].length > 0 && fishes["allFishWiki"].filter(fish => {
             if (
               !searchQuery ||
