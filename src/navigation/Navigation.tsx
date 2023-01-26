@@ -102,7 +102,7 @@ const AppRoutes = () => {
       <Stack.Screen
         name="Register"
         component={Register}
-        options={{title: 'Cadastro', headerShown: true}}
+        options={{title: 'Cadastro'}}
       />
 
       <Stack.Screen name="WikiFishlogs" component={WikiFishlogs} />
