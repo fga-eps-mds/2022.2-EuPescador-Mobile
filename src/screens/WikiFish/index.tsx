@@ -17,6 +17,7 @@ import { Title } from '../../components/Title';
 import { HalfToneText } from '../../components/HalfToneText';
 import { RegularText } from '../../components/RegularText';
 import { NoFishImagePhoto } from '../../components/NoFishImagePhoto';
+import { storage } from '../../App';
 
 type IFish = {
   fish_id: string;
@@ -43,7 +44,13 @@ export const WikiFish: FC<IFish> = ({ navigation, route }: any) => {
 
   const getFishProperties = async () => {
     try {
-      const fish = await GetOneWikiFish(fish_id);
+      const biblio = storage.getString('biblioteca');
+      let data = '';
+      if (biblio) {
+        data = JSON.parse(biblio);
+      }
+      const fish = data['allFishWiki'].find(item => item.id === fish_id);
+      console.log(fish);
       setIsLoading(true);
       setFishName(fish.commonName);
       setFishSpecies(fish.scientificName);
