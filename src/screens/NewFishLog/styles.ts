@@ -89,17 +89,20 @@ export const InputContainer = styled.View`
   text-align: left;
   align-items: center;
   margin-top: ${RFValue(33, 640)}px;
+  width: 100%;
 `;
 
 export const InputView = styled.View`
   align-self: center;
   align-items: center;
-  height: ${RFValue(40, 640)}px;
   flex-direction: row;
   border: ${RFValue(3, 640)}px #0095D9;
-  border-radius: ${RFValue(5, 640)}px;
+  border-radius: ${RFValue(15, 640)}px;
   margin-top: ${RFValue(10, 640)}px;
-  width: ${RFValue(258, 640)}px;
+  width: ${RFValue(300, 640)}px;
+  height: ${RFValue(50, 640)}px;
+  background: white;
+  font-weight:700;
 `;
 
 export const InputBox = styled.View`
@@ -112,8 +115,9 @@ export const Input = styled.TextInput`
     flex-direction: row;
     justify-content: flex-start;    
     font-family: ${({ theme }) => theme.fonts.regular};
-    font-size: ${RFValue(12, 640)}px;
+    font-size: ${RFValue(14, 640)}px;
     margin-left: ${RFValue(4, 640)}px;
+    
 `;
 
 export const OptionList = styled.ScrollView`
@@ -144,16 +148,18 @@ export const BoxView = styled.View`
   align-items: center;
   justify-content: center;
   margin-left: ${RFValue(10, 640)}px;
+  margin-bottom: ${RFValue(10, 640)}px;
 `;
 
 export const HalfInputView = styled.View`
   align-items: center;
-  height: ${RFValue(40, 640)}px;
-  width: ${RFValue(123, 640)}px;
+  width: ${RFValue(140, 640)}px;
+  height: ${RFValue(50, 640)}px;
   flex-direction: row;
   margin-right: ${RFValue(10, 640)}px;
-  border: ${RFValue(2, 640)}px #0095D9;
-  border-radius: ${RFValue(5, 640)}px;
+  border: ${RFValue(3, 640)}px #0095D9;
+  border-radius: ${RFValue(15, 640)}px;
+  background: white;
 `;
 
 export const AddLocaleButton = styled.TouchableOpacity`
@@ -181,6 +187,7 @@ export const SendButtonView = styled.View`
   align-items: center;
   margin-top: ${RFValue(36, 640)}px;
   padding-bottom: ${RFValue(20, 640)}px;
+  ;
 `;
 
 export const SendButton = styled.TouchableOpacity`
@@ -195,7 +202,8 @@ export const SendButton = styled.TouchableOpacity`
 export const SendButtonText = styled.Text`
   color: ${({ theme }) => theme.colors.on_secondary_dark};
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: ${RFValue(12, 640)}px;
+  font-size: ${RFValue(16, 640)}px;
+  font-weight: 700;
 `;
 
 export const NewFishlogScroll = styled.ScrollView.attrs({

@@ -199,6 +199,7 @@ export const FishLog = ({navigation, route}: any) => {
             <Title text={fishName ? fishName : 'Nome não informado'} />
             <HalfToneText
               text={fishSpecies ? fishSpecies : 'Espécie não informado'}
+              size={12}
             />
           </DescriptionContainer>
 

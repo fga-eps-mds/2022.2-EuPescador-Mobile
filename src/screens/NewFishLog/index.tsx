@@ -49,6 +49,7 @@ import {
   FishLogImageContainer,
 } from './styles';
 import { storage } from '../../global/config/storage';
+import { Title } from '../../components/Title';
 
 export interface IFish {
   _id: string;
@@ -645,6 +646,15 @@ export function NewFishLog({ navigation, route }: any) {
         textBack={true}
       />
 
+      <Title text={'Novo Registro'}></Title>
+      <View style={{
+        borderRadius: 50,
+        borderStyle: 'solid',
+        borderWidth: 2,
+        borderColor: '#0095D9',
+        width:200
+      }}></View>
+
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
@@ -695,7 +705,7 @@ export function NewFishLog({ navigation, route }: any) {
                   {fishLargeGroup ? (
                     <RegularText text={fishLargeGroup ? fishLargeGroup : ""} />
                   ) : (
-                    <HalfToneText text="Grande Grupo" />
+                    <HalfToneText text="Grande Grupo" size={16} />
                   )}
                 </View>
                 <InputBox />
@@ -729,7 +739,7 @@ export function NewFishLog({ navigation, route }: any) {
                   {fishGroup ? (
                     <RegularText text={fishGroup ? fishGroup : ""} />
                   ) : (
-                    <HalfToneText text="Grupo"/>
+                    <HalfToneText text="Grupo" size={16}/>
                   )}
                 </View>
                 <InputBox />
