@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import {Searchbar} from 'react-native-paper';
 import {RFValue} from 'react-native-responsive-fontsize';
+import {DefaultButton} from '../Button';
 
 export const PageContainer = styled.View`
   align-items: center;
@@ -8,11 +9,43 @@ export const PageContainer = styled.View`
 `;
 
 export const SearchBarContainer = styled(Searchbar)`
-  width: ${RFValue(242)}px;
-  height: ${RFValue(40)}px;
+  width: 80%;
   border-radius: ${RFValue(8, 640)}px;
-  border: 1px solid ${({theme}) => theme.colors.on_background};
-  background-color: ${({theme}) => theme.colors.background};
+  color: gray;
+  background-color: white;
+  margin-right: 8px;
+`;
+
+export const PesquisaContainer = styled.View`
+  display: flex;
+  max-height: 40px;
+  flex-direction: row;
+  width: 80%;
+  margin-bottom: 16px;
+`;
+
+export const MyButton = styled.TouchableOpacity`
+  width: 20%;
+  background-color: ${({theme, type}) =>
+    type === 'primary'
+      ? theme.colors.secondary_dark
+      : theme.colors.on_background};
+  align-items: center;
+  justify-content: center;
+  border-radius: ${RFValue(8, 640)}px;
+`;
+
+export const ButtonText = styled.Text`
+  color: white;
+  font-family: ${({theme}) => theme.fonts.bold};
+  font-size: ${RFValue(12, 640)}px;
+`;
+
+export const PesquisarButton = styled.Button`
+  width: ${RFValue(242, 640)}px;
+  border-radius: ${RFValue(8, 640)}px;
+  color: gray;
+  background-color: red;
 `;
 
 export const FishBodyContainer = styled.View`
@@ -25,6 +58,8 @@ export const RowContainer = styled.View`
   justify-content: space-around;
   align-items: center;
   margin-bottom: ${RFValue(16, 640)}px;
+  background-color: ${({theme}) => theme.colors.background};
+  color: black;
 `;
 export const TitleContainer = styled.View`
   width: 100%;

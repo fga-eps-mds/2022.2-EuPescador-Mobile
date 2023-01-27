@@ -1,11 +1,18 @@
 import {RFValue} from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
+import {ImageBackground} from 'react-native';
+
+export const LoginContainer = styled(ImageBackground)`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-color: ${({theme}) => theme.colors.background};
+  background-size: contain;
 `;
 
 export const HomeLogoContainer = styled.View`
@@ -14,8 +21,8 @@ export const HomeLogoContainer = styled.View`
   margin-bottom: ${RFValue(64, 640)}px;
 `;
 export const HomeAppImage = styled.Image`
-  width: ${RFValue(184, 640)}px;
-  height: ${RFValue(150, 640)}px;
+  width: ${RFValue(281, 600)}px;
+  height: ${RFValue(151, 640)}px;
   margin-bottom: ${RFValue(16, 640)}px;
 `;
 export const HomeAppTitle = styled.Text`
@@ -37,15 +44,25 @@ export const InputContainer = styled.View`
 export const InputView = styled.View`
   align-self: center;
   align-items: center;
-  height: ${RFValue(39, 640)}px;
-  width: ${RFValue(258, 640)}px;
+  height: ${RFValue(43, 640)}px;
+  width: ${RFValue(344, 640)}px;
   flex-direction: row;
-  border: ${RFValue(1, 640)}px;
-  border-radius: ${RFValue(5, 640)}px;
+  border: 2px solid #0095d9;
+  color: #0095d9;
+  border-radius: 20px;
+  background-color: white;
+  padding: 8px;
 `;
 
 export const InputBox = styled.View`
   margin-bottom: ${RFValue(32, 640)}px;
+`;
+
+export const NotAccountText = styled.Text`
+  self-align: center;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 8px;
 `;
 
 export const Input = styled.TextInput`
@@ -56,7 +73,7 @@ export const Input = styled.TextInput`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(12, 640)}px;
   margin: 0 ${RFValue(11, 640)}px;
-  color: black;
+  color: #0095d9;
 `;
 
 export const ErrorMessage = styled.Text`
@@ -73,14 +90,14 @@ export const LoginButtonView = styled.View`
 
 export const ForgotPasswordContainer = styled.View`
   align-items: center;
-  margin: ${RFValue(4, 640)}px 0px 15px 0px;
+  margin: ${RFValue(-5, 640)}px 0px 15px 0px;
 `;
 
 export const ForgotPasswordLogLink = styled.Text`
   font-family: ${({theme}) => theme.fonts.bold};
-  font-size: ${RFValue(10.5, 640)}px;
+  font-size: ${RFValue(14, 640)}px;
   line-height: ${RFValue(18, 640)}px;
-  color: #3cb371;
+  color: #0095d9;
   text-decoration: underline;
 `;
 

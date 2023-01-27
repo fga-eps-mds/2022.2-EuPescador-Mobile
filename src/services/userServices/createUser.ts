@@ -1,4 +1,4 @@
-import { userService } from './userService';
+import {userService} from './userService';
 
 async function CreateUser(
   name: string,
@@ -7,10 +7,6 @@ async function CreateUser(
   state: string,
   city: string,
   password: string,
-  admin: boolean,
-  token?: string,
-  superAdmin?: boolean,
-  superToken?: string,
 ) {
   await userService.post('/user/', {
     name,
@@ -19,11 +15,7 @@ async function CreateUser(
     state,
     city,
     password,
-    admin,
-    token,
-    superAdmin,
-    superToken,
   });
 }
 
-export { CreateUser };
+export {CreateUser};

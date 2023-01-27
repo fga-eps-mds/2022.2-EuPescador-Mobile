@@ -10,41 +10,51 @@ import {
   InstructionButtonIcon,
   ImageTopBar,
   ImageTopBarContainer,
-  BackText
+  BackText,
   // Spacer,
 } from './styles';
 
 interface Props {
   iconLeft: string;
   sizeIconLeft: number;
-  buttonFunctionLeft: ()=> void;
+  buttonFunctionLeft: () => void;
   title: string;
   icon: string;
   iconText: string;
-  textBack: boolean
+  textBack?: boolean;
   buttonFunction: () => void;
 }
 
-export function TopBar({iconLeft,sizeIconLeft, buttonFunctionLeft,title, icon, iconText, buttonFunction, textBack}: Props) {
+export function TopBar({
+  iconLeft,
+  sizeIconLeft,
+  buttonFunctionLeft,
+  title,
+  icon,
+  iconText,
+  buttonFunction,
+  textBack,
+}: Props) {
   return (
     <Box>
-      <InstructionButton
-        onPress={buttonFunctionLeft}>
-        <InstructionButtonIcon name={iconLeft} size={sizeIconLeft} color="black"/>
-        {textBack?
-        <BackText>Voltar</BackText>
-        : null}
+      <InstructionButton onPress={buttonFunctionLeft}>
+        <InstructionButtonIcon
+          name={iconLeft}
+          size={sizeIconLeft}
+          color="black"
+        />
+        {textBack ? <BackText>Voltar</BackText> : null}
       </InstructionButton>
 
       <ImageTopBarContainer>
-        <ImageTopBar source={require('../../assets/logo_2-eupescador.png')}/>
+        <ImageTopBar source={require('../../assets/logo_2-eupescador.png')} />
       </ImageTopBarContainer>
 
       <TouchableOpacity
         style={{width: '25%', alignItems: 'center'}}
         onPress={buttonFunction}>
-          <HeaderIcon name={icon} />
-          <IconText>{iconText}</IconText>
+        <HeaderIcon name={icon} />
+        <IconText>{iconText}</IconText>
       </TouchableOpacity>
     </Box>
   );
