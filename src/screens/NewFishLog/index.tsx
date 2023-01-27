@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Buffer} from 'buffer';
+import React, { useState, useEffect } from 'react';
+import { Buffer } from 'buffer';
 import {
   Alert,
   PermissionsAndroid,
@@ -8,18 +8,18 @@ import {
   View,
 } from 'react-native';
 // import * as ImagePicker from "expo-image-picker";
-import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
-import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
+import Geolocation, { GeoPosition } from 'react-native-geolocation-service';
+import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CommonActions, useNavigation, useRoute} from '@react-navigation/native';
-import {GetWikiFishes} from '../../services/wikiServices/getWikiFishes';
-import {RegularText} from '../../components/RegularText';
-import {HalfToneText} from '../../components/HalfToneText';
-import {ActivityIndicator, Switch} from 'react-native-paper';
-import {createFishLog} from '../../services/fishLogService/createFishLog';
-import {GetOneFishLog} from '../../services/fishLogService/getOneFishLog';
-import {UpdateFishLog} from '../../services/fishLogService/updateFishLog';
-import {TopBar} from '../../components/TopBar';
+import { CommonActions, useNavigation, useRoute } from '@react-navigation/native';
+import { GetWikiFishes } from '../../services/wikiServices/getWikiFishes';
+import { RegularText } from '../../components/RegularText';
+import { HalfToneText } from '../../components/HalfToneText';
+import { ActivityIndicator, Switch } from 'react-native-paper';
+import { createFishLog } from '../../services/fishLogService/createFishLog';
+import { GetOneFishLog } from '../../services/fishLogService/getOneFishLog';
+import { UpdateFishLog } from '../../services/fishLogService/updateFishLog';
+import { TopBar } from '../../components/TopBar';
 // import { data } from "../../utils/dataFishes";
 import {
   NewFishLogContainer,
@@ -44,8 +44,11 @@ import {
   AddLocaleButtonLabel,
   AddLocaleButtonIcon,
   NewFishlogScroll,
+  ElementsImagesFish,
+  ButtonPhotoFishContainer,
+  FishLogImageContainer,
 } from './styles';
-import {storage} from '../../global/config/storage';
+import { storage } from '../../global/config/storage';
 
 export interface IFish {
   _id: string;
@@ -66,7 +69,7 @@ export interface IFish {
   photo: string;
 }
 
-export function NewFishLog({navigation, route}: any) {
+export function NewFishLog({ navigation, route }: any) {
   const currentRoute = useNavigation()
 
   const [isNew, setIsNew] = useState(false);
@@ -92,6 +95,9 @@ export function NewFishLog({navigation, route}: any) {
   const [fishFamily, setFishFamily] = useState<string | undefined>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [location, setLocation] = useState<GeoPosition>();
+  // Modify this
+  const [catchDate,setCatchDate] = useState<string|undefined>(); 
+  const [catchHour, setCatchHour] = useState<string|undefined>();
 
   const netInfo = useNetInfo();
   const isOn = useNetInfo().isConnected;
@@ -150,7 +156,7 @@ export function NewFishLog({navigation, route}: any) {
 
   const getFishLogProperties = async (token: string) => {
     try {
-      const {log_id} = route.params;
+      const { log_id } = route.params;
       const log: any = await GetOneFishLog(log_id, token);
       if (log.photo) {
         const log64 = Buffer.from(log.photo).toString('base64');
@@ -230,7 +236,7 @@ export function NewFishLog({navigation, route}: any) {
   const handleEditFishLog = async () => {
     let alertMessage = '';
     let alertTitle = '';
-    const {log_id} = route.params;
+    const { log_id } = route.params;
     let reviewed = false;
     if (isAdmin || isSuperAdmin) {
       reviewed = true;
@@ -257,7 +263,7 @@ export function NewFishLog({navigation, route}: any) {
       alertTitle = 'Editar registro';
       const resetAction = CommonActions.reset({
         index: 0,
-        routes: [{name: 'WikiFishlogs'}],
+        routes: [{ name: 'WikiFishlogs' }],
       });
       navigation.dispatch(resetAction);
     } catch (error: any) {
@@ -340,7 +346,7 @@ export function NewFishLog({navigation, route}: any) {
       setIsLoading(false);
       const resetAction = CommonActions.reset({
         index: 0,
-        routes: [{name: 'WikiFishlogs'}],
+        routes: [{ name: 'WikiFishlogs' }],
       });
       navigation.dispatch(resetAction);
     } catch (error: any) {
@@ -395,7 +401,7 @@ export function NewFishLog({navigation, route}: any) {
     setIsLoading(false);
     const resetAction = CommonActions.reset({
       index: 0,
-      routes: [{name: 'WikiFishlogs'}],
+      routes: [{ name: 'WikiFishlogs' }],
     });
     navigation.dispatch(resetAction);
     Alert.alert(
@@ -431,7 +437,7 @@ export function NewFishLog({navigation, route}: any) {
     const hasConnection = !!connection.isConnected;
     setIsConnected(hasConnection);
     getFishOptions();
-    const {data, isNewRegister, isFishLogDraft, fishLogDraftId} = route.params;
+    const { data, isNewRegister, isFishLogDraft, fishLogDraftId } = route.params;
     setIsNew(isNewRegister);
     if (data != null) {
       setIsAdmin(data?.isAdmin);
@@ -534,7 +540,7 @@ export function NewFishLog({navigation, route}: any) {
   };
 
   const handleOpenMap = async () => {
-    const {log_id, name} = route.params;
+    const { log_id, name } = route.params;
     const result = requestLocationPermission();
 
     result.then(res => {
@@ -550,7 +556,7 @@ export function NewFishLog({navigation, route}: any) {
             console.log(error.code, error.message);
             // setLocation(false);
           },
-          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
         );
       }
     });
@@ -626,41 +632,49 @@ export function NewFishLog({navigation, route}: any) {
 
   return (
     <NewFishLogContainer source={require('../../assets/background_1-eupescador.png')}>
-      <TopBar 
-          iconLeft={'arrow-undo'}
-          sizeIconLeft={20}
-          buttonFunctionLeft={()=>{
-              currentRoute.goBack()
-          }}
-          title={''}
-          icon={''}
-          iconText={''}
-          buttonFunction={ () => {} }
-          textBack={true}
+      <TopBar
+        iconLeft={'arrow-undo'}
+        sizeIconLeft={20}
+        buttonFunctionLeft={() => {
+          currentRoute.goBack()
+        }}
+        title={''}
+        icon={''}
+        iconText={''}
+        buttonFunction={() => { }}
+        textBack={true}
       />
+
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <ScrollView nestedScrollEnabled={true}>
-          <ImageContainer>
-            {fishPhoto ? (
-              <FishLogImage
-                source={{uri: `data:image/png;base64,${fishPhoto}`}}
-              />
-            ) : (
-              <FishLogImage
-                source={require('../../assets/selectPicture.png')}
-              />
-            )}
-          </ImageContainer>
-          <ImageContainer onPress={pickImage}>
-            <TopIcon name="photo" />
-            <TextClick>Selecionar Foto</TextClick>
-          </ImageContainer>
-          <ImageContainer onPress={openCamera}>
-            <TopIcon name="camera" />
-            <TextClick>Tirar Foto</TextClick>
-          </ImageContainer>
+        <ScrollView style={{ width: '90%' }}>
+          <ElementsImagesFish>
+
+            <FishLogImageContainer >
+              {fishPhoto ? (
+                <FishLogImage
+                  source={{ uri: `data:image/png;base64,${fishPhoto}` }}
+                />
+              ) : (
+                <FishLogImage
+                  source={require('../../assets/select_background.png')}
+                />
+              )}
+            </FishLogImageContainer>
+
+            <ButtonPhotoFishContainer>
+              <ImageContainer onPress={pickImage}>
+                <TopIcon name="photo" />
+                <TextClick>Selecionar Foto</TextClick>
+              </ImageContainer>
+              <ImageContainer onPress={openCamera}>
+                <TopIcon name="camera" />
+                <TextClick>Tirar Foto</TextClick>
+              </ImageContainer>
+            </ButtonPhotoFishContainer>
+
+          </ElementsImagesFish>
 
           <InputContainer>
             {isSuperAdmin ? (
@@ -672,56 +686,7 @@ export function NewFishLog({navigation, route}: any) {
                 <TextClick>Visível no mapa?</TextClick>
               </ImageContainer>
             ) : null}
-            <InputView>
-              <Input
-                placeholder="Nome"
-                value={fishName}
-                onChangeText={setFishName}
-              />
-              <InputBox />
-            </InputView>
-            {fishName &&
-            fishes.filter(item => {
-              if (
-                item.commonName
-                  .toLowerCase()
-                  .includes(fishName.toLowerCase().trim()) &&
-                item.commonName.toLowerCase() != fishName.toLowerCase().trim()
-              ) {
-                if (fishGroup) {
-                  if (
-                    item.group.toLowerCase().includes(fishGroup.toLowerCase())
-                  ) {
-                    return item;
-                  }
-                } else if (fishLargeGroup) {
-                  if (
-                    item.largeGroup
-                      .toLowerCase()
-                      .includes(fishLargeGroup.toLowerCase())
-                  ) {
-                    return item;
-                  }
-                } else return item;
-              }
-            }).length ? (
-              <OptionsContainer>
-                <OptionList
-                  nestedScrollEnabled={true}
-                  showsVerticalScrollIndicator>
-                  {nameList()}
-                </OptionList>
-              </OptionsContainer>
-            ) : null}
 
-             <InputView>
-              <Input
-                placeholder="Espécie"
-                value={fishSpecies}
-                onChangeText={handleFishSpeciesInput}
-              />
-              <InputBox />
-            </InputView>
             <TouchableOpacity
               onPress={() => setDropLargeGroup(!dropLargeGroup)}
             >
@@ -736,6 +701,7 @@ export function NewFishLog({navigation, route}: any) {
                 <InputBox />
               </InputView>
             </TouchableOpacity>
+
             {dropLargeGroup && data.length ? (
               <OptionsContainer>
                 <OptionList
@@ -756,32 +722,34 @@ export function NewFishLog({navigation, route}: any) {
                 </OptionList>
               </OptionsContainer>
             ) : null}
+
             <TouchableOpacity onPress={() => setDropGroup(!dropGroup)}>
               <InputView>
                 <View style={{ marginLeft: 4, width: "95%" }}>
                   {fishGroup ? (
                     <RegularText text={fishGroup ? fishGroup : ""} />
                   ) : (
-                    <HalfToneText text="Grupo" />
+                    <HalfToneText text="Grupo"/>
                   )}
                 </View>
                 <InputBox />
               </InputView>
             </TouchableOpacity>
+
             {dropGroup &&
-            data.filter((item) => {
-              if (fishLargeGroup) {
-                if (
-                  item.groupName
-                    .toLowerCase()
-                    .includes(fishLargeGroup.toLowerCase().trim())
-                ) {
+              data.filter((item) => {
+                if (fishLargeGroup) {
+                  if (
+                    item.groupName
+                      .toLowerCase()
+                      .includes(fishLargeGroup.toLowerCase().trim())
+                  ) {
+                    return item;
+                  }
+                } else {
                   return item;
                 }
-              } else {
-                return item;
-              }
-            }).length ? (
+              }).length ? (
               <OptionsContainer>
                 <OptionList
                   nestedScrollEnabled={true}
@@ -792,11 +760,66 @@ export function NewFishLog({navigation, route}: any) {
               </OptionsContainer>
             ) : null}
 
+            <InputView>
+              <Input
+                placeholder="Nome Usual"
+                placeholderTextColor="#0095D9"
+                value={fishName}
+                onChangeText={setFishName}
+              />
+              <InputBox />
+            </InputView>
+
+            {fishName &&
+              fishes.filter(item => {
+                if (
+                  item.commonName
+                    .toLowerCase()
+                    .includes(fishName.toLowerCase().trim()) &&
+                  item.commonName.toLowerCase() != fishName.toLowerCase().trim()
+                ) {
+                  if (fishGroup) {
+                    if (
+                      item.group.toLowerCase().includes(fishGroup.toLowerCase())
+                    ) {
+                      return item;
+                    }
+                  } else if (fishLargeGroup) {
+                    if (
+                      item.largeGroup
+                        .toLowerCase()
+                        .includes(fishLargeGroup.toLowerCase())
+                    ) {
+                      return item;
+                    }
+                  } else return item;
+                }
+              }).length ? (
+              <OptionsContainer>
+                <OptionList
+                  nestedScrollEnabled={true}
+                  showsVerticalScrollIndicator>
+                  {nameList()}
+                </OptionList>
+              </OptionsContainer>
+            ) : null}
+
+            <InputView>
+              <Input
+                placeholder="Espécie"
+                placeholderTextColor="#0095D9"
+                value={fishSpecies}
+                onChangeText={handleFishSpeciesInput}
+              />
+              <InputBox />
+            </InputView>
+
             <BoxView>
               <RowView>
                 <HalfInputView>
                   <Input
-                    placeholder="Peso (kg)"
+                    placeholder="Peso (Kg)"
+                    placeholderTextColor="#0095D9"
                     value={fishWeight}
                     keyboardType="numeric"
                     onChangeText={setFishWeight}
@@ -804,10 +827,34 @@ export function NewFishLog({navigation, route}: any) {
                 </HalfInputView>
                 <HalfInputView>
                   <Input
-                    placeholder="Comprimento (cm)"
+                    placeholder="Tamanho (cm)"
+                    placeholderTextColor="#0095D9"
                     value={fishLength}
                     keyboardType="numeric"
                     onChangeText={setFishLength}
+                  />
+                </HalfInputView>
+              </RowView>
+            </BoxView>
+
+            <BoxView>
+              <RowView>
+                <HalfInputView>
+                  <Input
+                    placeholder="Data"
+                    placeholderTextColor="#0095D9"
+                    value={''}
+                    keyboardType="numeric"
+                    onChangeText={setCatchDate}
+                  />
+                </HalfInputView>
+                <HalfInputView>
+                  <Input
+                    placeholder="Hora"
+                    placeholderTextColor="#0095D9"
+                    value={''}
+                    keyboardType="default"
+                    onChangeText={setCatchHour}
                   />
                 </HalfInputView>
               </RowView>

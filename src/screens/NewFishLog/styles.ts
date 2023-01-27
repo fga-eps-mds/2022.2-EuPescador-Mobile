@@ -17,52 +17,95 @@ export const NewFishLogContainer = styled(ImageBackground)`
    justify-content: center;
    z-index: -3;
 `;
+
+export const ElementsImagesFish = styled.View`
+  flex: 1;
+  flex-direction: row;
+  `;
+
+export const ButtonPhotoFishContainer = styled.View`
+  flex: 1;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  margin-top: ${RFValue(30, 640)}px;
+  `
+
 export const ImageContainer = styled.TouchableOpacity`
   align-self: center;
   align-items: center;
   flex-direction: row;
-`;
+  justify-content: center;
+
+  background: #0095D9;
+  border-radius: 20px;
+  padding: 10px;
+
+  margin-top: 8px;
+  width: 174px;
+  height: 40px;
+  `;
+
+export const FishLogImageContainer = styled.TouchableOpacity`
+  align-self: center;
+  align-items: center;
+  flex-direction: row;
+
+  border-radius: ${RFValue(88, 640)}px;
+  height: ${RFValue(112, 640)}px;
+  width: ${RFValue(112, 640)}px;
+  
+  border: 3px;
+  border-style: dashed ;
+  border-color: #0095D9;
+
+  margin-top: ${RFValue(41, 640)}px;
+  margin-left: 30px;
+  `
 
 export const FishLogImage = styled.Image`
-  align-self: center;
-  margin-top: ${RFValue(41, 640)}px;
-  border-radius: ${RFValue(88, 640)}px;
-  height: ${RFValue(123, 640)}px;
-  width: ${RFValue(123, 640)}px;
+  height: 100%;
+  width: 100%;
 `;
 
+
 export const TopIcon = styled(MaterialIcons)`
-  font-size: ${RFValue(12, 640)}px;
-  color: ${({ theme }) => theme.colors.on_primary};
-  margin-top: ${RFValue(4, 640)}px;
+  font-size: ${RFValue(20, 640)}px;
+  color: white;
 `;
+
 export const TextClick = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: ${RFValue(12, 640)}px;
-  line-height: ${RFValue(18, 640)}px;
-  color: ${({ theme }) => theme.colors.on_primary};
+  font-size: ${RFValue(16, 640)}px;
+  font-weight: 700;
+  line-height: ${RFValue(16, 640)}px;
+  color: white;
   margin-top: ${RFValue(4, 640)}px;
-  text-align: center;
+  margin-left: 5px;
 `;
+
 export const InputContainer = styled.View`
   align-self: center;
   text-align: left;
   align-items: center;
   margin-top: ${RFValue(33, 640)}px;
 `;
+
 export const InputView = styled.View`
   align-self: center;
   align-items: center;
   height: ${RFValue(40, 640)}px;
   flex-direction: row;
-  border: ${RFValue(1, 640)}px;
+  border: ${RFValue(3, 640)}px #0095D9;
   border-radius: ${RFValue(5, 640)}px;
   margin-top: ${RFValue(10, 640)}px;
   width: ${RFValue(258, 640)}px;
 `;
+
 export const InputBox = styled.View`
   margin-bottom: ${RFValue(32, 640)}px;
 `;
+
 export const Input = styled.TextInput`
     height: ${RFValue(40, 640)}px;
     width: 95%;
@@ -71,15 +114,15 @@ export const Input = styled.TextInput`
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(12, 640)}px;
     margin-left: ${RFValue(4, 640)}px;
-`
+`;
 
 export const OptionList = styled.ScrollView`
     margin: ${RFValue(6, 640)}px ${RFValue(7, 640)}px;
-`
+`;
 
 export const OptionListItem = styled.TouchableOpacity`
     margin: ${RFValue(2, 640)}px ${RFValue(2, 640)}px;
-`
+`;
 
 export const OptionsContainer = styled.View`
     height: ${RFPercentage(30)}px;
@@ -87,7 +130,7 @@ export const OptionsContainer = styled.View`
     border-radius: 5px;
     background: ${({ theme }) => theme.colors.background};
     elevation: 8;
-`
+`;
 
 export const RowView = styled.View`
   justify-content: center;
@@ -96,6 +139,7 @@ export const RowView = styled.View`
   flex-direction: row;
   margin-top: ${RFValue(10, 640)}px;
 `;
+
 export const BoxView = styled.View`
   align-items: center;
   justify-content: center;
@@ -108,7 +152,7 @@ export const HalfInputView = styled.View`
   width: ${RFValue(123, 640)}px;
   flex-direction: row;
   margin-right: ${RFValue(10, 640)}px;
-  border: ${RFValue(1, 640)}px;
+  border: ${RFValue(2, 640)}px #0095D9;
   border-radius: ${RFValue(5, 640)}px;
 `;
 
@@ -119,19 +163,19 @@ export const AddLocaleButton = styled.TouchableOpacity`
   align-items: center;
   align-self: center;
   justify-content: center;
-`
+`;
 
 export const AddLocaleButtonIcon = styled(MaterialIcons)`
   font-size: ${RFValue(18, 640)}px;
   color: ${({ theme }) => theme.colors.on_background};
-`
+`;
 
 export const AddLocaleButtonLabel = styled.Text`
-  font-size: ${RFValue(12, 640)}px;
+  font-size: ${RFValue(14, 640)}px;
   font-family: ${({ theme }) => theme.fonts.bold};
+  text-decoration: underline;
   color: ${({ theme }) => theme.colors.on_background};
-`
-
+`;
 
 export const SendButtonView = styled.View`
   align-items: center;
@@ -157,6 +201,7 @@ export const SendButtonText = styled.Text`
 export const NewFishlogScroll = styled.ScrollView.attrs({
   contentContainerStyle: {
     flexGrow: 1,
-    alignItems: "center"
+    alignItems: "center",
+    width: '100%',
   }
 })`;`
