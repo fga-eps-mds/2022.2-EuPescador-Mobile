@@ -116,8 +116,7 @@ const AppRoutes = () => {
         name="NewFishLog"
         component={NewFishLog}
         options={({route}) => ({
-          title: route.params.name,
-          headerShown: true,
+          title: route.params.name
         })}
       />
 

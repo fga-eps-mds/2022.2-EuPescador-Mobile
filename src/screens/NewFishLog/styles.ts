@@ -1,11 +1,21 @@
 import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { ImageBackground } from 'react-native';
 
-export const NewFishLogContainer = styled.View`
+// export const HomeContainer = styled(ImageBackground)`
+//   flex: 1;
+//   align-items: center;
+//   justify-content: center;
+//   padding: ${RFValue(51, 640)}px;
+//   z-index: -3;
+// `;
+
+export const NewFishLogContainer = styled(ImageBackground)`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.background};
-  justify-content: center;
+  align-items: center;
+   justify-content: center;
+   z-index: -3;
 `;
 export const ImageContainer = styled.TouchableOpacity`
   align-self: center;

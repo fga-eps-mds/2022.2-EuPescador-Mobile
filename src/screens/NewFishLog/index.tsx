@@ -11,7 +11,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
 import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CommonActions} from '@react-navigation/native';
+import {CommonActions, useNavigation, useRoute} from '@react-navigation/native';
 import {GetWikiFishes} from '../../services/wikiServices/getWikiFishes';
 import {RegularText} from '../../components/RegularText';
 import {HalfToneText} from '../../components/HalfToneText';
@@ -19,6 +19,7 @@ import {ActivityIndicator, Switch} from 'react-native-paper';
 import {createFishLog} from '../../services/fishLogService/createFishLog';
 import {GetOneFishLog} from '../../services/fishLogService/getOneFishLog';
 import {UpdateFishLog} from '../../services/fishLogService/updateFishLog';
+import {TopBar} from '../../components/TopBar';
 // import { data } from "../../utils/dataFishes";
 import {
   NewFishLogContainer,
@@ -66,6 +67,8 @@ export interface IFish {
 }
 
 export function NewFishLog({navigation, route}: any) {
+  const currentRoute = useNavigation();
+
   const [isNew, setIsNew] = useState(false);
   const [isAdmin, setIsAdmin] = useState<Boolean>(false);
   const [isSuperAdmin, setIsSuperAdmin] = useState<Boolean>(false);
@@ -243,6 +246,15 @@ export function NewFishLog({navigation, route}: any) {
     }
 
     setFishPhoto(result.assets[0].base64);
+    // /*    if (pickerResult.height > 2200) {
+    //   Alert.alert("Ops!", "Imagem muito grande!", [
+    //     {
+    //       text: "Ok",
+    //     },
+    //   ]);
+    //   return;
+    // } */
+    // setFishPhoto(pickerResult.base64);
   }
 
   const handleEditFishLog = async () => {
@@ -643,7 +655,20 @@ export function NewFishLog({navigation, route}: any) {
   }, [route.params]);
 
   return (
-    <NewFishLogContainer>
+    <NewFishLogContainer
+      source={require('../../assets/background_1-eupescador.png')}>
+      <TopBar
+        iconLeft={'arrow-undo'}
+        sizeIconLeft={20}
+        buttonFunctionLeft={() => {
+          currentRoute.goBack();
+        }}
+        title={''}
+        icon={''}
+        iconText={''}
+        buttonFunction={() => {}}
+        textBack={true}
+      />
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
@@ -720,7 +745,7 @@ export function NewFishLog({navigation, route}: any) {
               </OptionsContainer>
             ) : null}
 
-            {/* <InputView>
+            <InputView>
               <Input
                 placeholder="Espécie"
                 value={fishSpecies}
@@ -729,12 +754,11 @@ export function NewFishLog({navigation, route}: any) {
               <InputBox />
             </InputView>
             <TouchableOpacity
-              onPress={() => setDropLargeGroup(!dropLargeGroup)}
-            >
+              onPress={() => setDropLargeGroup(!dropLargeGroup)}>
               <InputView>
-                <View style={{ marginLeft: 4, width: "95%" }}>
+                <View style={{marginLeft: 4, width: '95%'}}>
                   {fishLargeGroup ? (
-                    <RegularText text={fishLargeGroup ? fishLargeGroup : ""} />
+                    <RegularText text={fishLargeGroup ? fishLargeGroup : ''} />
                   ) : (
                     <HalfToneText text="Grande Grupo" />
                   )}
@@ -742,31 +766,29 @@ export function NewFishLog({navigation, route}: any) {
                 <InputBox />
               </InputView>
             </TouchableOpacity>
-            {dropLargeGroup && data.length ? (
+            {/* {dropLargeGroup && data.length ? (
               <OptionsContainer>
                 <OptionList
                   nestedScrollEnabled={true}
-                  showsVerticalScrollIndicator
-                >
+                  showsVerticalScrollIndicator>
                   {data?.map?.((item, index) => (
                     <OptionListItem
                       key={index}
                       onPress={() => {
                         setFishLargeGroup(item.groupName);
                         setDropLargeGroup(false);
-                      }}
-                    >
+                      }}>
                       <RegularText text={item.groupName} />
                     </OptionListItem>
                   ))}
                 </OptionList>
               </OptionsContainer>
-            ) : null}
+            ) : null} */}
             <TouchableOpacity onPress={() => setDropGroup(!dropGroup)}>
               <InputView>
-                <View style={{ marginLeft: 4, width: "95%" }}>
+                <View style={{marginLeft: 4, width: '95%'}}>
                   {fishGroup ? (
-                    <RegularText text={fishGroup ? fishGroup : ""} />
+                    <RegularText text={fishGroup ? fishGroup : ''} />
                   ) : (
                     <HalfToneText text="Grupo" />
                   )}
@@ -774,8 +796,9 @@ export function NewFishLog({navigation, route}: any) {
                 <InputBox />
               </InputView>
             </TouchableOpacity>
-            {dropGroup &&
-            data.filter((item) => {
+
+            {/* {dropGroup &&
+            data.filter(item => {
               if (fishLargeGroup) {
                 if (
                   item.groupName
@@ -791,9 +814,8 @@ export function NewFishLog({navigation, route}: any) {
               <OptionsContainer>
                 <OptionList
                   nestedScrollEnabled={true}
-                  showsVerticalScrollIndicator
-                >
-                  {groupList()}
+                  showsVerticalScrollIndicator>
+                   {groupList()} 
                 </OptionList>
               </OptionsContainer>
             ) : null} */}
