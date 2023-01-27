@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-// import * as ImagePicker from "expo-image-picker";
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
 import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -179,6 +179,21 @@ export function NewFishLog({navigation, route}: any) {
   async function openCamera() {
     await requestPermission();
 
+    const result = await launchCamera({
+      mediaType: 'photo',
+      includeBase64: true,
+    });
+
+    if (!result.assets) {
+      return;
+    }
+
+    if (!result.assets[0].height) {
+      return;
+    }
+
+    setFishPhoto(result.assets[0].base64);
+
     // const pickerResult = await ImagePicker.launchCameraAsync({
     //   base64: true,
     //   allowsEditing: true,
@@ -199,7 +214,7 @@ export function NewFishLog({navigation, route}: any) {
   }
 
   async function pickImage() {
-    await requestPermission();
+    // await requestPermission();
 
     // const pickerResult = await ImagePicker.launchImageLibraryAsync({
     //   allowsEditing: true,
@@ -213,15 +228,21 @@ export function NewFishLog({navigation, route}: any) {
     // if (pickerResult.cancelled === true) {
     //   return;
     // }
-    /*    if (pickerResult.height > 2200) {
-      Alert.alert("Ops!", "Imagem muito grande!", [
-        {
-          text: "Ok",
-        },
-      ]);
+
+    const result = await launchImageLibrary({
+      mediaType: 'photo',
+      includeBase64: true,
+    });
+
+    if (!result.assets) {
       return;
-    } */
-    // setFishPhoto(pickerResult.base64);
+    }
+
+    if (!result.assets[0].height) {
+      return;
+    }
+
+    setFishPhoto(result.assets[0].base64);
   }
 
   const handleEditFishLog = async () => {
@@ -614,7 +635,7 @@ export function NewFishLog({navigation, route}: any) {
   }
 
   useEffect(() => {
-    isOn ? console.log('on') : getOfflineFishOptions();
+    // isOn ? console.log('on') : getOfflineFishOptions();
   }, []);
 
   useEffect(() => {
