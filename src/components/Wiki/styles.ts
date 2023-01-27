@@ -1,11 +1,11 @@
 import styled from 'styled-components/native';
-import { Searchbar } from 'react-native-paper';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { DefaultButton } from '../Button';
+import {Searchbar} from 'react-native-paper';
+import {RFValue} from 'react-native-responsive-fontsize';
+import {DefaultButton} from '../Button';
 
 export const PageContainer = styled.View`
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({theme}) => theme.colors.background};
 `;
 
 export const SearchBarContainer = styled(Searchbar)`
@@ -26,7 +26,10 @@ export const PesquisaContainer = styled.View`
 
 export const MyButton = styled.TouchableOpacity`
   width: 20%;
-  background-color: ${({ theme, type }) => type === "primary" ? theme.colors.secondary_dark : theme.colors.on_background};
+  background-color: ${({theme, type}) =>
+    type === 'primary'
+      ? theme.colors.secondary_dark
+      : theme.colors.on_background};
   align-items: center;
   justify-content: center;
   border-radius: ${RFValue(8, 640)}px;
@@ -34,10 +37,9 @@ export const MyButton = styled.TouchableOpacity`
 
 export const ButtonText = styled.Text`
   color: white;
-  font-family: ${({ theme }) => theme.fonts.bold};
+  font-family: ${({theme}) => theme.fonts.bold};
   font-size: ${RFValue(12, 640)}px;
 `;
-
 
 export const PesquisarButton = styled.Button`
   width: ${RFValue(242, 640)}px;
@@ -56,9 +58,9 @@ export const RowContainer = styled.View`
   justify-content: space-around;
   align-items: center;
   margin-bottom: ${RFValue(16, 640)}px;
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({theme}) => theme.colors.background};
   color: black;
-`
+`;
 export const TitleContainer = styled.View`
   width: 100%;
   padding-left: ${RFValue(16, 640)}px;
@@ -74,12 +76,11 @@ export const TouchableTitle = styled.TouchableOpacity`
 export const TitleHighlight = styled.View`
   height: ${RFValue(1, 640)}px;
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: ${({theme}) => theme.colors.secondary};
 `;
 
-
-export const TitleText = styled.Text<{ wiki: boolean }>`
-  font-family: ${({ theme }) =>
+export const TitleText = styled.Text<{wiki: boolean}>`
+  font-family: ${({theme}) =>
     p =>
       p.wiki ? theme.fonts.regular : theme.fonts.bold};
   font-size: ${RFValue(12, 640)}px;
@@ -87,14 +88,14 @@ export const TitleText = styled.Text<{ wiki: boolean }>`
 `;
 
 export const NoResultContainer = styled.View`
-    align-self: center;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
+  align-self: center;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
 `;
 
 export const BoldText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.bold};
+  font-family: ${({theme}) => theme.fonts.bold};
   font-size: ${RFValue(16, 640)}px;
   text-align: center;
   margin-bottom: ${RFValue(16, 640)}px;
@@ -102,7 +103,7 @@ export const BoldText = styled.Text`
 `;
 
 export const RegularText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(12, 640)}px;
   text-align: center;
   margin-bottom: ${RFValue(16, 640)}px;
@@ -119,4 +120,3 @@ export const SearchImage = styled.Image`
 export const Spacer = styled.View`
   width: 16px;
 `;
-

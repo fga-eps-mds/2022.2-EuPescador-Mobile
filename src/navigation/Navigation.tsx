@@ -1,5 +1,5 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/HomeScreen';
 // import { EditUserPage } from "../screens/EditUserPage";
 import Login from '../screens/Login';
@@ -8,11 +8,11 @@ import Register from '../screens/Register';
 import { FishLog } from "../screens/ViewFishLog";
 import {theme} from '../global/styles/theme';
 import {WikiFishlogs} from '../screens/WikiFishlogs';
-// import { NewFishLog } from "../screens/NewFishLog";
+import { NewFishLog } from "../screens/NewFishLog";
 // import { NewNoNameFishLog } from "../screens/NewNoNameFishLog";
 // import { useAuth } from "../contexts/authContext";
 // import { MyMap } from "../screens/Maps";
-import { WikiFish } from "../screens/WikiFish";
+import {WikiFish} from '../screens/WikiFish';
 // import { Drafts } from "../screens/Drafts";
 // import { WikiFilter } from "../screens/WikiFilter";
 // import { LogFilter } from "../screens/RegisterFilter";
@@ -23,7 +23,6 @@ const AuthenticateStack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
 
 const AuthRoutes = () => {
-
   return (
     <AuthenticateStack.Navigator
       initialRouteName="WikiFishlogs"
@@ -49,7 +48,7 @@ const AuthRoutes = () => {
         name="FishLog"
         component={FishLog}
         options={{title: 'Registro', headerShown: true}}
-      />
+    />*
       <AuthenticateStack.Screen
         name="NewFishLog"
         component={NewFishLog}
@@ -58,6 +57,7 @@ const AuthRoutes = () => {
           headerShown: true,
         })}
       />
+
       <AuthenticateStack.Screen
         name="NewNoNameFishLog"
         component={NewNoNameFishLog}
@@ -78,7 +78,6 @@ const AuthRoutes = () => {
       //   options={{title: 'Rascunhos', headerShown: true}}
       // /> */}
     </AuthenticateStack.Navigator>
-      
   );
 };
 const AppRoutes = () => {
@@ -112,6 +111,15 @@ const AppRoutes = () => {
         component={WikiFish}
         options={{title: 'Informações', headerShown: true}}
       />
+
+      <Stack.Screen
+        name="NewFishLog"
+        component={NewFishLog}
+        options={({route}) => ({
+          title: route.params.name
+        })}
+      />
+
       {/* <Stack.Screen name="WikiFilter" component={WikiFilter} />
       <Stack.Screen name="LogFilter" component={LogFilter} />  */}
     </Stack.Navigator>

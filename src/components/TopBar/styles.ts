@@ -1,37 +1,64 @@
-import {RFValue} from 'react-native-responsive-fontsize';
+import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import IoniIcons from 'react-native-vector-icons/Ionicons'
 
 export const Box = styled.View`
-  height: ${RFValue(82)}px;
-  width: 100%;
-  background-color: ${({theme}) => theme.colors.primary_light};
+  display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px ${RFValue(16, 640)}px;
-  justify-content: flex-start;
-  padding-top: ${RFValue(30)}px;
+  justify-content: space-between;
+  margin-bottom: ${RFValue(16, 640)}px;
+  margin-top: ${RFValue(20, 640)}px;
+  width:100%;
 `;
 
-export const Spacer = styled.View`
-  flex: 1;
+
+export const ImageTopBarContainer = styled.View`
+`;
+
+export const InstructionButton = styled.TouchableOpacity`
+  align-items: center;
+  width:25%;
 `;
 
 export const IconContainer = styled.View`
-  flex-direction: row;
   align-items: center;
+  width:25%;
 `;
 
 export const HeaderIcon = styled(MaterialIcons)`
   font-size: ${RFValue(30)}px;
+  color: black;
 `;
 export const IconText = styled.Text`
   font-size: ${RFValue(12)}px;
-  font-family: ${({theme}) => theme.fonts.bold};
+  font-family: ${({ theme }) => theme.fonts.bold};
+  color: black;
 `;
 
 export const HeaderText = styled.Text`
   text-align: center;
   font-size: ${RFValue(18)}px;
-  font-family: ${({theme}) => theme.fonts.medium};
+  font-family: ${({ theme }) => theme.fonts.medium};
+`;
+
+
+export const InstructionButtonIcon = styled(IoniIcons)`
+  color: ${({ theme }) => theme.colors.on_background}; 
+`;
+
+export const ImageTopBar = styled.Image`
+  width: ${RFValue(140, 600)}px;
+  height: ${RFValue(75, 640)}px;
+  
+`;
+
+
+export const BackText = styled.Text`
+  color: black;
+  font-size: ${RFValue(16, 640)}px;
+  font-family: ${({theme}) => theme.fonts.regular};
+  font-weight: bold;
+  margin-bottom: 0px;
 `;

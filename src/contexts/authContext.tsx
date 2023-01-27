@@ -27,12 +27,10 @@ export const AuthProvider: React.FC<IAuthProvider> = ({children}) => {
   // const con = NetInfo.useNetInfo();
 
   async function getValues() {
-    const token =  storage.getString('@eupescador/token');
-    const _userId =  storage.getString('@eupescador/userId');
-    const userAdmin =  storage.getString('@eupescador/userAdmin');
-    const userSuperAdmin =  storage.getString(
-      '@eupescador/userSuperAdmin',
-    );
+    const token = storage.getString('@eupescador/token');
+    const _userId = storage.getString('@eupescador/userId');
+    const userAdmin = storage.getString('@eupescador/userAdmin');
+    const userSuperAdmin = storage.getString('@eupescador/userSuperAdmin');
 
     return {token, _userId, userAdmin, userSuperAdmin};
   }
@@ -47,18 +45,18 @@ export const AuthProvider: React.FC<IAuthProvider> = ({children}) => {
     }
   };
   useEffect(() => {
-    // handleAutenticate(); 
+    // handleAutenticate();
   }, []);
 
   async function signIn(email: string, password: string) {
     try {
       const result = await UserLogin(email, password);
 
-      storage.set("@eupescador/user", JSON.stringify(result.data))      
+      storage.set('@eupescador/user', JSON.stringify(result.data));
 
-      const hasAcessTheApp =  storage.getString('hasAcessTheApp');
+      const hasAcessTheApp = storage.getString('hasAcessTheApp');
       if (!!hasAcessTheApp == false) {
-          storage.set('hasAcessTheApp', 'false');
+        storage.set('hasAcessTheApp', 'false');
       }
 
       userService.defaults.headers.Authorization = `Bearer ${result.data.token}`;
@@ -76,18 +74,14 @@ export const AuthProvider: React.FC<IAuthProvider> = ({children}) => {
   async function signOut() {
     setAuthenticated(false);
     setUserId('');
-    storage.delete('@eupescador/token');
-    storage.delete('@eupescador/userId');
-    storage.delete('@eupescador/userAdmin');
-    storage.delete('@eupescador/userSuperAdmin');
-    storage.delete('drafts');
+    storage.delete('@eupescador/user');
     // userService.defaults.headers.Authorization = undefined;
   }
 
   useEffect(() => {
     async function getFishCache() {
       // let conection = await NetInfo.fetch();
-      const response =  storage.getString('@eupescador/newfish');
+      const response = storage.getString('@eupescador/newfish');
       if (response) {
         let fish = [];
         fish = JSON.parse(response);
@@ -106,7 +100,7 @@ export const AuthProvider: React.FC<IAuthProvider> = ({children}) => {
             fish[i].visible,
           );
         }
-         storage.delete('@eupescador/newfish');
+        storage.delete('@eupescador/newfish');
         // }
       }
     }
