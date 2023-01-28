@@ -228,13 +228,10 @@ export function NewFishLog({navigation, route}: any) {
     //   base64: true,
     // });
 
-    // if (pickerResult.cancelled === true) {
-    //   return;
-    // }
-
     const result = await launchImageLibrary({
       mediaType: 'photo',
       includeBase64: true,
+      quality: 0.2,
     });
 
     if (!result.assets) {
@@ -244,6 +241,8 @@ export function NewFishLog({navigation, route}: any) {
     if (!result.assets[0].height) {
       return;
     }
+
+    console.log(result.assets[0].base64?.length);
 
     setFishPhoto(result.assets[0].base64);
     // /*    if (pickerResult.height > 2200) {
@@ -330,7 +329,6 @@ export function NewFishLog({navigation, route}: any) {
           fishLength,
           fishLatitude,
           fishLongitude,
-          isVisible,
         );
         alertMessage = 'Registro criado com sucesso!';
         await deleteDraft();
