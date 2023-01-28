@@ -3,8 +3,6 @@ import {TouchableOpacity} from 'react-native';
 import {
   Box,
   HeaderIcon,
-  HeaderText,
-  IconContainer,
   IconText,
   InstructionButton,
   InstructionButtonIcon,
@@ -36,26 +34,34 @@ export function TopBar({
   textBack,
 }: Props) {
   return (
-    <Box>
-      <InstructionButton onPress={buttonFunctionLeft}>
-        <InstructionButtonIcon
-          name={iconLeft}
-          size={sizeIconLeft}
-          color="black"
-        />
-        {textBack ? <BackText>Voltar</BackText> : null}
-      </InstructionButton>
+    <>
+      <Box>
+        <InstructionButton onPress={buttonFunctionLeft}>
+          <InstructionButtonIcon
+            name={iconLeft}
+            size={sizeIconLeft}
+            color="black"
+          />
+          {textBack ? <BackText>Voltar</BackText> : null}
+        </InstructionButton>
 
-      <ImageTopBarContainer>
-        <ImageTopBar source={require('../../assets/logo_2-eupescador.png')} />
-      </ImageTopBarContainer>
+        <ImageTopBarContainer>
+          <ImageTopBar source={require('../../assets/logo_2-eupescador.png')} />
+        </ImageTopBarContainer>
 
-      <TouchableOpacity
-        style={{width: '25%', alignItems: 'center'}}
-        onPress={buttonFunction}>
-        <HeaderIcon name={icon} />
-        <IconText>{iconText}</IconText>
-      </TouchableOpacity>
-    </Box>
+        <TouchableOpacity
+          style={{
+            width: '25%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+            position: 'relative',
+          }}
+          onPress={buttonFunction}>
+          <HeaderIcon name={icon} />
+          <IconText>{iconText}</IconText>
+        </TouchableOpacity>
+      </Box>
+    </>
   );
 }

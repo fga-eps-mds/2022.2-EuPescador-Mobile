@@ -44,8 +44,12 @@ import {
   AddLocaleButtonLabel,
   AddLocaleButtonIcon,
   NewFishlogScroll,
+  ElementsImagesFish,
+  ButtonPhotoFishContainer,
+  FishLogImageContainer,
 } from './styles';
 import {storage} from '../../global/config/storage';
+import {Title} from '../../components/Title';
 
 export interface IFish {
   _id: string;
@@ -92,6 +96,9 @@ export function NewFishLog({navigation, route}: any) {
   const [fishFamily, setFishFamily] = useState<string | undefined>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [location, setLocation] = useState<GeoPosition>();
+  // Modify this
+  const [catchDate, setCatchDate] = useState<string | undefined>();
+  const [catchHour, setCatchHour] = useState<string | undefined>();
 
   const netInfo = useNetInfo();
   const isOn = useNetInfo().isConnected;
@@ -120,11 +127,9 @@ export function NewFishLog({navigation, route}: any) {
   };
 
   const getData = async () => {
-    const userAdmin = await storage.getString('@eupescador/userAdmin');
-    const userSuperAdmin = await storage.getString(
-      '@eupescador/userSuperAdmin',
-    );
-    const token = await storage.getString('@eupescador/token');
+    const userAdmin = storage.getString('@eupescador/userAdmin');
+    const userSuperAdmin = storage.getString('@eupescador/userSuperAdmin');
+    const token = storage.getString('@eupescador/token');
     if (token) {
       getFishLogProperties(token);
     }
@@ -196,38 +201,9 @@ export function NewFishLog({navigation, route}: any) {
     }
 
     setFishPhoto(result.assets[0].base64);
-
-    // const pickerResult = await ImagePicker.launchCameraAsync({
-    //   base64: true,
-    //   allowsEditing: true,
-    //   quality: 0.1,
-    // });
-    // if (pickerResult.cancelled === true) {
-    //   return;
-    // }
-    /*   if (pickerResult.height > 2200) {
-      Alert.alert("Ops!", "Imagem muito grande!", [
-        {
-          text: "Ok",
-        },
-      ]);
-      return;
-    } */
-    // setFishPhoto(pickerResult.base64);
   }
 
   async function pickImage() {
-    // await requestPermission();
-
-    // const pickerResult = await ImagePicker.launchImageLibraryAsync({
-    //   allowsEditing: true,
-    //   quality: 0.1,
-    //   width: 200,
-    //   height: 200,
-    //   aspect: [1, 1],
-    //   base64: true,
-    // });
-
     const result = await launchImageLibrary({
       mediaType: 'photo',
       includeBase64: true,
@@ -245,15 +221,6 @@ export function NewFishLog({navigation, route}: any) {
     console.log(result.assets[0].base64?.length);
 
     setFishPhoto(result.assets[0].base64);
-    // /*    if (pickerResult.height > 2200) {
-    //   Alert.alert("Ops!", "Imagem muito grande!", [
-    //     {
-    //       text: "Ok",
-    //     },
-    //   ]);
-    //   return;
-    // } */
-    // setFishPhoto(pickerResult.base64);
   }
 
   const handleEditFishLog = async () => {
@@ -304,11 +271,11 @@ export function NewFishLog({navigation, route}: any) {
 
   const deleteDraft = async () => {
     if (isDraft) {
-      const drafts = await storage.getString('drafts');
+      const drafts = storage.getString('drafts');
       if (drafts) {
         let draftList: [] = JSON.parse(drafts);
         if (draftId) draftList.splice(parseInt(draftId), 1);
-        await storage.set('drafts', JSON.stringify(draftList));
+        storage.set('drafts', JSON.stringify(draftList));
       }
     }
   };
@@ -319,7 +286,7 @@ export function NewFishLog({navigation, route}: any) {
     try {
       setIsLoading(true);
       if (connection.isConnected) {
-        await createFishLog(
+        const response = await createFishLog(
           fishPhoto,
           fishName,
           fishLargeGroup,
@@ -330,10 +297,11 @@ export function NewFishLog({navigation, route}: any) {
           fishLatitude,
           fishLongitude,
         );
+
         alertMessage = 'Registro criado com sucesso!';
         await deleteDraft();
       } else {
-        const userId = await storage.getString('@eupescador/userId');
+        const userId = storage.getString('@eupescador/userId');
         const coordenates = {
           latitude: parseFloat(fishLatitude!),
           longitude: parseFloat(fishLongitude!),
@@ -342,8 +310,8 @@ export function NewFishLog({navigation, route}: any) {
           userId,
           fishPhoto,
           name: fishName,
-          largeGroup: fishLargeGroup,
-          group: fishGroup,
+          largeGroup: 'peixe-boi',
+          group: 'peixe-vaca',
           species: fishSpecies,
           length: parseFloat(fishLength!),
           weight: parseFloat(fishWeight!),
@@ -667,29 +635,45 @@ export function NewFishLog({navigation, route}: any) {
         buttonFunction={() => {}}
         textBack={true}
       />
+
+      <Title text={'Novo Registro'}></Title>
+      <View
+        style={{
+          borderRadius: 50,
+          borderStyle: 'solid',
+          borderWidth: 2,
+          borderColor: '#0095D9',
+          width: 200,
+        }}></View>
+
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <ScrollView nestedScrollEnabled={true}>
-          <ImageContainer>
-            {fishPhoto ? (
-              <FishLogImage
-                source={{uri: `data:image/png;base64,${fishPhoto}`}}
-              />
-            ) : (
-              <FishLogImage
-                source={require('../../assets/selectPicture.png')}
-              />
-            )}
-          </ImageContainer>
-          <ImageContainer onPress={pickImage}>
-            <TopIcon name="photo" />
-            <TextClick>Selecionar Foto</TextClick>
-          </ImageContainer>
-          <ImageContainer onPress={openCamera}>
-            <TopIcon name="camera" />
-            <TextClick>Tirar Foto</TextClick>
-          </ImageContainer>
+        <ScrollView style={{width: '90%'}}>
+          <ElementsImagesFish>
+            <FishLogImageContainer>
+              {fishPhoto ? (
+                <FishLogImage
+                  source={{uri: `data:image/png;base64,${fishPhoto}`}}
+                />
+              ) : (
+                <FishLogImage
+                  source={require('../../assets/select_background.png')}
+                />
+              )}
+            </FishLogImageContainer>
+
+            <ButtonPhotoFishContainer>
+              <ImageContainer onPress={pickImage}>
+                <TopIcon name="photo" />
+                <TextClick>Selecionar Foto</TextClick>
+              </ImageContainer>
+              <ImageContainer onPress={openCamera}>
+                <TopIcon name="camera" />
+                <TextClick>Tirar Foto</TextClick>
+              </ImageContainer>
+            </ButtonPhotoFishContainer>
+          </ElementsImagesFish>
 
           <InputContainer>
             {isSuperAdmin ? (
@@ -701,14 +685,86 @@ export function NewFishLog({navigation, route}: any) {
                 <TextClick>Visível no mapa?</TextClick>
               </ImageContainer>
             ) : null}
+
+            <TouchableOpacity
+              onPress={() => setDropLargeGroup(!dropLargeGroup)}>
+              <InputView>
+                <View style={{marginLeft: 4, width: '95%'}}>
+                  {fishLargeGroup ? (
+                    <RegularText text={fishLargeGroup ? fishLargeGroup : ''} />
+                  ) : (
+                    <HalfToneText text="Grande Grupo" size={16} />
+                  )}
+                </View>
+                <InputBox />
+              </InputView>
+            </TouchableOpacity>
+
+            {dropLargeGroup && data.length ? (
+              <OptionsContainer>
+                <OptionList
+                  nestedScrollEnabled={true}
+                  showsVerticalScrollIndicator>
+                  {data?.map?.((item, index) => (
+                    <OptionListItem
+                      key={index}
+                      onPress={() => {
+                        setFishLargeGroup(item.groupName);
+                        setDropLargeGroup(false);
+                      }}>
+                      <RegularText text={item.groupName} />
+                    </OptionListItem>
+                  ))}
+                </OptionList>
+              </OptionsContainer>
+            ) : null}
+
+            <TouchableOpacity onPress={() => setDropGroup(!dropGroup)}>
+              <InputView>
+                <View style={{marginLeft: 4, width: '95%'}}>
+                  {fishGroup ? (
+                    <RegularText text={fishGroup ? fishGroup : ''} />
+                  ) : (
+                    <HalfToneText text="Grupo" size={16} />
+                  )}
+                </View>
+                <InputBox />
+              </InputView>
+            </TouchableOpacity>
+
+            {dropGroup &&
+            data.filter(item => {
+              if (fishLargeGroup) {
+                if (
+                  item.groupName
+                    .toLowerCase()
+                    .includes(fishLargeGroup.toLowerCase().trim())
+                ) {
+                  return item;
+                }
+              } else {
+                return item;
+              }
+            }).length ? (
+              <OptionsContainer>
+                <OptionList
+                  nestedScrollEnabled={true}
+                  showsVerticalScrollIndicator>
+                  {groupList()}
+                </OptionList>
+              </OptionsContainer>
+            ) : null}
+
             <InputView>
               <Input
-                placeholder="Nome"
+                placeholder="Nome Usual"
+                placeholderTextColor="#0095D9"
                 value={fishName}
                 onChangeText={setFishName}
               />
               <InputBox />
             </InputView>
+
             {fishName &&
             fishes.filter(item => {
               if (
@@ -746,83 +802,19 @@ export function NewFishLog({navigation, route}: any) {
             <InputView>
               <Input
                 placeholder="Espécie"
+                placeholderTextColor="#0095D9"
                 value={fishSpecies}
                 onChangeText={handleFishSpeciesInput}
               />
               <InputBox />
             </InputView>
-            <TouchableOpacity
-              onPress={() => setDropLargeGroup(!dropLargeGroup)}>
-              <InputView>
-                <View style={{marginLeft: 4, width: '95%'}}>
-                  {fishLargeGroup ? (
-                    <RegularText text={fishLargeGroup ? fishLargeGroup : ''} />
-                  ) : (
-                    <HalfToneText text="Grande Grupo" />
-                  )}
-                </View>
-                <InputBox />
-              </InputView>
-            </TouchableOpacity>
-            {/* {dropLargeGroup && data.length ? (
-              <OptionsContainer>
-                <OptionList
-                  nestedScrollEnabled={true}
-                  showsVerticalScrollIndicator>
-                  {data?.map?.((item, index) => (
-                    <OptionListItem
-                      key={index}
-                      onPress={() => {
-                        setFishLargeGroup(item.groupName);
-                        setDropLargeGroup(false);
-                      }}>
-                      <RegularText text={item.groupName} />
-                    </OptionListItem>
-                  ))}
-                </OptionList>
-              </OptionsContainer>
-            ) : null} */}
-            <TouchableOpacity onPress={() => setDropGroup(!dropGroup)}>
-              <InputView>
-                <View style={{marginLeft: 4, width: '95%'}}>
-                  {fishGroup ? (
-                    <RegularText text={fishGroup ? fishGroup : ''} />
-                  ) : (
-                    <HalfToneText text="Grupo" />
-                  )}
-                </View>
-                <InputBox />
-              </InputView>
-            </TouchableOpacity>
-
-            {/* {dropGroup &&
-            data.filter(item => {
-              if (fishLargeGroup) {
-                if (
-                  item.groupName
-                    .toLowerCase()
-                    .includes(fishLargeGroup.toLowerCase().trim())
-                ) {
-                  return item;
-                }
-              } else {
-                return item;
-              }
-            }).length ? (
-              <OptionsContainer>
-                <OptionList
-                  nestedScrollEnabled={true}
-                  showsVerticalScrollIndicator>
-                   {groupList()} 
-                </OptionList>
-              </OptionsContainer>
-            ) : null} */}
 
             <BoxView>
               <RowView>
                 <HalfInputView>
                   <Input
-                    placeholder="Peso (kg)"
+                    placeholder="Peso (Kg)"
+                    placeholderTextColor="#0095D9"
                     value={fishWeight}
                     keyboardType="numeric"
                     onChangeText={setFishWeight}
@@ -830,10 +822,34 @@ export function NewFishLog({navigation, route}: any) {
                 </HalfInputView>
                 <HalfInputView>
                   <Input
-                    placeholder="Comprimento (cm)"
+                    placeholder="Tamanho (cm)"
+                    placeholderTextColor="#0095D9"
                     value={fishLength}
                     keyboardType="numeric"
                     onChangeText={setFishLength}
+                  />
+                </HalfInputView>
+              </RowView>
+            </BoxView>
+
+            <BoxView>
+              <RowView>
+                <HalfInputView>
+                  <Input
+                    placeholder="Data"
+                    placeholderTextColor="#0095D9"
+                    value={''}
+                    keyboardType="numeric"
+                    onChangeText={setCatchDate}
+                  />
+                </HalfInputView>
+                <HalfInputView>
+                  <Input
+                    placeholder="Hora"
+                    placeholderTextColor="#0095D9"
+                    value={''}
+                    keyboardType="default"
+                    onChangeText={setCatchHour}
                   />
                 </HalfInputView>
               </RowView>

@@ -33,7 +33,7 @@ export const createFishLog = async (
     photo = photoString;
   }
 
-  await fishLogService.post(
+  return fishLogService.post(
     '/fishLog/',
     {
       name,
