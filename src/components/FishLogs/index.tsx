@@ -57,11 +57,11 @@ export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
   // const { StorageAccessFramework } = FileSystem;
 
   const loadFishesLogsOffline = async () => {
-    let allFishesLogs = await storage.getString('@eupescador/allFishesLogs');
+    let allFishesLogs = storage.getString('@eupescador/allFishesLogs');
     if (allFishesLogs) {
       let fishesLogs = JSON.parse(allFishesLogs);
 
-      const newFishesLogs = await storage.getString('@eupescador/newfish');
+      const newFishesLogs = storage.getString('@eupescador/newfish');
 
       if (newFishesLogs) {
         let fishesUnSave = [];
