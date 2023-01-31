@@ -10,7 +10,6 @@ import {
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
 import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CommonActions, useNavigation, useRoute} from '@react-navigation/native';
 import {GetWikiFishes} from '../../services/wikiServices/getWikiFishes';
 import {RegularText} from '../../components/RegularText';
@@ -531,46 +530,8 @@ export function NewFishLog({navigation, route}: any) {
 
   const handleOpenMap = async () => {
     const {log_id, name} = route.params;
-    const result = requestLocationPermission();
 
-    result.then(res => {
-      console.log('res is:', res);
-      if (res) {
-        Geolocation.getCurrentPosition(
-          position => {
-            console.log(position);
-            setLocation(position);
-          },
-          error => {
-            // See error code charts below.
-            console.log(error.code, error.message);
-            // setLocation(false);
-          },
-          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-        );
-      }
-    });
-
-    const connection = await NetInfo.fetch();
-    setIsConnected(!!connection.isConnected);
-    setIsLoading(true);
-
-    setIsLoading(false);
-
-    if (!fishLatitude && !fishLongitude) {
-      setFishLatitude(location?.coords.latitude.toString());
-      setFishLongitude(location?.coords.latitude.toString());
-    }
-
-    const latitude = fishLatitude
-      ? parseFloat(fishLatitude)
-      : location?.coords.latitude;
-
-    const longitude = fishLongitude
-      ? parseFloat(fishLongitude)
-      : location?.coords.longitude;
-
-    navigation.navigate('Maps', {
+    navigation.navigate('Map', {
       isNew,
       isAdmin,
       photoString: fishPhoto,
@@ -580,37 +541,13 @@ export function NewFishLog({navigation, route}: any) {
       species: fishSpecies,
       weight: fishWeight,
       length: fishLength,
-      latitude,
-      longitude,
       log_id,
       screenName: name,
     });
-  };
 
-  async function requestLocationPermission() {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Geolocation Permission',
-          message: 'Can we access your location?',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      console.log('granted', granted);
-      if (granted === 'granted') {
-        console.log('You can use Geolocation');
-        return true;
-      } else {
-        console.log('You cannot use Geolocation');
-        return false;
-      }
-    } catch (err) {
-      return false;
-    }
-  }
+    // const connection = await NetInfo.fetch();
+    // setIsConnected(!!connection.isConnected);
+  };
 
   useEffect(() => {
     // isOn ? console.log('on') : getOfflineFishOptions();
