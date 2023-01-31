@@ -83,7 +83,6 @@ export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
       const offlineRegisterArray = await storage.getString(
         '@eupescador/newfish',
       );
-      console.log(offlineRegisterArray, 'oi');
       let fishesInCache = [];
       if (offlineRegisterArray) {
         fishesInCache = JSON.parse(offlineRegisterArray);
@@ -235,7 +234,6 @@ export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
       const con = await NetInfo.fetch();
 
       if (con.isConnected) {
-        console.log('caiu conectado');
         getFishLogs().catch(error => {
           console.log(error);
         });

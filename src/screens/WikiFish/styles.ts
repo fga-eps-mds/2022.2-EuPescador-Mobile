@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { ImageBackground } from 'react-native';
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const FishContainer = styled(ImageBackground)`
   flex: 1;
@@ -44,4 +44,40 @@ export const ColumnContainer = styled.View`
 export const DescriptionContainer = styled.View`
   align-items: center;
   margin: ${RFValue(10, 640)}px ${RFValue(22, 640)}px;
+`;
+
+export const ButtonView = styled.View`
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: ${RFValue(7, 640)}px;
+`;
+
+export const AddButtonView = styled.View`
+  flex: 1;
+  position: absolute;
+  bottom: 3%;
+  right: 22%;
+
+  flex-direction: row;
+  align-items: flex-end;
+`;
+
+export const AddLogButton = styled.TouchableOpacity`
+  position: absolute;
+  align-items: center;
+`;
+export const AddLogView = styled.View`
+  flex-direction: row;
+  width: ${RFValue(56, 640)}px;
+  height: ${RFValue(56, 640)}px;
+  border-radius: ${RFValue(56, 640)}px;
+  background-color: ${({ theme }) => theme.colors.secondary_dark};
+  align-items: center;
+  justify-content: space-around;
+`;
+
+export const AddIcon = styled(MaterialIcons)`
+  font-size: ${RFValue(36, 640)}px;
+  color: white;
+  font-family: ${({ theme }) => theme.fonts.bold};
 `;

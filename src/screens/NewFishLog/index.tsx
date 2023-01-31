@@ -75,10 +75,10 @@ export function NewFishLog({navigation, route}: any) {
   const [canEdit, setCanEdit] = useState<Boolean>(false);
   const [fishes, setFishes] = useState<IFish[]>([]);
   const [fishPhoto, setFishPhoto] = useState<string | undefined | undefined>();
-  const [fishName, setFishName] = useState<string | undefined>();
-  const [fishLargeGroup, setFishLargeGroup] = useState<string | undefined>('');
-  const [fishGroup, setFishGroup] = useState<string | undefined>();
-  const [fishSpecies, setFishSpecies] = useState<string | undefined>();
+  const [fishName, setFishName] = useState<string | undefined>(route.params.fishInfos?.name || "");
+  const [fishLargeGroup, setFishLargeGroup] = useState<string | undefined>(route.params.fishInfos?.largeGroup || "");
+  const [fishGroup, setFishGroup] = useState<string | undefined>(route.params.fishInfos?.group || "");
+  const [fishSpecies, setFishSpecies] = useState<string | undefined>(route.params.fishInfos?.species || "");
   const [fishWeight, setFishWeight] = useState<string | undefined>();
   const [fishLength, setFishLength] = useState<string | undefined>();
   const [fishLatitude, setFishLatitude] = useState<string | undefined>();

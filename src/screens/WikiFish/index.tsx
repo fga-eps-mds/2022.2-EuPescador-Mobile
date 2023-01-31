@@ -9,6 +9,15 @@ import {
   ColumnContainer,
   DescriptionContainer,
   ScrollContainer,
+  RegisterButton,
+  ButtonView,
+  ExportButton,
+  DownloadIcon,
+  ExportButtonText,
+  AddButtonView,
+  AddLogButton,
+  AddLogView,
+  AddIcon
 } from './styles';
 import {GetOneWikiFish} from '../../services/wikiServices/getOneWikiFish';
 import {ProfileImage} from '../../components/ProfileImage';
@@ -50,7 +59,6 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
         data = JSON.parse(biblio);
       }
       const fish = data['allFishWiki'].find(item => item.id === fish_id);
-      console.log(fish);
       setIsLoading(true);
       setFishName(fish.commonName);
       setFishSpecies(fish.scientificName);
@@ -80,6 +88,10 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
   useEffect(() => {
     getFishProperties();
   }, [screenIsFocus]);
+
+  function setShowModalRegister(arg0: boolean) {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <FishContainer source={require('../../assets/background_1-eupescador.png')}>
@@ -168,6 +180,17 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
                 </PropertyContainer>
               </PropertyColumn>
             </ColumnContainer>
+
+            <AddButtonView>
+              <AddLogButton
+                onPress={() => {
+                  navigation.navigate('NewFishLog', {'fishInfos': {'name': fishName, 'group': fishGroup, 'largeGroup': fishLargeGroup, 'species': fishSpecies} })
+                }}>
+                <AddLogView>
+                  <AddIcon name="add" />
+                </AddLogView>
+              </AddLogButton>
+            </AddButtonView>
           </ScrollView>
         </ScrollContainer>
       )}
