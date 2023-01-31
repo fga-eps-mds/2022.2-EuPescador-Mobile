@@ -49,7 +49,7 @@ export const PesquisarButton = styled.Button`
 `;
 
 export const FishBodyContainer = styled.View`
-  margin: 0px 16px;
+  margin: 15px 16px;
 `;
 
 export const RowContainer = styled.View`
