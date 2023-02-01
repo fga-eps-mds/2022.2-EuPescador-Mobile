@@ -1,6 +1,6 @@
 import {fishLogService} from './fishService';
 
-async function GetAllFishLogs(token: string, query: string) {
+async function GetAllFishLogs(token: string, query?: string) {
   let route = '/fishLog/all?mobile=true';
   if (query) route += query;
 
@@ -9,7 +9,7 @@ async function GetAllFishLogs(token: string, query: string) {
     timeout: 60000,
     headers: {Authorization: userToken},
   });
-  console.log(JSON.stringify(res.data));
+  
   return res.data as any;
 }
 
