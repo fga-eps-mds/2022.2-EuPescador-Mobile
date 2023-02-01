@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, Alert, ActivityIndicator} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
-import * as FileSystem from 'expo-file-system';
-import * as MediaLibrary from 'expo-media-library';
+// import * as FileSystem from 'expo-file-system';
+// import * as MediaLibrary from 'expo-media-library';
 import NetInfo from '@react-native-community/netinfo';
 import {
   FishContainer,
@@ -51,24 +51,39 @@ export const FishLog = ({navigation, route}: any) => {
 
   const connection = NetInfo.useNetInfo();
 
-  const getData = async () => {
-    const userAdmin = storage.getString('@eupescador/userAdmin');
-    const userSuperAdmin = storage.getString('@eupescador/userSuperAdmin');
-    const token = await storage.getString('@eupescador/token');
-    if (token) {
-      getFishLogProperties(token);
-      setUserToken(token);
+  type userStorage = {
+    id: string;
+    name: string;
+    phone: string;
+    email: string;
+    password: string;
+    admin: boolean;
+    superAdmin: boolean;
+    token: string;
+  };
+
+  const getData = () => {
+    const user = storage.getString('@eupescador/user');
+    if (!user) return;
+
+    const userAdmin = JSON.parse(user) as userStorage;
+    console.log('user', userAdmin.token);
+    
+    if (userAdmin.token) {
+      getFishLogProperties(userAdmin.token);
+      setUserToken(userAdmin.token);
+      console.log('viewfishlog token', userAdmin.token);
     }
-    if (userAdmin === 'true') {
-      setIsAdmin(true);
-      setIsSuperAdmin(false);
-    } else if (userSuperAdmin === 'true') {
-      setIsAdmin(false);
-      setIsSuperAdmin(true);
-    } else {
-      setIsAdmin(false);
-      setIsSuperAdmin(false);
-    }
+    // if (userAdmin === 'true') {
+    //   setIsAdmin(true);
+    //   setIsSuperAdmin(false);
+    // } else if (userSuperAdmin === 'true') {
+    //   setIsAdmin(false);
+    //   setIsSuperAdmin(true);
+    // } else {
+    //   setIsAdmin(false);
+    //   setIsSuperAdmin(false);
+    // }
   };
 
   const handleDelete = async () => {
@@ -84,63 +99,63 @@ export const FishLog = ({navigation, route}: any) => {
     }
   };
 
-  const saveFile = async (txtFile: string) => {
-    setIsLoading(true);
-    try {
-      const res = await MediaLibrary.requestPermissionsAsync();
+  // const saveFile = async (txtFile: string) => {
+  //   setIsLoading(true);
+  //   try {
+  //     const res = await MediaLibrary.requestPermissionsAsync();
 
-      if (res.granted) {
-        let today = new Date();
-        let date =
-          today.getFullYear() +
-          '-' +
-          (today.getMonth() + 1) +
-          '-' +
-          today.getDate() +
-          '-' +
-          today.getHours() +
-          '-' +
-          today.getMinutes();
+  //     if (res.granted) {
+  //       let today = new Date();
+  //       let date =
+  //         today.getFullYear() +
+  //         '-' +
+  //         (today.getMonth() + 1) +
+  //         '-' +
+  //         today.getDate() +
+  //         '-' +
+  //         today.getHours() +
+  //         '-' +
+  //         today.getMinutes();
 
-        let fileUri = FileSystem.documentDirectory + `registros-${date}.txt`;
-        await FileSystem.writeAsStringAsync(fileUri, txtFile, {
-          encoding: FileSystem.EncodingType.UTF8,
-        });
-        const asset = await MediaLibrary.createAssetAsync(fileUri);
-        await MediaLibrary.createAlbumAsync('euPescador', asset, false);
+  //       let fileUri = FileSystem.documentDirectory + `registros-${date}.txt`;
+  //       await FileSystem.writeAsStringAsync(fileUri, txtFile, {
+  //         encoding: FileSystem.EncodingType.UTF8,
+  //       });
+  //       const asset = await MediaLibrary.createAssetAsync(fileUri);
+  //       await MediaLibrary.createAlbumAsync('euPescador', asset, false);
 
-        Alert.alert(
-          'Exportar Registro',
-          'Registro exportado com sucesso. Você pode encontrar o arquivo em /Pictures/euPescador',
-          [
-            {
-              text: 'Ok',
-            },
-          ],
-        );
-      }
-    } catch (error: any) {
-      console.log(error);
-      Alert.alert('Exportar Registro', 'Falha ao exportar registro', [
-        {
-          text: 'Ok',
-        },
-      ]);
-    }
-    setIsLoading(false);
-  };
+  //       Alert.alert(
+  //         'Exportar Registro',
+  //         'Registro exportado com sucesso. Você pode encontrar o arquivo em /Pictures/euPescador',
+  //         [
+  //           {
+  //             text: 'Ok',
+  //           },
+  //         ],
+  //       );
+  //     }
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     Alert.alert('Exportar Registro', 'Falha ao exportar registro', [
+  //       {
+  //         text: 'Ok',
+  //       },
+  //     ]);
+  //   }
+  //   setIsLoading(false);
+  // };
 
-  const handleExportFishlog = async () => {
-    setIsLoading(true);
-    try {
-      const file: any = await ExportFishLogs(userToken, [logId]);
-      saveFile(file);
-    } catch (error: any) {
-      console.log('Aqui: ');
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
+  // const handleExportFishlog = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const file: any = await ExportFishLogs(userToken, [logId]);
+  //     saveFile(file);
+  //   } catch (error: any) {
+  //     console.log('Aqui: ');
+  //     console.log(error);
+  //   }
+  //   setIsLoading(false);
+  // };
 
   const getFishLogProperties = async (token: string) => {
     setIsLoading(true);
@@ -345,7 +360,7 @@ export const FishLog = ({navigation, route}: any) => {
             </RegisterButtonView>
           ) : null}
         </ScrollView>
-      )}
+      )} 
     </FishContainer>
   );
 };

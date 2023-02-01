@@ -16,7 +16,8 @@ import {
   ChooseTab,
 } from './styles';
 import {storage} from '../../global/config/storage';
-import {MyMap} from '../Map';
+import {RegisterMap} from '../RegisterMap';
+import { LogsMap } from '../LogsMap';
 
 // import * as Location from 'expo-location';
 // import { storage } from '../../../App';
@@ -220,7 +221,7 @@ export const WikiFishlogs = ({navigation, route}: any) => {
             }
           />
         ) : mapTab ? (
-          <MyMap />
+          <LogsMap />
         ) : null}
       </PageContainer>
     </>

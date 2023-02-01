@@ -217,8 +217,6 @@ export function NewFishLog({navigation, route}: any) {
       return;
     }
 
-    console.log(result.assets[0].base64?.length);
-
     setFishPhoto(result.assets[0].base64);
   }
 
@@ -550,7 +548,7 @@ export function NewFishLog({navigation, route}: any) {
   };
 
   useEffect(() => {
-    // isOn ? console.log('on') : getOfflineFishOptions();
+    
   }, []);
 
   useEffect(() => {
