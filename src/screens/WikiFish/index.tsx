@@ -9,6 +9,15 @@ import {
   ColumnContainer,
   DescriptionContainer,
   ScrollContainer,
+  RegisterButton,
+  ButtonView,
+  ExportButton,
+  DownloadIcon,
+  ExportButtonText,
+  AddButtonView,
+  AddLogButton,
+  AddLogView,
+  AddIcon
 } from './styles';
 import {GetOneWikiFish} from '../../services/wikiServices/getOneWikiFish';
 import {ProfileImage} from '../../components/ProfileImage';
@@ -72,6 +81,7 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
       } else {
         return;
       }
+
       const fishLocalStorage = data['allFishWiki'].find(item => {
         if (item.id === fish_id) {
           return true;
@@ -80,6 +90,25 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
 
       if (!fishLocalStorage) {
         return;
+      const fish = data['allFishWiki'].find(item => item.id === fish_id);
+      setIsLoading(true);
+      setFishName(fish.commonName);
+      setFishSpecies(fish.scientificName);
+      setFishFuNFact(fish.funFact);
+      setFishLargeGroup(fish.largeGroup);
+      setFishGroup(fish.group);
+      setFishFamily(fish.family);
+      setFishFeed(fish.food);
+      setFishHabitat(fish.habitat);
+      setFishMaxSize(fish.maxSize);
+      setFishMaxWeight(fish.maxWeight);
+      setFishWasIntroduced(fish.wasIntroducedInfo);
+      setFishIsEndemic(fish.isEndemicInfo);
+      setFishIsThreatened(fish.isThreatenedInfo);
+      setFishHasSpawningSeason(fish.hasSpawningSeasonInfo);
+      if (fish.photo) {
+        setFishPhoto(fish.photo);
+
       }
 
       setFish(fishLocalStorage);
@@ -97,6 +126,10 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
   useEffect(() => {
     getFishProperties();
   }, [screenIsFocus]);
+
+  function setShowModalRegister(arg0: boolean) {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <FishContainer source={require('../../assets/background_1-eupescador.png')}>
@@ -188,6 +221,17 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
                 </PropertyContainer>
               </PropertyColumn>
             </ColumnContainer>
+
+            <AddButtonView>
+              <AddLogButton
+                onPress={() => {
+                  navigation.navigate('NewFishLog', {'fishInfos': {'name': fishName, 'group': fishGroup, 'largeGroup': fishLargeGroup, 'species': fishSpecies} })
+                }}>
+                <AddLogView>
+                  <AddIcon name="add" />
+                </AddLogView>
+              </AddLogButton>
+            </AddButtonView>
           </ScrollView>
         </ScrollContainer>
       )}
