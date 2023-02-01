@@ -33,6 +33,7 @@ export const MapInstructions = styled.View`
   position: absolute;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   top: ${RFValue(60, 640)}px;
+  left: ${RFValue(7, 640)}px;
   align-self: center;
   justify-content: center;
   background-color: ${({theme}) => theme.colors.background};
@@ -50,7 +51,10 @@ export const MapInstructionsText = styled.Text`
 export const LocationUsageInfoView = styled.View`
   flex: 1;
   position: absolute;
+  width: 100%;
+  height: 100%;
   bottom: ${RFValue(16, 640)}px;
+  left: ${RFValue(-40, 540)}px;
   padding: 8px;
   align-items: center;
   justify-content: flex-end;
