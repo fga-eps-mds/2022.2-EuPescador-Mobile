@@ -11,9 +11,9 @@ import {WikiFishlogs} from '../screens/WikiFishlogs';
 import {NewFishLog} from '../screens/NewFishLog';
 // import { NewNoNameFishLog } from "../screens/NewNoNameFishLog";
 // import { useAuth } from "../contexts/authContext";
-// import { MyMap } from "../screens/Maps";
 import {WikiFish} from '../screens/WikiFish';
-import {MyMap} from '../screens/Map';
+import {RegisterMap} from '../screens/RegisterMap';
+import {LogsMap} from '../screens/LogsMap';
 // import { Drafts } from "../screens/Drafts";
 // import { WikiFilter } from "../screens/WikiFilter";
 // import { LogFilter } from "../screens/RegisterFilter";
@@ -121,7 +121,9 @@ const AppRoutes = () => {
         })}
       />
 
-      <Stack.Screen name="Map" component={MyMap} />
+      <Stack.Screen name="Map" component={RegisterMap} />
+
+      <Stack.Screen name="FishLog" component={FishLog} />
 
       {/* <Stack.Screen name="WikiFilter" component={WikiFilter} />
       <Stack.Screen name="LogFilter" component={LogFilter} />  */}

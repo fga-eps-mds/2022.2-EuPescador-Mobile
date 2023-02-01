@@ -83,7 +83,7 @@ export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
       const offlineRegisterArray = await storage.getString(
         '@eupescador/newfish',
       );
-      console.log(offlineRegisterArray, 'oi');
+      // console.log(offlineRegisterArray, 'oi');
       let fishesInCache = [];
       if (offlineRegisterArray) {
         fishesInCache = JSON.parse(offlineRegisterArray);
@@ -235,7 +235,7 @@ export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
       const con = await NetInfo.fetch();
 
       if (con.isConnected) {
-        console.log('caiu conectado');
+        // console.log('caiu conectado');
         getFishLogs().catch(error => {
           console.log(error);
         });
@@ -324,6 +324,7 @@ export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
                       await NetInfo.fetch().then(status => {
                         if (status.isConnected) {
                           handleNavigationOnline(item.id);
+                          console.log("chamada item.id", item.id);
                         } else {
                           handleNavigationOffline(item);
                         }
