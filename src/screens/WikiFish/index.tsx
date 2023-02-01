@@ -90,25 +90,6 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
 
       if (!fishLocalStorage) {
         return;
-      const fish = data['allFishWiki'].find(item => item.id === fish_id);
-      setIsLoading(true);
-      setFishName(fish.commonName);
-      setFishSpecies(fish.scientificName);
-      setFishFuNFact(fish.funFact);
-      setFishLargeGroup(fish.largeGroup);
-      setFishGroup(fish.group);
-      setFishFamily(fish.family);
-      setFishFeed(fish.food);
-      setFishHabitat(fish.habitat);
-      setFishMaxSize(fish.maxSize);
-      setFishMaxWeight(fish.maxWeight);
-      setFishWasIntroduced(fish.wasIntroducedInfo);
-      setFishIsEndemic(fish.isEndemicInfo);
-      setFishIsThreatened(fish.isThreatenedInfo);
-      setFishHasSpawningSeason(fish.hasSpawningSeasonInfo);
-      if (fish.photo) {
-        setFishPhoto(fish.photo);
-
       }
 
       setFish(fishLocalStorage);
