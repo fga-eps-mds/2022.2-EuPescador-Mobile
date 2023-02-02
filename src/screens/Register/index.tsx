@@ -4,7 +4,6 @@ import {
   CityStateView,
   InputScroll,
   // ComunityInputIcon,
-  Container,
   ErrorMessage,
   HalfInputView,
   Input,
@@ -14,17 +13,23 @@ import {
   InputView,
   // MaterialInputIcon,
   RegisterButtonView,
-  TitleContainer,
-  TitleHighlight,
-  TitleText,
-  TouchableTitle,
+  RegisterContainer,
+  HomeLogoContainer,
+  HomeAppImage,
+  Localizator,
+  DivLocalizator,
+  FishReversed,
+  DivLogo,
+  BackText,
+  DivVoltar,
 } from './styles';
 import {CreateUser} from '../../services/userServices/createUser';
 import {DefaultButton} from '../../components/Button';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon3 from 'react-native-vector-icons/Ionicons';
 
 export default function Register({navigation}: any) {
-  const [admin, setAdmin] = useState(false);
-  const [superAdmin, setSuperAdmin] = useState(false);
   const [userName, setUserName] = useState<string | undefined>();
   const [userEmail, setUserEmail] = useState<string | undefined>();
   const [isEmailValid, setIsEmailValid] = useState(true);
@@ -40,8 +45,6 @@ export default function Register({navigation}: any) {
   const [userConfirmPassword, setUserConfirmPassword] = useState<
     string | undefined
   >();
-  const [adminToken, setAdminToken] = useState<string | undefined>();
-  const [superAdminToken, setSuperAdminToken] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
 
   const validateEmail = (email: string) => {
@@ -103,10 +106,6 @@ export default function Register({navigation}: any) {
             userState,
             userCity,
             userPassword,
-            admin,
-            adminToken,
-            superAdmin,
-            superAdminToken,
           );
           alertMessage = 'Conta criada com sucesso!';
           result = true;
@@ -132,6 +131,7 @@ export default function Register({navigation}: any) {
       },
     ]);
     setIsLoading(false);
+    console.log(alertMessage);
   };
 
   const handleEmailInput = (email: string) => {
@@ -150,41 +150,23 @@ export default function Register({navigation}: any) {
   };
 
   return (
-    <Container>
-      <TitleContainer>
-        <TouchableTitle
-          onPress={() => {
-            setAdmin(false);
-            setSuperAdmin(false);
-          }}>
-          <TitleText admin={!admin} superAdmin={!superAdmin}>
-            Usuário
-          </TitleText>
-          {!admin && !superAdmin ? <TitleHighlight /> : null}
-        </TouchableTitle>
-
-        <TouchableTitle
-          onPress={() => {
-            setAdmin(true);
-            setSuperAdmin(false);
-          }}>
-          <TitleText admin={admin} superAdmin={!superAdmin}>
-            Pesquisador
-          </TitleText>
-          {admin && !superAdmin ? <TitleHighlight /> : null}
-        </TouchableTitle>
-
-        <TouchableTitle
-          onPress={() => {
-            setAdmin(false);
-            setSuperAdmin(true);
-          }}>
-          <TitleText admin={!admin} superAdmin={superAdmin}>
-            Administrador
-          </TitleText>
-          {!admin && superAdmin ? <TitleHighlight /> : null}
-        </TouchableTitle>
-      </TitleContainer>
+    <RegisterContainer source={require('../../assets/background.png')}>
+      <DivLogo>
+        <DivVoltar onPress={() => navigation.navigate('Login')}>
+          <Icon3 name="arrow-undo" size={20} color="black" />
+          <BackText>Voltar</BackText>
+        </DivVoltar>
+        <HomeLogoContainer>
+          <HomeAppImage source={require('../../assets/logo.png')} />
+        </HomeLogoContainer>
+      </DivLogo>
+      <DivLocalizator>
+        <Icon2 name="fish" size={40} color="#0095d9" />
+        <Localizator>Cadastro de Usuário</Localizator>
+        <FishReversed>
+          <Icon2 name="fish" size={41} color="#0095d9" />
+        </FishReversed>
+      </DivLocalizator>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
@@ -192,7 +174,9 @@ export default function Register({navigation}: any) {
           <InputContainer>
             <InputView>
               {/* <MaterialInputIcon name="person-outline" /> */}
+              <Icon name="user" size={15} color="#0095d9" />
               <Input
+                placeholderTextColor={'#0095d9'}
                 placeholder="Nome"
                 value={userName}
                 onChangeText={setUserName}
@@ -200,8 +184,9 @@ export default function Register({navigation}: any) {
             </InputView>
             <InputBox />
             <InputView>
-              {/* <MaterialInputIcon name="mail-outline" /> */}
+              <Icon name="envelope" size={15} color="#0095d9" />
               <Input
+                placeholderTextColor={'#0095d9'}
                 placeholder="Email"
                 value={userEmail}
                 onChangeText={handleEmailInput}
@@ -214,6 +199,7 @@ export default function Register({navigation}: any) {
             )}
             <InputView>
               {/* <ComunityInputIcon name="phone-outline" /> */}
+              <Icon name="phone" size={15} color="#0095d9" />
               <InputMask
                 type="cel-phone"
                 options={{
@@ -223,6 +209,7 @@ export default function Register({navigation}: any) {
                 }}
                 value={userPhone}
                 onChangeText={handlePhone}
+                placeholderTextColor={'#0095d9'}
                 placeholder="Telefone"
               />
             </InputView>
@@ -233,17 +220,19 @@ export default function Register({navigation}: any) {
             )}
             <CityStateView>
               <HalfInputView>
-                {/* <ComunityInputIcon name="compass-outline" /> */}
+                <Icon name="map-marker" size={15} color="#0095d9" />
                 <Input
                   placeholder="Estado"
                   value={userState}
+                  placeholderTextColor={'#0095d9'}
                   onChangeText={setUserState}
                 />
               </HalfInputView>
               <HalfInputView>
-                {/* <ComunityInputIcon name="city" /> */}
+                <Icon name="map-marker" size={15} color="#0095d9" />
                 <Input
                   placeholder="Cidade"
+                  placeholderTextColor={'#0095d9'}
                   value={userCity}
                   onChangeText={setUserCity}
                 />
@@ -252,21 +241,23 @@ export default function Register({navigation}: any) {
 
             <InputBox />
             <InputView>
-              {/* <MaterialInputIcon name="lock-outline" /> */}
+              <Icon name="lock" size={15} color="#0095d9" />
               <Input
                 placeholder="Senha"
                 secureTextEntry
+                placeholderTextColor={'#0095d9'}
                 value={userPassword}
                 onChangeText={setUserPassword}
               />
             </InputView>
             <InputBox />
             <InputView>
-              {/* <MaterialInputIcon name="lock-outline" /> */}
+              <Icon name="lock" size={15} color="#0095d9" />
               <Input
                 placeholder="Confirmar Senha"
                 secureTextEntry
                 value={userConfirmPassword}
+                placeholderTextColor={'#0095d9'}
                 onChangeText={handlePassword}
               />
             </InputView>
@@ -275,38 +266,12 @@ export default function Register({navigation}: any) {
             ) : (
               <ErrorMessage>{isPasswordValidMessage}</ErrorMessage>
             )}
-            {admin ? (
-              <>
-                <InputView>
-                  {/* <ComunityInputIcon name="key-outline" /> */}
-                  <Input
-                    placeholder="Código de Pesquisador"
-                    value={adminToken}
-                    onChangeText={setAdminToken}
-                  />
-                </InputView>
-                <InputBox />
-              </>
-            ) : null}
-            {superAdmin ? (
-              <>
-                <InputView>
-                  {/* <ComunityInputIcon name="key-outline" /> */}
-                  <Input
-                    placeholder="Código de Administrador"
-                    value={superAdminToken}
-                    onChangeText={setSuperAdminToken}
-                  />
-                </InputView>
-                <InputBox />
-              </>
-            ) : null}
             <RegisterButtonView>
               <DefaultButton text="Cadastrar" buttonFunction={handleRegister} />
             </RegisterButtonView>
           </InputContainer>
         </InputScroll>
       )}
-    </Container>
+    </RegisterContainer>
   );
 }

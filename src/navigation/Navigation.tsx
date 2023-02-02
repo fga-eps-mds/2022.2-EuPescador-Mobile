@@ -1,17 +1,19 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/HomeScreen';
 // import { EditUserPage } from "../screens/EditUserPage";
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 // import { WikiFishlogs } from "../screens/WikiFishlogs";
-// import { FishLog } from "../screens/ViewFishLog";
+import {FishLog} from '../screens/ViewFishLog';
 import {theme} from '../global/styles/theme';
-// import { NewFishLog } from "../screens/NewFishLog";
+import {WikiFishlogs} from '../screens/WikiFishlogs';
+import {NewFishLog} from '../screens/NewFishLog';
 // import { NewNoNameFishLog } from "../screens/NewNoNameFishLog";
 // import { useAuth } from "../contexts/authContext";
-// import { MyMap } from "../screens/Maps";
-// import { WikiFish } from "../screens/WikiFish";
+import {WikiFish} from '../screens/WikiFish';
+import {RegisterMap} from '../screens/RegisterMap';
+import {LogsMap} from '../screens/LogsMap';
 // import { Drafts } from "../screens/Drafts";
 // import { WikiFilter } from "../screens/WikiFilter";
 // import { LogFilter } from "../screens/RegisterFilter";
@@ -35,8 +37,8 @@ const AuthRoutes = () => {
           fontFamily: theme.fonts.medium,
         },
       }}>
-      {/* <AuthenticateStack.Screen name="WikiFishlogs" component={WikiFishlogs} />
-      <AuthenticateStack.Screen
+      <AuthenticateStack.Screen name="WikiFishlogs" component={WikiFishlogs} />
+      {/*<AuthenticateStack.Screen
         name="EditUserPage"
         component={EditUserPage}
         options={{title: 'Editar Usuário', headerShown: true}}
@@ -47,7 +49,7 @@ const AuthRoutes = () => {
         name="FishLog"
         component={FishLog}
         options={{title: 'Registro', headerShown: true}}
-      />
+    />*
       <AuthenticateStack.Screen
         name="NewFishLog"
         component={NewFishLog}
@@ -56,6 +58,7 @@ const AuthRoutes = () => {
           headerShown: true,
         })}
       />
+
       <AuthenticateStack.Screen
         name="NewNoNameFishLog"
         component={NewNoNameFishLog}
@@ -63,18 +66,18 @@ const AuthRoutes = () => {
           title: route.params.name,
           headerShown: true,
         })}
-      />
-      <AuthenticateStack.Screen name="Maps" component={MyMap} />
+      /> */}
+      {/* <AuthenticateStack.Screen name="Maps" component={MyMap} /> */}
       <AuthenticateStack.Screen
         name="WikiFish"
         component={WikiFish}
-        options={{title: 'Informações', headerShown: true}}
+        options={{title: 'Informações', headerShown: false}}
       />
-      <AuthenticateStack.Screen
-        name="Drafts"
-        component={Drafts}
-        options={{title: 'Rascunhos', headerShown: true}}
-      /> */}
+      {/* // <AuthenticateStack.Screen
+      //   name="Drafts"
+      //   component={Drafts}
+      //   options={{title: 'Rascunhos', headerShown: true}}
+      // /> */}
     </AuthenticateStack.Navigator>
   );
 };
@@ -99,19 +102,31 @@ const AppRoutes = () => {
       <Stack.Screen
         name="Register"
         component={Register}
-        options={{title: 'Cadastro', headerShown: true}}
+        options={{title: 'Cadastro'}}
       />
 
-      {/*
-      <Stack.Screen name="RecoverPassword" component={RecoverPassword} />
       <Stack.Screen name="WikiFishlogs" component={WikiFishlogs} />
+      {/* <Stack.Screen name="RecoverPassword" component={RecoverPassword} /> */}
       <Stack.Screen
         name="WikiFish"
         component={WikiFish}
-        options={{title: 'Informações', headerShown: true}}
+        options={{title: 'Informações', headerShown: false}}
       />
-      <Stack.Screen name="WikiFilter" component={WikiFilter} />
-      <Stack.Screen name="LogFilter" component={LogFilter} /> */}
+
+      <Stack.Screen
+        name="NewFishLog"
+        component={NewFishLog}
+        options={({route}) => ({
+          title: route.params.name,
+        })}
+      />
+
+      <Stack.Screen name="Map" component={RegisterMap} />
+
+      <Stack.Screen name="FishLog" component={FishLog} />
+
+      {/* <Stack.Screen name="WikiFilter" component={WikiFilter} />
+      <Stack.Screen name="LogFilter" component={LogFilter} />  */}
     </Stack.Navigator>
   );
 };

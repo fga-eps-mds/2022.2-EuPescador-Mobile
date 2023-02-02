@@ -6,9 +6,9 @@ interface ButtonTypes {
 }
 
 export const Button = styled.TouchableOpacity<ButtonTypes>`
-  width: ${RFValue(156, 640)}px;
-  height: ${RFValue(40, 640)}px;
-  border-radius: ${RFValue(5, 640)}px;
+  width: ${RFValue(298, 640)}px;
+  height: ${RFValue(47, 640)}px;
+  border-radius: ${RFValue(20, 640)}px;
   background-color: ${({ theme, type }) => type === "primary" ? theme.colors.secondary_dark : theme.colors.on_background};
   align-items: center;
   justify-content: center;
@@ -19,5 +19,6 @@ export const Button = styled.TouchableOpacity<ButtonTypes>`
 export const ButtonText = styled.Text`
   color: white;
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: ${RFValue(12, 640)}px;
-`;
+  font-size: ${RFValue(16, 640)}px;
+  font-weight: bold;
+  `;

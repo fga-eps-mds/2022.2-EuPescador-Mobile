@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {CommonActions} from '@react-navigation/native';
 import {ActivityIndicator, Alert, TouchableOpacity} from 'react-native';
 import {
-  Container,
   ErrorMessage,
   Input,
   InputBox,
@@ -11,17 +9,15 @@ import {
   LoginButtonView,
   HomeLogoContainer,
   HomeAppImage,
-  HomeAppTitle,
-  HomeAppTitleBlue,
-  HomePhraseContainer,
-  HomeRegularText,
-  HomeLogLink,
   ForgotPasswordLogLink,
   ForgotPasswordContainer,
+  LoginContainer,
+  NotAccountText
 } from './styles';
-// import {useAuth} from '../../contexts/authContext';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useAuth} from '../../contexts/authContext';
 import {DefaultButton} from '../../components/Button';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({navigation}: any) {
   const [userEmailPhone, setUserEmailPhone] = useState<string | undefined>();
@@ -30,23 +26,28 @@ export default function Login({navigation}: any) {
     'Usuário não encontrado',
   );
   const [userPassword, setUserPassword] = useState<string | undefined>();
-  // const {signIn, authenticated} = useAuth();
+  const {signIn, authenticated} = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
   }, []);
 
   const handleLogin = async () => {
     setIsLoading(true);
+
     let alertMessage = '';
+
     if (userEmailPhone && userPassword) {
       setIsEmailPhoneValid(true);
-      // const res = await signIn(userEmailPhone, userPassword);
-      // if (res.status === 200) {
-      // } else if (res.response.status === 404) setIsEmailPhoneValid(false);
-      // else alertMessage = res.response.data.message;
-      const res = 0;
+
+      const res = await signIn(userEmailPhone, userPassword);
+
+      if (res.status === 200) { 
+        navigation.navigate("WikiFishlogs")
+      } else if (res.response.status === 404){ 
+        setIsEmailPhoneValid(false);
+      }else alertMessage = res.response.data.message;
     } else {
       alertMessage = 'Preencha todos os campos de dados para realizar o login!';
     }
@@ -61,20 +62,19 @@ export default function Login({navigation}: any) {
   };
 
   return (
-    <Container>
+    <LoginContainer source={require('../../assets/background.png')}>
       <HomeLogoContainer>
         <HomeAppImage source={require('../../assets/logo.png')} />
-        <HomeAppTitle>
-          Eu<HomeAppTitleBlue>Pescador</HomeAppTitleBlue>
-        </HomeAppTitle>
       </HomeLogoContainer>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <InputContainer>
           <InputView>
+            <Icon name="user" size={15} color="#0095d9" />
             <Input
               placeholder="E-mail / Telefone"
+              placeholderTextColor={'#0095d9'}
               value={userEmailPhone}
               onChangeText={setUserEmailPhone}
             />
@@ -86,8 +86,10 @@ export default function Login({navigation}: any) {
           )}
 
           <InputView>
+            <Icon name="lock" size={15} color="#0095d9" />
             <Input
               placeholder="Senha"
+              placeholderTextColor={'#0095d9'}
               secureTextEntry
               value={userPassword}
               onChangeText={setUserPassword}
@@ -102,14 +104,15 @@ export default function Login({navigation}: any) {
               <ForgotPasswordLogLink>Esqueci minha Senha</ForgotPasswordLogLink>
             </TouchableOpacity>
           </ForgotPasswordContainer>
-          <HomePhraseContainer>
-            <HomeRegularText>Não possui uma conta ainda?</HomeRegularText>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-              <HomeLogLink> Cadastre-se</HomeLogLink>
-            </TouchableOpacity>
-          </HomePhraseContainer>
+          <LoginButtonView>
+          <NotAccountText>Não possui uma conta?</NotAccountText>
+            <DefaultButton
+              text="Cadastrar"
+              buttonFunction={() => navigation.navigate('Register')}
+            />
+          </LoginButtonView>
         </InputContainer>
       )}
-    </Container>
+    </LoginContainer>
   );
 }

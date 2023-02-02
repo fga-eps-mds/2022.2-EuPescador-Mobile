@@ -5,9 +5,6 @@ on:
     tags:
       - "v*"
 
-  pull_request:
-    types: [opened, closed]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -49,6 +46,4 @@ jobs:
           name: Release ${{ github.ref_name }}
           body: ${{ steps.tag_version.outputs.changelog }}
           prerelease: true
-          artifacts: |
-            ${{ steps.report.outputs.report_file_name }}.json ,
-            expo-project.apk
+

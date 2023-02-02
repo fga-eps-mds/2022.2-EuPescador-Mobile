@@ -1,15 +1,16 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { MaterialIcons } from '@expo/vector-icons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const FishCardContainer = styled.View`
   align-items: flex-start;
-  width: ${RFValue(156, 640)}px;
-  height: ${RFValue(180, 640)}px;
-  elevation: 8;
+  width: ${RFValue(118, 540)}px;
+  height: ${RFValue(150, 640)}px;
   border-radius: ${RFValue(16, 640)}px;
   background-color: ${({ theme }) => theme.colors.background};
   margin-bottom: 14px;
+  margin-left: 1px;
+  margin-right: 8px;
 `;
 
 export const CheckBoxView = styled.View`
@@ -18,7 +19,7 @@ export const CheckBoxView = styled.View`
 `;
 
 export const FishImage = styled.Image`
-  width: ${RFValue(156, 640)}px;
+  width: ${RFValue(139.5, 640)}px;
   height: ${RFValue(125, 640)}px;
   border-top-left-radius: ${RFValue(16, 640)}px;
   border-top-right-radius: ${RFValue(16, 640)}px;
@@ -47,7 +48,7 @@ export const ScientificName = styled.Text`
 `;
 
 export const NoFishImage = styled.View`
-  width: ${RFValue(156, 640)}px;
+  width: ${RFValue(139.5, 640)}px;
   height: ${RFValue(125, 640)}px;
   border-top-left-radius: ${RFValue(16, 640)}px;
   justify-content: center;

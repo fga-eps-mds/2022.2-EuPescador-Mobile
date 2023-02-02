@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Alert } from "react-native";
-import * as FileSystem from "expo-file-system";
-import { CheckBox } from "react-native-elements";
-import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, Alert} from 'react-native';
+import * as FileSystem from 'expo-file-system';
+import {CheckBox} from 'react-native-elements';
+import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
 import {
   ButtonView,
   Container,
@@ -28,15 +28,16 @@ import {
   SearchImage,
   BoldText,
   RegularText,
-} from "./styles";
-import { GetAllFishLogs } from "../../services/fishLogService/getAllLogs";
-import { ExportFishLogs } from "../../services/fishLogService/exportFishLogs";
-import { FishLogCard, IFishLog } from "../FishLogCard";
-import { DraftButton } from "../DraftButton";
-import { FilterButton } from "../FilterButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NewFishLogModal } from "../NewFishLogModal";
-import { storage } from "../../../App";
+} from './styles';
+import {GetAllFishLogs} from '../../services/fishLogService/getAllLogs';
+import {ExportFishLogs} from '../../services/fishLogService/exportFishLogs';
+import {FishLogCard, IFishLog} from '../FishLogCard';
+import {DraftButton} from '../DraftButton';
+import {FilterButton} from '../FilterButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NewFishLogModal} from '../NewFishLogModal';
+import {storage} from '../../global/config/storage';
+import { couldStartTrivia } from 'typescript';
 
 interface Props {
   token: string;
@@ -45,12 +46,7 @@ interface Props {
   filterQuery: any;
 }
 
-export const FishLogs = ({
-  token,
-  navigation,
-  filterQuery,
-  isAdmin,
-}: Props) => {
+export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
   const [fishLog, setFishLog] = useState<IFishLog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [exportList, setExportList] = useState<string[]>([]);
@@ -59,14 +55,14 @@ export const FishLogs = ({
   const [hasDraft, setHasDraft] = useState(false);
   const [showModalRegister, setShowModalRegister] = useState(false);
 
-  const { StorageAccessFramework } = FileSystem;
+  // const { StorageAccessFramework } = FileSystem;
 
   const loadFishesLogsOffline = async () => {
-    let allFishesLogs = await storage.getString("@eupescador/allFishesLogs");
+    let allFishesLogs = storage.getString('@eupescador/allFishesLogs');
     if (allFishesLogs) {
       let fishesLogs = JSON.parse(allFishesLogs);
 
-      const newFishesLogs = await storage.getString("@eupescador/newfish");
+      const newFishesLogs = storage.getString('@eupescador/newfish');
 
       if (newFishesLogs) {
         let fishesUnSave = [];
@@ -86,9 +82,8 @@ export const FishLogs = ({
     try {
       let data = await GetAllFishLogs(token, filterQuery);
       const offlineRegisterArray = await storage.getString(
-        "@eupescador/newfish"
+        '@eupescador/newfish',
       );
-      console.log(offlineRegisterArray, 'oi')
       let fishesInCache = [];
       if (offlineRegisterArray) {
         fishesInCache = JSON.parse(offlineRegisterArray);
@@ -97,10 +92,7 @@ export const FishLogs = ({
           data.push(fishesInCache[i]);
         }
       }
-      await storage.set(
-        "@eupescador/allFishesLogs",
-        JSON.stringify(data)
-      );
+      await storage.set('@eupescador/allFishesLogs', JSON.stringify(data));
       setFishLog(data?.reverse());
     } catch (error: any) {
       console.log(error, 'erro');
@@ -110,34 +102,34 @@ export const FishLogs = ({
 
   const getDrafts = async () => {
     setIsLoading(true);
-    const drafts = await storage.getString("drafts");
-    if (drafts) setHasDraft(drafts != "[]");
+    const drafts = await storage.getString('drafts');
+    if (drafts) setHasDraft(drafts != '[]');
   };
 
   const handleNavigationOnline = (id: string) => {
     navigation.navigate(
-      "FishLog" as never,
+      'FishLog' as never,
       {
         log_id: id,
-      } as never
+      } as never,
     );
   };
 
   const handleNavigationOffline = (fish: IFishLog) => {
     navigation.navigate(
-      "FishLog" as never,
+      'FishLog' as never,
       {
         fish,
-      } as never
+      } as never,
     );
   };
 
   const selectAllFunction = (value: boolean) => {
     setIsCheck(value);
     if (value) {
-      fishLog.forEach((item) => {
+      fishLog.forEach(item => {
         if (!exportList.includes(item.id)) {
-          setExportList((arr) => [...arr, item.id]);
+          setExportList(arr => [...arr, item.id]);
         }
       });
     } else {
@@ -151,91 +143,91 @@ export const FishLogs = ({
 
   const handleAddLog = async () => {
     navigation.navigate(
-      "NewFishLog" as never,
+      'NewFishLog' as never,
       {
         isNewRegister: true,
-        name: "Novo Registro",
-      } as never
+        name: 'Novo Registro',
+      } as never,
     );
   };
 
-  const saveFile = async (csvFile: string) => {
-    setIsLoading(true);
-    try {
-      const res =
-        await StorageAccessFramework.requestDirectoryPermissionsAsync();
+  // const saveFile = async (csvFile: string) => {
+  //   setIsLoading(true);
+  //   try {
+  //     const res =
+  //       await StorageAccessFramework.requestDirectoryPermissionsAsync();
 
-      if (res.granted) {
-        let today = new Date();
-        let date =
-          today.getFullYear() +
-          "-" +
-          (today.getMonth() + 1) +
-          "-" +
-          today.getDate() +
-          "-" +
-          today.getHours() +
-          "-" +
-          today.getMinutes();
-        let filename = `registros-${date}.txt`;
-        let directoryUri = res.directoryUri;
-        await StorageAccessFramework.createFileAsync(
-          directoryUri,
-          filename,
-          "application/txt"
-        )
-          .then(async (fileUri) => {
-            await FileSystem.writeAsStringAsync(fileUri, csvFile, {
-              encoding: FileSystem.EncodingType.UTF8,
-            });
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+  //     if (res.granted) {
+  //       let today = new Date();
+  //       let date =
+  //         today.getFullYear() +
+  //         "-" +
+  //         (today.getMonth() + 1) +
+  //         "-" +
+  //         today.getDate() +
+  //         "-" +
+  //         today.getHours() +
+  //         "-" +
+  //         today.getMinutes();
+  //       let filename = `registros-${date}.txt`;
+  //       let directoryUri = res.directoryUri;
+  //       await StorageAccessFramework.createFileAsync(
+  //         directoryUri,
+  //         filename,
+  //         "application/txt"
+  //       )
+  //         .then(async (fileUri) => {
+  //           await FileSystem.writeAsStringAsync(fileUri, csvFile, {
+  //             encoding: FileSystem.EncodingType.UTF8,
+  //           });
+  //         })
+  //         .catch((e) => {
+  //           console.log(e);
+  //         });
 
-        handleExport();
-        Alert.alert(
-          "Exportar Registros",
-          "Registro(s) exportado(s) com sucesso!",
-          [
-            {
-              text: "Ok",
-            },
-          ]
-        );
-      }
-    } catch (error: any) {
-      console.log(error);
-      Alert.alert("Exportar Registros", "Falha ao exportar registro(s)!", [
-        {
-          text: "Ok",
-        },
-      ]);
-    }
-    setIsLoading(false);
-  };
+  //       handleExport();
+  //       Alert.alert(
+  //         "Exportar Registros",
+  //         "Registro(s) exportado(s) com sucesso!",
+  //         [
+  //           {
+  //             text: "Ok",
+  //           },
+  //         ]
+  //       );
+  //     }
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     Alert.alert("Exportar Registros", "Falha ao exportar registro(s)!", [
+  //       {
+  //         text: "Ok",
+  //       },
+  //     ]);
+  //   }
+  //   setIsLoading(false);
+  // };
 
-  const handleExportSelected = async () => {
-    try {
-      const file: any = await ExportFishLogs(token, exportList);
-      saveFile(file);
-      setExportList([]);
-    } catch (error: any) {
-      console.log(error);
-      Alert.alert("Exportar Registros", "Falha ao exportar registros", [
-        {
-          text: "Ok",
-        },
-      ]);
-    }
-  };
+  // const handleExportSelected = async () => {
+  //   try {
+  //     const file: any = await ExportFishLogs(token, exportList);
+  //     saveFile(file);
+  //     setExportList([]);
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     Alert.alert("Exportar Registros", "Falha ao exportar registros", [
+  //       {
+  //         text: "Ok",
+  //       },
+  //     ]);
+  //   }
+  // };
 
   const addExportList = (logId: string) => {
-    setExportList((arr) => [...arr, logId]);
+    setExportList(arr => [...arr, logId]);
   };
 
   const removeExportList = (logId: string) => {
-    setExportList(exportList.filter((item) => item !== logId));
+    setExportList(exportList.filter(item => item !== logId));
   };
 
   useEffect(() => {
@@ -243,8 +235,9 @@ export const FishLogs = ({
       const con = await NetInfo.fetch();
 
       if (con.isConnected) {
-        console.log('caiu conectado')
-        getFishLogs().catch((error)=>{console.log(error)})
+        getFishLogs().catch(error => {
+          console.log(error);
+        });
         getDrafts();
       } else {
         setIsLoading(false);
@@ -257,21 +250,12 @@ export const FishLogs = ({
 
   return (
     <>
-      <NewFishLogModal 
-        modalVisible={showModalRegister}
-        dismissModal={() => setShowModalRegister(false)}
-        navigation={navigation} />
       <Container>
         {isLoading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <>
             <OptionsView>
-              <FilterButton
-                url={filterQuery}
-                navigation={navigation}
-                screen="LogFilter"
-              />
               {isAdmin ? (
                 <ButtonView>
                   <ExportButton onPress={handleExport}>
@@ -288,14 +272,7 @@ export const FishLogs = ({
                     )}
                   </ExportButton>
                 </ButtonView>
-              ) : (
-                <ButtonView>
-                  <ExportButton onPress={() => {setShowModalRegister(true)}}>
-                    <DownloadIcon name="add" />
-                    <ExportButtonText>Criar Novo Registro</ExportButtonText>
-                  </ExportButton>
-                </ButtonView>
-              )}
+              ):null}
             </OptionsView>
             <ExportAllView>
               {isExportMode ? (
@@ -304,8 +281,8 @@ export const FishLogs = ({
                   <CheckBox
                     checked={isCheck}
                     onPress={() => selectAllFunction(!isCheck)}
-                    checkedColor={"#00BBD4"}
-                    uncheckedColor={"black"}
+                    checkedColor={'#00BBD4'}
+                    uncheckedColor={'black'}
                   />
                   <ExportAllText>Selecionar todos os registros</ExportAllText>
                 </>
@@ -316,16 +293,17 @@ export const FishLogs = ({
             {fishLog.length ? (
               <FishCardList
                 data={fishLog}
-                renderItem={({ item, index }) => (
+                renderItem={({item, index}) => (
                   <FishLogCard
                     key={index}
                     selectAll={isCheck}
                     fishLog={item}
                     isHidden={!isExportMode}
                     cardFunction={async () => {
-                      await NetInfo.fetch().then((status) => {
+                      await NetInfo.fetch().then(status => {
                         if (status.isConnected) {
                           handleNavigationOnline(item.id);
+                          console.log("chamada item.id", item.id);
                         } else {
                           handleNavigationOffline(item);
                         }
@@ -343,7 +321,7 @@ export const FishLogs = ({
               />
             ) : filterQuery ? (
               <NoResultContainer>
-                <SearchImage source={require("../../assets/search.png")} />
+                <SearchImage source={require('../../assets/search.png')} />
                 <BoldText>
                   Não encontramos nada com os filtros utilizados
                 </BoldText>
@@ -360,30 +338,40 @@ export const FishLogs = ({
                   disabled={!exportList.length}
                   onPress={() => {
                     Alert.alert(
-                      "Exportar Registros",
-                      "Você deseja exportar esses registros?",
+                      'Exportar Registros',
+                      'Você deseja exportar esses registros?',
                       [
                         {
-                          text: "Cancelar",
-                          style: "cancel",
+                          text: 'Cancelar',
+                          style: 'cancel',
                         },
                         {
-                          text: "Ok",
+                          text: 'Ok',
                           onPress: () => handleExportSelected(),
                         },
-                      ]
+                      ],
                     );
-                  }}
-                >
+                  }}>
                   <ExportSelectedButtonView>
-                    <ExportSelectedText>Exportar Selecionados</ExportSelectedText>
+                    <ExportSelectedText>
+                      Exportar Selecionados
+                    </ExportSelectedText>
                     <DownloadIconBottom name="file-download" />
                   </ExportSelectedButtonView>
                 </ExportSelectedButton>
               </ExportSelectedView>
             ) : (
               <AddButtonView>
-                <AddLogButton onPress={() => {setShowModalRegister(true)}}>
+                <AddLogButton
+                  onPress={() => {
+                    navigation.navigate(
+                      "NewFishLog" as never,
+                      {
+                        isNewRegister: true,
+                        name: "Novo Registro",
+                      } as never
+                    );
+                  }}>
                   <AddLogView>
                     <AddIcon name="add" />
                   </AddLogView>

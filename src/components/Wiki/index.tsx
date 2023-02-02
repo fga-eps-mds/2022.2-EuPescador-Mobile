@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
-import { FishWiki } from '../../interfaces/FishWiki';
-import { GetWikiFishes } from '../../services/wikiServices/getWikiFishes';
-import { FilterButton } from '../FilterButton';
+import React, {useState, useEffect, useReducer} from 'react';
+import {ActivityIndicator} from 'react-native';
+import {FishWiki} from '../../interfaces/FishWiki';
+import {GetWikiFishes} from '../../services/wikiServices/getWikiFishes';
+import {FilterButton} from '../FilterButton';
 import {
   SearchBarContainer,
   RowContainer,
@@ -11,28 +11,20 @@ import {
   RegularText,
   SearchImage,
   FishBodyContainer,
+  PesquisarButton,
+  PesquisaContainer,
+  // SearchButton,
+  MyButton,
+  ButtonText,
 } from './styles';
-import { WikiFishList } from '../WikiFishList';
+import {WikiFishList} from '../WikiFishList';
+import {storage} from '../../global/config/storage';
 
-
-export const Wiki = (
-  { navigation,
-    filterQuery,
-  }: any
-) => {
+export const Wiki = ({navigation, filterQuery}: any) => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [fishes, setFishes] = useState<FishWiki[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const updateFishes = async () => {
-    try {
-      const data = await GetWikiFishes(filterQuery);
-      setFishes(data);
-    } catch (error: any) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
+  const [ignored, setIgnored] = useState(0);
 
   const handleNavigation = (id: string) => {
     navigation.navigate(
@@ -43,54 +35,73 @@ export const Wiki = (
     );
   };
 
+  const updateFishes = async () => {
+    setIsLoading(true);
+    try {
+      const data = await GetWikiFishes();
+      setFishes(data);
+      storage.set('biblioteca', JSON.stringify(data));
+    } catch (error: any) {
+      const biblio = storage.getString('biblioteca');
+      if (biblio) {
+        setFishes(JSON.parse(biblio));
+      }
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    if (searchQuery === '') updateFishes();
+  }, [searchQuery]);
+
   useEffect(() => {
     updateFishes();
   }, []);
 
   return (
-    <FishBodyContainer>
+    <FishBodyContainer >
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <>
-
-          <RowContainer>
+          <PesquisaContainer>
             <SearchBarContainer
               placeholder="Pesquisar"
-              placeholderTextColor="rgba(32, 46, 53, 0.3)"
+              placeholderTextColor="rgba(0, 0, 0, 0.7)"
               onChangeText={setSearchQuery}
               value={searchQuery}
-              iconColor="#202E35"
+              iconColor="#202E00"
             />
-            <FilterButton
-              url={filterQuery}
-              navigation={navigation}
-              screen='WikiFilter'
-            />
-          </RowContainer>
-          {fishes && fishes.length > 0 && fishes.filter(fish => {
+
+            <MyButton onPress={updateFishes} type="primary">
+              <ButtonText>Buscar</ButtonText>
+            </MyButton>
+          </PesquisaContainer>
+          {fishes &&
+          fishes['allFishWiki'].length > 0 &&
+          fishes['allFishWiki'].filter(fish => {
             if (
               !searchQuery ||
-              fish.commonName!
-                .toLowerCase()
+              fish
+                .commonName!.toLowerCase()
                 .includes(searchQuery.toLowerCase().trim()) ||
-              fish.scientificName!
-                .toLowerCase()
+              fish
+                .scientificName!.toLowerCase()
                 .includes(searchQuery.toLowerCase().trim())
             ) {
               return fish;
             }
           }).length ? (
             <WikiFishList
-              fishData={
-                fishes.filter(item => {
+              fishData={fishes['allFishWiki'].filter(item => {
                 if (
                   !searchQuery ||
-                  item.commonName!
-                    .toLowerCase()
+                  item
+                    .commonName!.toLowerCase()
                     .includes(searchQuery.toLowerCase().trim()) ||
-                  item.scientificName!
-                    .toLowerCase()
+                  item
+                    .scientificName!.toLowerCase()
                     .includes(searchQuery.toLowerCase().trim())
                 ) {
                   return item;
@@ -106,38 +117,33 @@ export const Wiki = (
                 <>
                   <BoldText>Não encontramos nada com o termo digitado</BoldText>
                   <RegularText>
-                    Por favor, verifique sua pesquisa e tente novamente para obter
-                    resultados.
+                    Por favor, verifique sua pesquisa e tente novamente para
+                    obter resultados.
+                  </RegularText>
+                </>
+              ) : filterQuery ? (
+                <>
+                  <BoldText>
+                    Não encontramos nada com os filtros utilizados
+                  </BoldText>
+                  <RegularText>
+                    Por favor, verifique sua pesquisa e tente novamente para
+                    obter resultados.
                   </RegularText>
                 </>
               ) : (
-
-                filterQuery ? (
-
-                  <>
-                    <BoldText>Não encontramos nada com os filtros utilizados</BoldText>
-                    <RegularText>
-                      Por favor, verifique sua pesquisa e tente novamente para obter
-                      resultados.
-                    </RegularText>
-                  </>
-
-                ) : (
-                  <>
-                    <BoldText>Não encontramos nada na biblioteca</BoldText>
-                    <RegularText>
-                      Por favor, verifique sua conexão e tente novamente para obter
-                      resultados.
-                    </RegularText>
-                  </>
-                )
+                <>
+                  <BoldText>Não encontramos nada na biblioteca</BoldText>
+                  <RegularText>
+                    Por favor, verifique sua conexão e tente novamente para
+                    obter resultados.
+                  </RegularText>
+                </>
               )}
             </NoResultContainer>
-
           )}
         </>
-      )
-      }
-    </FishBodyContainer >
+      )}
+    </FishBodyContainer>
   );
 };

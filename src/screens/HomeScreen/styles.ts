@@ -1,21 +1,22 @@
 import styled from 'styled-components/native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {Theme} from 'styled-components';
+import { ImageBackground } from 'react-native';
 
-export const HomeContainer = styled.View`
+export const HomeContainer = styled(ImageBackground)`
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-color: ${({theme}: Theme) => theme.colors.background};
   padding: ${RFValue(51, 640)}px;
+  z-index: -3;
 `;
 export const HomeLogoContainer = styled.View`
   align-items: center;
   justify-content: center;
 `;
 export const HomeAppImage = styled.Image`
-  width: ${RFValue(130, 640)}px;
-  height: ${RFValue(106, 640)}px;
+  width: ${RFValue(281, 840)}px;
+  height: ${RFValue(151, 840)}px;
   margin-bottom: ${RFValue(16, 640)}px;
 `;
 export const HomeAppTitle = styled.Text`
@@ -30,26 +31,30 @@ export const HomeAppTitleBlue = styled(HomeAppTitle)`
 `;
 export const HomeWelcomeText = styled.Text`
   font-family: ${({theme}: Theme) => theme.fonts.bold};
-  font-size: ${RFValue(22, 640)}px;
+  font-size: ${RFValue(40, 840)}px;
+  font-weight: 800;
+  text-align: center;
   line-height: ${RFValue(36, 640)}px;
   color: ${({theme}: Theme) => theme.colors.on_background};
 
   margin: ${RFValue(54, 640)}px 0px;
 `;
 export const HomeWikiButton = styled.TouchableOpacity`
-  width: ${RFValue(204, 640)}px;
-  height: ${RFValue(50, 640)}px;
+  width: ${RFValue(258, 640)}px;
+  height: ${RFValue(53, 640)}px;
   background-color: ${({theme}: Theme) => theme.colors.secondary_dark};
-  border-radius: 5px;
+  border-radius: 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   elevation: 5;
   align-items: center;
   justify-content: center;
+  margin-bottom: ${RFValue(16, 640)}px;
 `;
 export const HomeWikiText = styled.Text`
   font-family: ${({theme}: Theme) => theme.fonts.bold};
-  line-height: ${RFValue(18, 640)}px;
-  font-size: ${RFValue(10.5, 640)}px;
+  line-height: ${RFValue(18, 540)}px;
+  font-size: ${RFValue(24, 840)}px;
+  font-weight: 800;
   color: ${({theme}: Theme) => theme.colors.background};
   margin: ${RFValue(16, 640)}px 0px;
 `;

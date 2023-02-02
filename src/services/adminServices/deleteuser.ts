@@ -1,7 +1,8 @@
 import { adminService } from "./adminService";
 const config = require('../../../config');
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { storage } from "../../../App";
+import { storage } from "../../global/config/storage";
+
 
 async function deleteUser(
   id: string,
