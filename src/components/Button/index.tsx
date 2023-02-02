@@ -16,7 +16,7 @@ export function DefaultButton({
   loading,
 }: Props) {
   return (
-    <Button onPress={buttonFunction} type={type}>
+    <Button onPress={buttonFunction} type={type} style={{width: 338}}>
       {loading ? (
         <ActivityIndicator size="small" color="#fff" />
       ) : (
