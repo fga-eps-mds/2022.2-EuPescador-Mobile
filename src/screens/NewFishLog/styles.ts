@@ -70,17 +70,17 @@ export const FishLogImage = styled.Image`
 `;
 
 export const TopIcon = styled(MaterialIcons)`
-  font-size: ${RFValue(20, 640)}px;
+  font-size: ${RFValue(17, 640)}px;
   color: white;
 `;
 
 export const TextClick = styled.Text`
   font-family: ${({theme}) => theme.fonts.bold};
-  font-size: ${RFValue(16, 640)}px;
-  font-weight: 700;
+  font-size: ${RFValue(14, 640)}px;
+  font-weight: 900; 
   line-height: ${RFValue(16, 640)}px;
   color: white;
-  margin-top: ${RFValue(4, 640)}px;
+  margin-top: ${RFValue(0, 640)}px;
   margin-left: 5px;
 `;
 
@@ -88,8 +88,9 @@ export const InputContainer = styled.View`
   align-self: center;
   text-align: left;
   align-items: center;
-  margin-top: ${RFValue(33, 640)}px;
+  padding:10px;
   width: 100%;
+  margin-top: ${RFValue(33, 640)}px;
 `;
 
 export const InputView = styled.View`
@@ -99,7 +100,7 @@ export const InputView = styled.View`
   border: ${RFValue(3, 640)}px #0095d9;
   border-radius: ${RFValue(15, 640)}px;
   margin-top: ${RFValue(10, 640)}px;
-  width: ${RFValue(300, 640)}px;
+  width: ${RFValue(270, 640)}px;
   height: ${RFValue(50, 640)}px;
   background: white;
   font-weight: 700;
@@ -153,7 +154,7 @@ export const BoxView = styled.View`
 
 export const HalfInputView = styled.View`
   align-items: center;
-  width: ${RFValue(140, 640)}px;
+  width: ${RFValue(130, 640)}px;
   height: ${RFValue(50, 640)}px;
   flex-direction: row;
   margin-right: ${RFValue(10, 640)}px;

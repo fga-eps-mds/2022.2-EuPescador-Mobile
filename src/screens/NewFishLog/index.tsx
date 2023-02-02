@@ -19,6 +19,10 @@ import {createFishLog} from '../../services/fishLogService/createFishLog';
 import {GetOneFishLog} from '../../services/fishLogService/getOneFishLog';
 import {UpdateFishLog} from '../../services/fishLogService/updateFishLog';
 import {TopBar} from '../../components/TopBar';
+import {DivLocalizator, FishReversed, Localizator} from '../Register/styles';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+
+
 // import { data } from "../../utils/dataFishes";
 import {
   NewFishLogContainer,
@@ -571,15 +575,13 @@ export function NewFishLog({navigation, route}: any) {
         textBack={true}
       />
 
-      <Title text={'Novo Registro'}></Title>
-      <View
-        style={{
-          borderRadius: 50,
-          borderStyle: 'solid',
-          borderWidth: 2,
-          borderColor: '#0095D9',
-          width: 200,
-        }}></View>
+      <DivLocalizator>
+        <Icon2 name="fish" size={40} color="#0095d9" />
+        <Localizator>Novo Registro</Localizator>
+        <FishReversed>
+          <Icon2 name="fish" size={41} color="#0095d9" />
+        </FishReversed>
+      </DivLocalizator>
 
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
