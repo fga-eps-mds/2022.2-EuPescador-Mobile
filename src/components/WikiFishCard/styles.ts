@@ -7,7 +7,6 @@ export const FishCardContainer = styled.TouchableOpacity`
   align-items: flex-start;
   width: ${RFValue(118, 540)}px;
   height: ${RFValue(150, 640)}px;
-  elevation: 8;
   border-radius: ${RFValue(16, 640)}px;
   background-color: ${({ theme }) => theme.colors.background};
   margin-bottom: 14px;
