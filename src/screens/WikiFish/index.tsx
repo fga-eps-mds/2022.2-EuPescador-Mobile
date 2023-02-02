@@ -9,11 +9,7 @@ import {
   ColumnContainer,
   DescriptionContainer,
   ScrollContainer,
-  RegisterButton,
   ButtonView,
-  ExportButton,
-  DownloadIcon,
-  ExportButtonText,
   AddButtonView,
   AddLogButton,
   AddLogView,
@@ -120,7 +116,8 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
         <ScrollContainer>
           <ScrollView
             style={{width: '100%', height: '100%'}}
-            contentContainerStyle={{width: '100%'}}>
+            contentContainerStyle={{width: '100%'}}
+            showsVerticalScrollIndicator={false}>
             {fish?.photo ? (
               <ProfileImage source={{uri: fish?.photo}} />
             ) : (
@@ -202,18 +199,17 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
                 </PropertyContainer>
               </PropertyColumn>
             </ColumnContainer>
-
-            <AddButtonView>
+          </ScrollView>
+          <AddButtonView>
               <AddLogButton
                 onPress={() => {
-                  navigation.navigate('NewFishLog', {'fishInfos': {'name': fishName, 'group': fishGroup, 'largeGroup': fishLargeGroup, 'species': fishSpecies} })
+                  navigation.navigate('NewFishLog', {'fishInfos': {'name': fish.commonName, 'group': fish.group, 'largeGroup': fish.largeGroup, 'species': fish.scientificName} })
                 }}>
                 <AddLogView>
                   <AddIcon name="add" />
                 </AddLogView>
               </AddLogButton>
             </AddButtonView>
-          </ScrollView>
         </ScrollContainer>
       )}
     </FishContainer>

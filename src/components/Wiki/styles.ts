@@ -61,8 +61,6 @@ export const RowContainer = styled.View`
   align-items: center;
   margin-bottom: ${RFValue(16, 640)}px;
   background-color: ${({theme}) => theme.colors.background};
-  padding: 0;
-  margin: 0;
   color: black;
 `;
 export const TitleContainer = styled.View`
