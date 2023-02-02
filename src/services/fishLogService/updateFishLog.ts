@@ -62,14 +62,10 @@ async function UpdateFishLog(
       photo,
       length: length ? parseFloat(length) : null,
       weight: weight ? parseFloat(weight) : null,
-      reviewed,
-      reviewedBy: Number(reviewedBy),
-      updatedBy: Number(userId),
-      visible,
     },
     {headers: {Authorization: userToken}},
   );
-  console.log("resposta do update", res.data)
+  
   return res.data;
 }
 
