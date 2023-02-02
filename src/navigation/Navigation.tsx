@@ -71,7 +71,7 @@ const AuthRoutes = () => {
       <AuthenticateStack.Screen
         name="WikiFish"
         component={WikiFish}
-        options={{title: 'Informações', headerShown: true}}
+        options={{title: 'Informações', headerShown: false}}
       />
       {/* // <AuthenticateStack.Screen
       //   name="Drafts"
@@ -110,7 +110,7 @@ const AppRoutes = () => {
       <Stack.Screen
         name="WikiFish"
         component={WikiFish}
-        options={{title: 'Informações', headerShown: true}}
+        options={{title: 'Informações', headerShown: false}}
       />
 
       <Stack.Screen
