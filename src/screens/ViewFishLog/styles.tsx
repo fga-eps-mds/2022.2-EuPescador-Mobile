@@ -1,10 +1,12 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import {ImageBackground} from 'react-native';
 
-export const FishContainer = styled.View`
+export const FishContainer = styled(ImageBackground)`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.background};
+  align-items: center;
   justify-content: center;
+  margin-left:-20px;
 `;
 
 export const FishProfile = styled.Image`
@@ -37,5 +39,5 @@ export const MapViewImage = styled.Image`
   align-self: center;
   width: ${RFValue(145, 640)}px;
   height: ${RFValue(145, 640)}px;
-  margin: ${RFValue(20, 640)}px 0;
+  margin: ${RFValue(20, 640)}px;
 `;
