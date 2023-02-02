@@ -203,7 +203,7 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
           <AddButtonView>
               <AddLogButton
                 onPress={() => {
-                  navigation.navigate('NewFishLog', {'fishInfos': {'name': fish.commonName, 'group': fish.group, 'largeGroup': fish.largeGroup, 'species': fish.scientificName} })
+                  navigation.navigate('NewFishLog' as never, {isNewRegister: true, 'fishInfos': {'name': fish.commonName, 'group': fish.group, 'largeGroup': fish.largeGroup, 'species': fish.scientificName} })
                 }}>
                 <AddLogView>
                   <AddIcon name="add" />
