@@ -69,7 +69,7 @@ async function UpdateFishLog(
     },
     {headers: {Authorization: userToken}},
   );
-  console.log("atualizou")
+  console.log("resposta do update", res.data)
   return res.data;
 }
 

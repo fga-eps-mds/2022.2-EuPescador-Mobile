@@ -261,6 +261,7 @@ export function NewFishLog({navigation, route}: any) {
       });
       navigation.dispatch(resetAction);
     } catch (error: any) {
+      console.log(error);
       if (error.response.status === 400) alertTitle = 'Sem informação';
       alertMessage = error.response.data.message;
     }
@@ -581,11 +582,25 @@ export function NewFishLog({navigation, route}: any) {
       />
 
       <DivLocalizator>
-        <Icon2 name="fish" size={40} color="#0095d9" />
-        <Localizator>Novo Registro</Localizator>
-        <FishReversed>
-          <Icon2 name="fish" size={41} color="#0095d9" />
-        </FishReversed>
+        {isNew ? (
+          <>
+          <Icon2 name="fish" size={40} color="#0095d9" />
+          <Localizator>Novo Registro</Localizator>
+          <FishReversed>
+            <Icon2 name="fish" size={41} color="#0095d9" />
+          </FishReversed>
+          </>
+        ) : (
+          <>
+          <Icon2 name="fish" size={40} color="#0095d9" />
+          <Localizator>Editar Registro</Localizator>
+          <FishReversed>
+            <Icon2 name="fish" size={41} color="#0095d9" />
+          </FishReversed>
+          </>
+        )
+        }
+        
       </DivLocalizator>
 
       {isLoading ? (
