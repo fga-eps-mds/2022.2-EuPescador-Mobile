@@ -11,7 +11,7 @@ interface Props {
 export function Property({ property, value }: Props) {
   return (
     <PropertyContainer>
-      <HalfToneText text={property} size={12}/>
+      <HalfToneText text={property} size={17}/>
       <RegularText text={value} />
     </PropertyContainer>
   );
