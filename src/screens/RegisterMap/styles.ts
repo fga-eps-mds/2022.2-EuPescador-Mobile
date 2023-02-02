@@ -2,7 +2,7 @@ import {Dimensions} from 'react-native';
 import MapView from 'react-native-maps';
 import {RFValue} from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
-import {DefaultButton} from '../../components/Button';
+import {MapButton} from '../../components/Button';
 
 export const MapContainer = styled.View`
   flex: 1;
@@ -82,8 +82,8 @@ export const LocationUsageInfoText = styled.Text`
 `;
 
 export const MapButtonsView = styled.View`
-  justify-content: space-between;
+  justify-content: space-around;
   flex-direction: row;
-  width: 100%;
+  width: 70%;
 `;
-export const ConfirmeMapLocationBUtton = styled(DefaultButton)``;
+export const ConfirmeMapLocationBUtton = styled(MapButton)``;

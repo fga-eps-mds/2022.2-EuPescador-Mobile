@@ -19,7 +19,7 @@ import MapView, {
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
 import MapEvent from 'react-native-maps';
-import {DefaultButton} from '../../components/Button';
+import {MapButton} from '../../components/Button';
 import {StyleSheet} from 'react-native';
 import {useLocation} from '../../contexts/locationContext';
 
@@ -82,14 +82,14 @@ export const RegisterMap = ({navigation, route}: any) => {
           </LocationUsageInfoText>
         </LocationUsageInfoContainer>
         <MapButtonsView>
-          <DefaultButton
+          <MapButton
             type="secondary"
             text="Cancelar"
             buttonFunction={() => {
               navigation.goBack();
             }}
           />
-          <DefaultButton
+          <MapButton
             text="Confirmar"
             buttonFunction={() => handleConfirm(mark.latitude, mark.longitude)}
           />

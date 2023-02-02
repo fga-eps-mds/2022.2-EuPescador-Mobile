@@ -249,22 +249,12 @@ export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
 
   return (
     <>
-      <NewFishLogModal
-        modalVisible={showModalRegister}
-        dismissModal={() => setShowModalRegister(false)}
-        navigation={navigation}
-      />
       <Container>
         {isLoading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <>
             <OptionsView>
-              <FilterButton
-                url={filterQuery}
-                navigation={navigation}
-                screen="LogFilter"
-              />
               {isAdmin ? (
                 <ButtonView>
                   <ExportButton onPress={handleExport}>
@@ -281,17 +271,7 @@ export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
                     )}
                   </ExportButton>
                 </ButtonView>
-              ) : (
-                <ButtonView>
-                  <ExportButton
-                    onPress={() => {
-                      setShowModalRegister(true);
-                    }}>
-                    <DownloadIcon name="add" />
-                    <ExportButtonText>Criar Novo Registro</ExportButtonText>
-                  </ExportButton>
-                </ButtonView>
-              )}
+              ):null}
             </OptionsView>
             <ExportAllView>
               {isExportMode ? (
@@ -383,7 +363,13 @@ export const FishLogs = ({token, navigation, filterQuery, isAdmin}: Props) => {
               <AddButtonView>
                 <AddLogButton
                   onPress={() => {
-                    setShowModalRegister(true);
+                    navigation.navigate(
+                      "NewFishLog" as never,
+                      {
+                        isNewRegister: true,
+                        name: "Novo Registro",
+                      } as never
+                    );
                   }}>
                   <AddLogView>
                     <AddIcon name="add" />
