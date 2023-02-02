@@ -37,6 +37,7 @@ import {FilterButton} from '../FilterButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NewFishLogModal} from '../NewFishLogModal';
 import {storage} from '../../global/config/storage';
+import { couldStartTrivia } from 'typescript';
 
 interface Props {
   token: string;
