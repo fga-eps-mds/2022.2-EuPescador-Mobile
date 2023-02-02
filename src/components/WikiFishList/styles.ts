@@ -7,9 +7,9 @@ export const FishCardList = styled(
     FlatList as new () => FlatList<IFishLog | IFish>,
 ).attrs({
     numColumns: 2,
-    columnWrapperStyle: { justifyContent: 'space-around' },
     contentContainerStyle: {
+        width:RFValue(150,300),
         alignItems: 'stretch',
-        paddingBottom: RFValue(156),
+        padding:0,
     },
 })``;

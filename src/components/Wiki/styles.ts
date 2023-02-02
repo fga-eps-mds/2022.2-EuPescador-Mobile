@@ -45,6 +45,8 @@ export const PesquisarButton = styled.Button`
   width: ${RFValue(242, 640)}px;
   border-radius: ${RFValue(8, 640)}px;
   color: gray;
+  margin-right: -10;
+  padding: 0;
   background-color: red;
 `;
 
@@ -59,6 +61,8 @@ export const RowContainer = styled.View`
   align-items: center;
   margin-bottom: ${RFValue(16, 640)}px;
   background-color: ${({theme}) => theme.colors.background};
+  padding: 0;
+  margin: 0;
   color: black;
 `;
 export const TitleContainer = styled.View`
