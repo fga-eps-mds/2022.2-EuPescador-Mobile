@@ -21,6 +21,7 @@ import {UpdateFishLog} from '../../services/fishLogService/updateFishLog';
 import {TopBar} from '../../components/TopBar';
 import {DivLocalizator, FishReversed, Localizator} from '../Register/styles';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+import { data } from "../../utils/dataFishes";
 
 
 // import { data } from "../../utils/dataFishes";
@@ -72,6 +73,17 @@ export interface IFish {
   funFact: string;
   photo: string;
 }
+
+type userStorage = {
+  id: string;
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+  admin: boolean;
+  superAdmin: boolean;
+  token: string;
+};
 
 export function NewFishLog({navigation, route}: any) {
   const currentRoute = useNavigation();
@@ -130,24 +142,14 @@ export function NewFishLog({navigation, route}: any) {
   };
 
   const getData = async () => {
-    const userAdmin = storage.getString('@eupescador/userAdmin');
-    const userSuperAdmin = storage.getString('@eupescador/userSuperAdmin');
-    const token = storage.getString('@eupescador/token');
+    const user = storage.getString("@eupescador/user");
+      if (!user) return;
+
+    const userAdmin = JSON.parse(user) as userStorage;
+  
+    const token = userAdmin.token;
     if (token) {
       getFishLogProperties(token);
-    }
-    if (userAdmin === 'true') {
-      setIsAdmin(true);
-      setIsSuperAdmin(false);
-      setCanEdit(true);
-    } else if (userSuperAdmin === 'true') {
-      setIsAdmin(false);
-      setIsSuperAdmin(true);
-      setCanEdit(true);
-    } else {
-      setIsAdmin(false);
-      setIsSuperAdmin(false);
-      setCanEdit(false);
     }
   };
 
@@ -228,6 +230,7 @@ export function NewFishLog({navigation, route}: any) {
     let alertMessage = '';
     let alertTitle = '';
     const {log_id} = route.params;
+    console.log('log_id', log_id);
     let reviewed = false;
     if (isAdmin || isSuperAdmin) {
       reviewed = true;
@@ -284,6 +287,7 @@ export function NewFishLog({navigation, route}: any) {
   const handleCreateFishLog = async () => {
     let alertMessage = '';
     const connection = await NetInfo.fetch();
+    console.log("entrou no handleCreateFishLog")
     try {
       setIsLoading(true);
       if (connection.isConnected) {
@@ -413,6 +417,7 @@ export function NewFishLog({navigation, route}: any) {
       }
     } else {
       handleButton = handleEditFishLog;
+      console.log("entrou no edit")
     }
 
     return (
@@ -501,33 +506,33 @@ export function NewFishLog({navigation, route}: any) {
 
   //Carregar Grupo (Dropdown)
   const groupList = () => {
-    // const filteredGroupFishes = data.filter(item => {
-    //   if (fishLargeGroup) {
-    //     if (
-    //       item.groupName
-    //         .toLowerCase()
-    //         .includes(fishLargeGroup.toLowerCase().trim())
-    //     ) {
-    //       return item;
-    //     }
-    //   } else {
-    //     return item;
-    //   }
-    // });
-    // let fishesGroup = filteredGroupFishes.map(item => item.subGroups);
-    // fishesGroup = [...new Set(fishesGroup)];
-    // return fishesGroup[0].map((item, index) => {
-    //   return (
-    //     <OptionListItem
-    //       key={index}
-    //       onPress={() => {
-    //         setFishGroup(item);
-    //         setDropGroup(false);
-    //       }}>
-    //       <RegularText text={item} />
-    //     </OptionListItem>
-    //   );
-    // });
+    const filteredGroupFishes = data.filter(item => {
+      if (fishLargeGroup) {
+        if (
+          item.groupName
+            .toLowerCase()
+            .includes(fishLargeGroup.toLowerCase().trim())
+        ) {
+          return item;
+        }
+      } else {
+        return item;
+      }
+    });
+    let fishesGroup = filteredGroupFishes.map(item => item.subGroups);
+    fishesGroup = [...new Set(fishesGroup)];
+    return fishesGroup[0].map((item, index) => {
+      return (
+        <OptionListItem
+          key={index}
+          onPress={() => {
+            setFishGroup(item);
+            setDropGroup(false);
+          }}>
+          <RegularText text={item} />
+        </OptionListItem>
+      );
+    });
   };
 
   const handleOpenMap = async () => {
