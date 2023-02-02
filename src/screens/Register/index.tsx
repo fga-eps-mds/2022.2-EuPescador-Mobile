@@ -28,8 +28,11 @@ import {DefaultButton} from '../../components/Button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/Ionicons';
+import { TopBar } from '../../components/TopBar';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Register({navigation}: any) {
+  const currentRoute = useNavigation();
   const [userName, setUserName] = useState<string | undefined>();
   const [userEmail, setUserEmail] = useState<string | undefined>();
   const [isEmailValid, setIsEmailValid] = useState(true);
@@ -151,15 +154,18 @@ export default function Register({navigation}: any) {
 
   return (
     <RegisterContainer source={require('../../assets/background.png')}>
-      <DivLogo>
-        <DivVoltar onPress={() => navigation.navigate('Login')}>
-          <Icon3 name="arrow-undo" size={20} color="black" />
-          <BackText>Voltar</BackText>
-        </DivVoltar>
-        <HomeLogoContainer>
-          <HomeAppImage source={require('../../assets/logo.png')} />
-        </HomeLogoContainer>
-      </DivLogo>
+      <TopBar
+                iconLeft={'arrow-undo'}
+                sizeIconLeft={30}
+                buttonFunctionLeft={() => {
+                  currentRoute.goBack();
+                }}
+                title={''}
+                icon={''}
+                iconText={''}
+                buttonFunction={() => {}}
+                textBack={true}
+              />
       <DivLocalizator>
         <Icon2 name="fish" size={40} color="#0095d9" />
         <Localizator>Cadastro de Usuário</Localizator>

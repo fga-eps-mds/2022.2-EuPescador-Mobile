@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, Alert, ActivityIndicator} from 'react-native';
-import {CommonActions} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
 import {
   FishContainer,
@@ -24,8 +24,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NoFishImagePhoto} from '../../components/NoFishImagePhoto';
 import MapView, {Marker} from 'react-native-maps';
 import {storage} from '../../global/config/storage';
+import { TopBar } from '../../components/TopBar';
 
 export const FishLog = ({navigation, route}: any) => {
+  const currentRoute = useNavigation();
   const [fishName, setFishName] = useState();
   const [fishPhoto, setFishPhoto] = useState<string>();
   const [fishLargeGroup, setFishLargeGroup] = useState();
@@ -131,12 +133,26 @@ export const FishLog = ({navigation, route}: any) => {
     <FishContainer source={require('../../assets/background.png')}>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <ScrollView showsVerticalScrollIndicator={false}
+        ) : (
+          <>
+          <ScrollView showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             alignItems: 'center',
             justifyContent: 'center', 
+            paddingLeft:30
           }}>
+            <TopBar
+                iconLeft={'arrow-undo'}
+                sizeIconLeft={30}
+                buttonFunctionLeft={() => {
+                  currentRoute.goBack();
+                }}
+                title={''}
+                icon={''}
+                iconText={''}
+                buttonFunction={() => {}}
+                textBack={true}
+              />
           {fishPhoto ? (
             <ProfileImage source={{uri: fishPhoto}} />
           ) : (
@@ -292,6 +308,7 @@ export const FishLog = ({navigation, route}: any) => {
             </RegisterButtonView>
           ) : null}
         </ScrollView>
+        </>
       )} 
     </FishContainer>
   );
