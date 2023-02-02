@@ -16,17 +16,17 @@ export const FishDescription = styled.View`
 
 export const ScrollContainer = styled.View`
   flex: 1;
-  width: 100%;
+  width: 120%;
 `;
 
 export const PropertyContainer = styled.View`
   margin-bottom: ${RFValue(8, 640)}px;
   padding: 0px ${RFValue(36, 640)}px;
-  width: 100%;
+  width: 50%;
 `;
 
 export const PropertyColumn = styled.View`
-  width: 70%;
+  width: 50%;
   padding: 15px 0px;
 `;
 

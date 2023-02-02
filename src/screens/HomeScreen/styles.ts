@@ -32,6 +32,8 @@ export const HomeAppTitleBlue = styled(HomeAppTitle)`
 export const HomeWelcomeText = styled.Text`
   font-family: ${({theme}: Theme) => theme.fonts.bold};
   font-size: ${RFValue(40, 840)}px;
+  font-weight: 800;
+  text-align: center;
   line-height: ${RFValue(36, 640)}px;
   color: ${({theme}: Theme) => theme.colors.on_background};
 
@@ -52,6 +54,7 @@ export const HomeWikiText = styled.Text`
   font-family: ${({theme}: Theme) => theme.fonts.bold};
   line-height: ${RFValue(18, 540)}px;
   font-size: ${RFValue(24, 840)}px;
+  font-weight: 800;
   color: ${({theme}: Theme) => theme.colors.background};
   margin: ${RFValue(16, 640)}px 0px;
 `;

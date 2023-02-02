@@ -13,10 +13,15 @@ export const createFishLog = async (
   length: string | undefined,
   latitude: string | undefined,
   longitude: string | undefined,
-  visible: boolean,
 ) => {
-  const userId = await storage.getString('@eupescador/userId');
-  const token = await storage.getString('@eupescador/token');
+  const userStorage = storage.getString('@eupescador/user');
+
+  const user: {token: string} = userStorage ? JSON.parse(userStorage) : null;
+
+  if (!user) {
+    return;
+  }
+
   let photo = null;
 
   const coordenates = {
@@ -28,10 +33,9 @@ export const createFishLog = async (
     photo = photoString;
   }
 
-  await fishLogService.post(
+  return fishLogService.post(
     '/fishLog/',
     {
-      userId,
       name,
       largeGroup,
       group,
@@ -40,9 +44,7 @@ export const createFishLog = async (
       photo,
       length: length ? parseFloat(length) : null,
       weight: weight ? parseFloat(weight) : null,
-      createdBy: Number(userId),
-      visible,
     },
-    {headers: {Authorization: `Bearer ${token}`}},
+    {headers: {Authorization: `Bearer ${user?.token}`}},
   );
 };

@@ -9,11 +9,7 @@ import {
   ColumnContainer,
   DescriptionContainer,
   ScrollContainer,
-  RegisterButton,
   ButtonView,
-  ExportButton,
-  DownloadIcon,
-  ExportButtonText,
   AddButtonView,
   AddLogButton,
   AddLogView,
@@ -29,54 +25,73 @@ import {NoFishImagePhoto} from '../../components/NoFishImagePhoto';
 import {storage} from '../../global/config/storage';
 
 type IFish = {
-  fish_id: string;
+  id: string;
+  commonName: string;
+  photo: string;
+  scientificName: string;
+  funFact: string;
+  largeGroup: string;
+  group: string;
+  family: string;
+  food: string;
+  maxSize: number;
+  maxWeight: number;
+  habitat: string;
+  isEndemicInfo: string;
+  isThreatenedInfo: string;
+  wasIntroducedInfo: string;
+  hasSpawningSeasonInfo: string;
 };
 
 export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
-  const [fishName, setFishName] = useState('');
-  const [fishPhoto, setFishPhoto] = useState('');
-  const [fishSpecies, setFishSpecies] = useState('');
-  const [fishFunFact, setFishFuNFact] = useState('');
-  const [fishLargeGroup, setFishLargeGroup] = useState('');
-  const [fishGroup, setFishGroup] = useState('');
-  const [fishFamily, setFishFamily] = useState('');
-  const [fishFeed, setFishFeed] = useState('');
-  const [fishMaxSize, setFishMaxSize] = useState(0);
-  const [fishMaxWeight, setFishMaxWeight] = useState(0);
-  const [fishHabitat, setFishHabitat] = useState('');
-  const [fishIsEndemic, setFishIsEndemic] = useState('');
-  const [fishIsThreatened, setFishIsThreatened] = useState('');
-  const [fishWasIntroduced, setFishWasIntroduced] = useState('');
-  const [fishHasSpawningSeason, setFishHasSpawningSeason] = useState('');
+  const [fish, setFish] = useState<IFish>({
+    id: '',
+    commonName: '',
+    photo: '',
+    scientificName: '',
+    funFact: '',
+    largeGroup: '',
+    group: '',
+    family: '',
+    food: '',
+    maxSize: 0,
+    maxWeight: 0,
+    habitat: '',
+    isEndemicInfo: '',
+    isThreatenedInfo: '',
+    wasIntroducedInfo: '',
+    hasSpawningSeasonInfo: '',
+  });
+
   const {fish_id} = route.params;
+
   const [isLoading, setIsLoading] = useState(true);
 
   const getFishProperties = async () => {
     try {
       const biblio = storage.getString('biblioteca');
-      let data = '';
+
+      let data: {allFishWiki: IFish[]};
       if (biblio) {
         data = JSON.parse(biblio);
+      } else {
+        return;
       }
-      const fish = data['allFishWiki'].find(item => item.id === fish_id);
+
+      const fishLocalStorage = data['allFishWiki'].find(item => {
+        if (item.id === fish_id) {
+          return true;
+        }
+      });
+
+      if (!fishLocalStorage) {
+        return;
+      }
+
+      setFish(fishLocalStorage);
+
       setIsLoading(true);
-      setFishName(fish.commonName);
-      setFishSpecies(fish.scientificName);
-      setFishFuNFact(fish.funFact);
-      setFishLargeGroup(fish.largeGroup);
-      setFishGroup(fish.group);
-      setFishFamily(fish.family);
-      setFishFeed(fish.food);
-      setFishHabitat(fish.habitat);
-      setFishMaxSize(fish.maxSize);
-      setFishMaxWeight(fish.maxWeight);
-      setFishWasIntroduced(fish.wasIntroducedInfo);
-      setFishIsEndemic(fish.isEndemicInfo);
-      setFishIsThreatened(fish.isThreatenedInfo);
-      setFishHasSpawningSeason(fish.hasSpawningSeasonInfo);
-      if (fish.photo) {
-        setFishPhoto(fish.photo);
-      }
+
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -101,97 +116,100 @@ export const WikiFish: FC<IFish> = ({navigation, route}: any) => {
         <ScrollContainer>
           <ScrollView
             style={{width: '100%', height: '100%'}}
-            contentContainerStyle={{width: '100%'}}>
-            {fishPhoto ? (
-              <ProfileImage source={{uri: fishPhoto}} />
+            contentContainerStyle={{width: '100%'}}
+            showsVerticalScrollIndicator={false}>
+            {fish?.photo ? (
+              <ProfileImage source={{uri: fish?.photo}} />
             ) : (
               <NoFishImagePhoto />
             )}
 
             <DescriptionContainer>
-              <Title text={fishName} />
-              <RegularText text={fishSpecies} />
+              <Title text={fish?.commonName} />
+              <RegularText text={fish.scientificName} />
               <FishDescription>
-                <RegularText text={fishFunFact ? `"${fishFunFact}"` : ''} />
+                <RegularText text={fish?.funFact ? `"${fish?.funFact}"` : ''} />
               </FishDescription>
             </DescriptionContainer>
 
             <ColumnContainer>
               <PropertyColumn>
                 <PropertyContainer>
-                  <Property property="Grande Grupo" value={fishLargeGroup} />
+                  <Property property="Grande Grupo" value={fish?.largeGroup} />
                 </PropertyContainer>
 
                 <PropertyContainer>
-                  <Property property="Família" value={fishFamily} />
+                  <Property property="Família" value={fish.family} />
                 </PropertyContainer>
 
                 <PropertyContainer>
                   <Property
                     property="Tamanho Máx(cm)"
-                    value={fishMaxSize?.toString() || '-'}
+                    value={fish.maxSize?.toString() || '-'}
                   />
                 </PropertyContainer>
 
                 <PropertyContainer>
-                  <Property property="Habitat" value={fishHabitat} />
+                  <Property property="Habitat" value={fish.habitat} />
                 </PropertyContainer>
 
                 <PropertyContainer>
                   <Property
                     property="Ameaçado?"
-                    value={fishIsThreatened || '-'}
+                    value={fish.isThreatenedInfo || '-'}
                   />
                 </PropertyContainer>
 
                 <PropertyContainer>
                   <Property
                     property="Foi indroduzido?"
-                    value={fishWasIntroduced || '-'}
+                    value={fish.wasIntroducedInfo || '-'}
                   />
                 </PropertyContainer>
               </PropertyColumn>
 
               <PropertyColumn>
                 <PropertyContainer>
-                  <Property property="Grupo" value={fishGroup} />
+                  <Property property="Grupo" value={fish.group} />
                 </PropertyContainer>
 
                 <PropertyContainer>
-                  <Property property="Alimentação" value={fishFeed} />
+                  <Property property="Alimentação" value={fish.food} />
                 </PropertyContainer>
 
                 <PropertyContainer>
                   <Property
                     property="Peso Máx(kg)"
-                    value={fishMaxWeight?.toString() || '-'}
+                    value={fish.maxWeight?.toString() || '-'}
                   />
                 </PropertyContainer>
 
                 <PropertyContainer>
-                  <Property property="Endêmico?" value={fishIsEndemic || '-'} />
+                  <Property
+                    property="Endêmico?"
+                    value={fish.isEndemicInfo || '-'}
+                  />
                 </PropertyContainer>
 
                 <PropertyContainer>
                   <Property
                     property="Faz piracema?"
-                    value={fishHasSpawningSeason || '-'}
+                    value={fish.hasSpawningSeasonInfo || '-'}
                   />
                 </PropertyContainer>
               </PropertyColumn>
             </ColumnContainer>
-
-            <AddButtonView>
+          </ScrollView>
+          <AddButtonView>
               <AddLogButton
                 onPress={() => {
-                  navigation.navigate('NewFishLog', {'fishInfos': {'name': fishName, 'group': fishGroup, 'largeGroup': fishLargeGroup, 'species': fishSpecies} })
+                  navigation.navigate('NewFishLog', {'fishInfos': {'name': fish.commonName, 'group': fish.group, 'largeGroup': fish.largeGroup, 'species': fish.scientificName} })
                 }}>
                 <AddLogView>
                   <AddIcon name="add" />
                 </AddLogView>
               </AddLogButton>
             </AddButtonView>
-          </ScrollView>
         </ScrollContainer>
       )}
     </FishContainer>

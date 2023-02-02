@@ -100,9 +100,6 @@ export const FishLogCard: FC<IFishCardProps> = ({
           <CommonNameText numberOfLines={1}>
             {fishLog.name}
           </CommonNameText>
-          <ScientificName numberOfLines={1}>
-            {fishLog.species}
-          </ScientificName>
         </TextView>
       </TouchableOpacity>
     </FishCardContainer>

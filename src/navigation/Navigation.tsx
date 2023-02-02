@@ -5,14 +5,15 @@ import Home from '../screens/HomeScreen';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 // import { WikiFishlogs } from "../screens/WikiFishlogs";
-import { FishLog } from "../screens/ViewFishLog";
+import {FishLog} from '../screens/ViewFishLog';
 import {theme} from '../global/styles/theme';
 import {WikiFishlogs} from '../screens/WikiFishlogs';
-import { NewFishLog } from "../screens/NewFishLog";
+import {NewFishLog} from '../screens/NewFishLog';
 // import { NewNoNameFishLog } from "../screens/NewNoNameFishLog";
 // import { useAuth } from "../contexts/authContext";
-// import { MyMap } from "../screens/Maps";
 import {WikiFish} from '../screens/WikiFish';
+import {RegisterMap} from '../screens/RegisterMap';
+import {LogsMap} from '../screens/LogsMap';
 // import { Drafts } from "../screens/Drafts";
 // import { WikiFilter } from "../screens/WikiFilter";
 // import { LogFilter } from "../screens/RegisterFilter";
@@ -70,7 +71,7 @@ const AuthRoutes = () => {
       <AuthenticateStack.Screen
         name="WikiFish"
         component={WikiFish}
-        options={{title: 'Informações', headerShown: true}}
+        options={{title: 'Informações', headerShown: false}}
       />
       {/* // <AuthenticateStack.Screen
       //   name="Drafts"
@@ -109,16 +110,20 @@ const AppRoutes = () => {
       <Stack.Screen
         name="WikiFish"
         component={WikiFish}
-        options={{title: 'Informações', headerShown: true}}
+        options={{title: 'Informações', headerShown: false}}
       />
 
       <Stack.Screen
         name="NewFishLog"
         component={NewFishLog}
         options={({route}) => ({
-          title: route.params.name
+          title: route.params.name,
         })}
       />
+
+      <Stack.Screen name="Map" component={RegisterMap} />
+
+      <Stack.Screen name="FishLog" component={FishLog} />
 
       {/* <Stack.Screen name="WikiFilter" component={WikiFilter} />
       <Stack.Screen name="LogFilter" component={LogFilter} />  */}

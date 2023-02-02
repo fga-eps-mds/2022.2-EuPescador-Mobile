@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, Alert, ActivityIndicator} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
-import * as FileSystem from 'expo-file-system';
-import * as MediaLibrary from 'expo-media-library';
 import NetInfo from '@react-native-community/netinfo';
 import {
   FishContainer,
@@ -16,7 +14,8 @@ import {Title} from '../../components/Title';
 import {HalfToneText} from '../../components/HalfToneText';
 import {ProfileImage} from '../../components/ProfileImage';
 import {MapViewImage} from '../../components/MapViewImage';
-import {DefaultButton} from '../../components/Button';
+import {DefaultButton, ViewFishLogButton} from '../../components/Button';
+
 
 import {GetOneFishLog} from '../../services/fishLogService/getOneFishLog';
 import {DeleteFishLog} from '../../services/fishLogService/deleteFishLog';
@@ -51,23 +50,28 @@ export const FishLog = ({navigation, route}: any) => {
 
   const connection = NetInfo.useNetInfo();
 
-  const getData = async () => {
-    const userAdmin = storage.getString('@eupescador/userAdmin');
-    const userSuperAdmin = storage.getString('@eupescador/userSuperAdmin');
-    const token = await storage.getString('@eupescador/token');
-    if (token) {
-      getFishLogProperties(token);
-      setUserToken(token);
-    }
-    if (userAdmin === 'true') {
-      setIsAdmin(true);
-      setIsSuperAdmin(false);
-    } else if (userSuperAdmin === 'true') {
-      setIsAdmin(false);
-      setIsSuperAdmin(true);
-    } else {
-      setIsAdmin(false);
-      setIsSuperAdmin(false);
+  type userStorage = {
+    id: string;
+    name: string;
+    phone: string;
+    email: string;
+    password: string;
+    admin: boolean;
+    superAdmin: boolean;
+    token: string;
+  };
+
+  const getData = () => {
+    const user = storage.getString('@eupescador/user');
+    if (!user) return;
+
+    const userAdmin = JSON.parse(user) as userStorage;
+    console.log('user', userAdmin.token);
+    
+    if (userAdmin.token) {
+      getFishLogProperties(userAdmin.token);
+      setUserToken(userAdmin.token);
+      console.log('viewfishlog token', userAdmin.token);
     }
   };
 
@@ -84,63 +88,6 @@ export const FishLog = ({navigation, route}: any) => {
     }
   };
 
-  const saveFile = async (txtFile: string) => {
-    setIsLoading(true);
-    try {
-      const res = await MediaLibrary.requestPermissionsAsync();
-
-      if (res.granted) {
-        let today = new Date();
-        let date =
-          today.getFullYear() +
-          '-' +
-          (today.getMonth() + 1) +
-          '-' +
-          today.getDate() +
-          '-' +
-          today.getHours() +
-          '-' +
-          today.getMinutes();
-
-        let fileUri = FileSystem.documentDirectory + `registros-${date}.txt`;
-        await FileSystem.writeAsStringAsync(fileUri, txtFile, {
-          encoding: FileSystem.EncodingType.UTF8,
-        });
-        const asset = await MediaLibrary.createAssetAsync(fileUri);
-        await MediaLibrary.createAlbumAsync('euPescador', asset, false);
-
-        Alert.alert(
-          'Exportar Registro',
-          'Registro exportado com sucesso. Você pode encontrar o arquivo em /Pictures/euPescador',
-          [
-            {
-              text: 'Ok',
-            },
-          ],
-        );
-      }
-    } catch (error: any) {
-      console.log(error);
-      Alert.alert('Exportar Registro', 'Falha ao exportar registro', [
-        {
-          text: 'Ok',
-        },
-      ]);
-    }
-    setIsLoading(false);
-  };
-
-  const handleExportFishlog = async () => {
-    setIsLoading(true);
-    try {
-      const file: any = await ExportFishLogs(userToken, [logId]);
-      saveFile(file);
-    } catch (error: any) {
-      console.log('Aqui: ');
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
 
   const getFishLogProperties = async (token: string) => {
     setIsLoading(true);
@@ -181,14 +128,14 @@ export const FishLog = ({navigation, route}: any) => {
   }, [userToken]);
 
   return (
-    <FishContainer>
+    <FishContainer source={require('../../assets/background.png')}>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <ScrollView
+        <ScrollView showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'center', 
           }}>
           {fishPhoto ? (
             <ProfileImage source={{uri: fishPhoto}} />
@@ -199,6 +146,7 @@ export const FishLog = ({navigation, route}: any) => {
             <Title text={fishName ? fishName : 'Nome não informado'} />
             <HalfToneText
               text={fishSpecies ? fishSpecies : 'Espécie não informado'}
+              size={20}
             />
           </DescriptionContainer>
 
@@ -283,7 +231,7 @@ export const FishLog = ({navigation, route}: any) => {
                   />
                 </>
               ) : (
-                <DefaultButton
+                <ViewFishLogButton
                   text="Editar"
                   buttonFunction={() => {
                     if (isReviewed) {
@@ -310,7 +258,7 @@ export const FishLog = ({navigation, route}: any) => {
                 />
               )}
 
-              <DefaultButton
+              <ViewFishLogButton
                 text="Excluir"
                 buttonFunction={() => {
                   if (isReviewed) {
@@ -344,7 +292,7 @@ export const FishLog = ({navigation, route}: any) => {
             </RegisterButtonView>
           ) : null}
         </ScrollView>
-      )}
+      )} 
     </FishContainer>
   );
 };

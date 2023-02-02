@@ -5,12 +5,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const FishCardContainer = styled.TouchableOpacity`
   align-items: flex-start;
-  width: ${RFValue(156, 640)}px;
-  height: ${RFValue(180, 640)}px;
-  elevation: 8;
+  width: ${RFValue(118, 540)}px;
+  height: ${RFValue(150, 640)}px;
   border-radius: ${RFValue(16, 640)}px;
   background-color: ${({ theme }) => theme.colors.background};
   margin-bottom: 14px;
+  margin-left: 1px;
+  margin-right: 8px;
 `;
 
 export const CheckBoxView = styled(CheckBox)`
@@ -20,15 +21,15 @@ export const CheckBoxView = styled(CheckBox)`
 `;
 
 export const FishImage = styled.Image`
-  width: ${RFValue(156, 640)}px;
-  height: ${RFValue(125, 640)}px;
+  width: ${RFValue(139.5, 640)}px;
+  height: ${RFValue(100, 640)}px;
   border-top-left-radius: ${RFValue(16, 640)}px;
   border-top-right-radius: ${RFValue(16, 640)}px;
 `;
 
 export const NoFishImage = styled.View`
-  width: ${RFValue(156, 640)}px;
-  height: ${RFValue(125, 640)}px;
+  width: ${RFValue(139.5, 640)}px;
+  height: ${RFValue(100, 640)}px;
   border-top-left-radius: ${RFValue(16, 640)}px;
   justify-content: center;
   align-items: center;
@@ -43,7 +44,7 @@ export const NoFishImageIcon = styled(MaterialIcons)`
 export const TextView = styled.View`
   justify-content: center;
   margin-left: ${RFValue(10, 640)}px;
-  width: ${RFValue(135, 640)}px;
+  width: ${RFValue(125, 640)}px;
 `;
 
 export const CommonNameText = styled.Text`
@@ -56,9 +57,9 @@ export const CommonNameText = styled.Text`
 
 export const ScientificName = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(10, 640)}px;
+  font-size: ${RFValue(9, 640)}px;
   line-height: 13px;
-  opacity: 0.3;
+  opacity: 0.5;
   color: ${({ theme }) => theme.colors.on_background};
   padding-top: ${RFValue(4, 640)}px;
 `;

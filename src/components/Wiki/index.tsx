@@ -60,7 +60,7 @@ export const Wiki = ({navigation, filterQuery}: any) => {
   }, []);
 
   return (
-    <FishBodyContainer>
+    <FishBodyContainer >
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (

@@ -9,6 +9,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native";
 import { storage } from "../../global/config/storage";
 
+type userStorage = {
+  id: string;
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+  admin: boolean;
+  superAdmin: boolean;
+  token: string;
+};
+
 export const LogsMap = ({
   latitude,
   longitude,
@@ -23,16 +34,20 @@ export const LogsMap = ({
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+
   async function updateFishLogs() {
-    const data = await GetAllFishLogs(token, filterQuery);
-    setFishLogs(data as IFishLog[]);
-    const userSuperAdmin = await storage.getString(
-      "@eupescador/userSuperAdmin"
-    );
-    if (userSuperAdmin === "true") {
-      setIsSuperAdmin(true);
+    try {
+      const user = storage.getString("@eupescador/user");
+      if (!user) return;
+
+      const userAdmin = JSON.parse(user) as userStorage;
+      const response = await GetAllFishLogs(userAdmin.token);
+      setFishLogs(response as IFishLog[]);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   useEffect(() => {

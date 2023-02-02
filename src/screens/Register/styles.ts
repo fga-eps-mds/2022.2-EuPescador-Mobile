@@ -70,7 +70,7 @@ export const InputView = styled.View`
   align-self: center;
   align-items: center;
   height: ${RFValue(43, 640)}px;
-  width: ${RFValue(344, 640)}px;
+  width: ${RFValue(270, 640)}px;
   flex-direction: row;
   border: 2px solid #0095d9;
   color: #0095d9;
@@ -113,7 +113,7 @@ export const CityStateView = styled.View`
 export const HalfInputView = styled.View`
   align-items: center;
   height: ${RFValue(39, 640)}px;
-  width: ${RFValue(165, 640)}px;
+  width: ${RFValue(130, 640)}px;
   flex-direction: row;
   border-radius: 20px;
   border: 2px solid #0095d9;
@@ -132,7 +132,7 @@ export const ErrorMessage = styled.Text`
 
 export const Localizator = styled.Text`
   color: black;
-  font-size: ${RFValue(28, 640)}px;
+  font-size: ${RFValue(20, 640)}px;
   font-family: ${({theme}) => theme.fonts.regular};
   font-weight: bold;
   margin-bottom: 0px;
@@ -171,13 +171,16 @@ export const BackText = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-weight: bold;
   margin-bottom: 0px;
+  position: absolute;
+  margin-left:25px;
 `;
 
 export const DivLogo = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-right: ${RFValue(120, 640)}px;
+  margin-right: ${RFValue(150, 640)}px;
+  margin-left: ${RFValue(60, 640)}px;
 `;
 
 export const RegisterButtonView = styled.View`
@@ -188,4 +191,5 @@ export const RegisterButtonView = styled.View`
 export const DivVoltar = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
+  margin-left: 35px;
 `;

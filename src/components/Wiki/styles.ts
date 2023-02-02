@@ -45,11 +45,13 @@ export const PesquisarButton = styled.Button`
   width: ${RFValue(242, 640)}px;
   border-radius: ${RFValue(8, 640)}px;
   color: gray;
+  margin-right: -10;
+  padding: 0;
   background-color: red;
 `;
 
 export const FishBodyContainer = styled.View`
-  margin: 0px 16px;
+  margin: 15px 16px;
 `;
 
 export const RowContainer = styled.View`
