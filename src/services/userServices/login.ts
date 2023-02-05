@@ -1,4 +1,4 @@
-import { userService } from './userService';
+import {userService} from './userService';
 
 async function UserLogin(emailPhone: string, password: string) {
   const res = await userService.post('/user/login', {
@@ -9,4 +9,4 @@ async function UserLogin(emailPhone: string, password: string) {
   return res;
 }
 
-export { UserLogin };
+export {UserLogin};
