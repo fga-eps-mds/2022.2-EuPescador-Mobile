@@ -17,7 +17,7 @@ import {LogsMap} from '../screens/LogsMap';
 // import { Drafts } from "../screens/Drafts";
 // import { WikiFilter } from "../screens/WikiFilter";
 // import { LogFilter } from "../screens/RegisterFilter";
-// import RecoverPassword from "../screens/RecoverPassword";
+import RecoverPassword from "../screens/RecoverPassword";
 
 const AuthenticateStack = createNativeStackNavigator();
 
@@ -106,7 +106,7 @@ const AppRoutes = () => {
       />
 
       <Stack.Screen name="WikiFishlogs" component={WikiFishlogs} />
-      {/* <Stack.Screen name="RecoverPassword" component={RecoverPassword} /> */}
+      <Stack.Screen name="RecoverPassword" component={RecoverPassword} />
       <Stack.Screen
         name="WikiFish"
         component={WikiFish}
@@ -121,12 +121,12 @@ const AppRoutes = () => {
         })}
       />
 
-      <Stack.Screen name="Map" component={RegisterMap} />
-
       <Stack.Screen name="FishLog" component={FishLog} />
+      <Stack.Screen name="Map" component={RegisterMap} />
 
       {/* <Stack.Screen name="WikiFilter" component={WikiFilter} />
       <Stack.Screen name="LogFilter" component={LogFilter} />  */}
+      
     </Stack.Navigator>
   );
 };

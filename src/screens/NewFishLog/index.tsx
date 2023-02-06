@@ -302,6 +302,8 @@ export function NewFishLog({navigation, route}: any) {
           fishLength,
           fishLatitude,
           fishLongitude,
+          catchDate,
+          catchHour
         );
 
         alertMessage = 'Registro criado com sucesso!';
@@ -795,8 +797,8 @@ export function NewFishLog({navigation, route}: any) {
                   <Input
                     placeholder="Data"
                     placeholderTextColor="#0095D9"
-                    value={''}
-                    keyboardType="numeric"
+                    value={catchDate}
+                    keyboardType="numbers-and-punctuation"
                     onChangeText={setCatchDate}
                   />
                 </HalfInputView>
@@ -804,8 +806,8 @@ export function NewFishLog({navigation, route}: any) {
                   <Input
                     placeholder="Hora"
                     placeholderTextColor="#0095D9"
-                    value={''}
-                    keyboardType="default"
+                    value={catchHour}
+                    keyboardType="numbers-and-punctuation"
                     onChangeText={setCatchHour}
                   />
                 </HalfInputView>

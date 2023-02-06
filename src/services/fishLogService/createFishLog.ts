@@ -13,6 +13,8 @@ export const createFishLog = async (
   length: string | undefined,
   latitude: string | undefined,
   longitude: string | undefined,
+  date: string | undefined,
+  hour: string | undefined,
 ) => {
   const userStorage = storage.getString('@eupescador/user');
 
@@ -44,6 +46,8 @@ export const createFishLog = async (
       photo,
       length: length ? parseFloat(length) : null,
       weight: weight ? parseFloat(weight) : null,
+      date,
+      hour,
     },
     {headers: {Authorization: `Bearer ${user?.token}`}},
   );
