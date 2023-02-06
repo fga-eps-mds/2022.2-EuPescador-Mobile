@@ -121,6 +121,7 @@ const AppRoutes = () => {
         })}
       />
 
+      <Stack.Screen name="FishLog" component={FishLog} />
       <Stack.Screen name="Map" component={RegisterMap} />
 
       {/* <Stack.Screen name="WikiFilter" component={WikiFilter} />
