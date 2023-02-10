@@ -23,8 +23,6 @@ import {DivLocalizator, FishReversed, Localizator} from '../Register/styles';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { data } from "../../utils/dataFishes";
 
-
-// import { data } from "../../utils/dataFishes";
 import {
   NewFishLogContainer,
   ImageContainer,
@@ -121,13 +119,14 @@ export function NewFishLog({navigation, route}: any) {
     let newFishes: IFish[] = [];
     try {
       const wikiData = await GetWikiFishes();
-      // for (let i = 0; i < wikiData.length; i++) {
-      //   if (!newFishes.includes(wikiData[i])) {
-      //     newFishes.push(wikiData[i]);
-      //   }
-      // }
-      // await storage.set('@eupescador/FishesNames', JSON.stringify(newFishes));
-      // setFishes(newFishes);
+      wikiData["allFishWiki"].map((fish: IFish) => {
+        if (!newFishes.includes(fish)) {
+          newFishes.push(fish);
+          console.log(fish)
+        }
+      });
+      storage.set('@eupescador/FishNames', JSON.stringify(newFishes));
+      setFishes(newFishes);
     } catch (error) {
       console.log(error);
     }
@@ -154,8 +153,9 @@ export function NewFishLog({navigation, route}: any) {
   };
 
   const getOfflineFishOptions = async () => {
-    const newFishes: any = storage.getString('@eupescador/FishesNames');
+    const newFishes: any = storage.getString('@eupescador/FishNames');
     setFishes(JSON.parse(newFishes));
+    console.log(JSON.parse(newFishes))
   };
 
   const getFishLogProperties = async (token: string) => {
@@ -560,7 +560,7 @@ export function NewFishLog({navigation, route}: any) {
   };
 
   useEffect(() => {
-    
+    isOn ? console.log("on") : getOfflineFishOptions();
   }, []);
 
   useEffect(() => {
